@@ -92,10 +92,12 @@ body {
 }
 
 /* Utility class to disable background scrolling when overlays/modals are open */
+/* IMPORTANT: Do NOT use touch-action: none as it blocks ALL touch interactions including scrolling in modals */
 .no-scroll, html.no-scroll, body.no-scroll {
   overflow: hidden !important;
-  touch-action: none !important;
-  -webkit-overflow-scrolling: auto !important;
+  position: fixed;
+  width: 100%;
+  /* touch-action: none removed - it blocks touch scrolling inside modals! */
 }
 
 h1,
