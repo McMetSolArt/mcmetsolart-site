@@ -6,10 +6,18 @@
 
 class APIClient {
     constructor() {
-        // Backend Flask local (folosește window.__API_BASE_URL__ dacă este definit pentru producție)
-        // În producție poți popula dinamic `window.__API_BASE_URL__ = 'https://api.example.com/api'`
-        this.baseURL = (window.__API_BASE_URL__ && window.__API_BASE_URL__.trim()) || 'http://localhost:5000/api';
-        // Pentru producție: this.baseURL = 'https://api.mcmetsolart.com/api';
+        // Determine API base URL with sensible defaults:
+        // 1. If `window.__API_BASE_URL__` is explicitly set (recommended for production), use it.
+        // 2. If running on localhost, default to the local Flask backend.
+        // 3. Otherwise default to same-origin `/api` so the frontend talks to the backend served from the same host.
+        if (window.__API_BASE_URL__ && window.__API_BASE_URL__.trim()) {
+            this.baseURL = window.__API_BASE_URL__.trim();
+        } else if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            this.baseURL = 'http://localhost:5000/api';
+        } else {
+            this.baseURL = `${location.protocol}//${location.host}/api`;
+        }
+        // To override in production, set `window.__API_BASE_URL__ = 'https://api.example.com/api'` before loading this script.
         
         this.token = localStorage.getItem('authToken');
         console.log('🔧 API Client inițializat. Token:', this.token ? this.token.substring(0, 50) + '...' : 'LIPSĂ');
