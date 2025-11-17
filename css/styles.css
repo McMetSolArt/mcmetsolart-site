@@ -100,6 +100,43 @@ body {
   /* touch-action: none removed - it blocks touch scrolling inside modals! */
 }
 
+/* Login badge (small circle) shown on touch devices when user is not logged in */
+.login-btn {
+  position: relative;
+}
+.login-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.08);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  pointer-events: none;
+}
+.login-badge.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Mobile / tablet: make badge slightly larger and pulse slower */
+@media (max-width: 1024px) {
+  .login-badge {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Slow down common animations on mobile to make them less frantic */
+  .typing-dot { animation-duration: 2.4s !important; }
+  .online-dot, .pulse, .pulse-glow, .pulse-badge { animation-duration: 3s !important; }
+  .spinner, .login-sidebar .spin { animation-duration: 1.5s !important; }
+  * { transition-duration: 0.36s !important; }
+}
+
 h1,
 h2,
 h3,

@@ -1268,6 +1268,30 @@ document.addEventListener('DOMContentLoaded', function () {
     setVh();
     window.addEventListener('resize', setVh);
 
+    // Show login badge on touch devices when user is NOT logged in
+    function updateLoginBadge() {
+        try {
+            const badge = document.getElementById('loginBadge');
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || !!localStorage.getItem('authToken');
+            const isTouch = (window.deviceInfo && (window.deviceInfo.isTouch || window.deviceInfo.isMobile || window.deviceInfo.isTablet)) || ('ontouchstart' in window);
+
+            if (!badge) return;
+
+            if (!isLoggedIn && isTouch) {
+                badge.classList.add('show');
+            } else {
+                badge.classList.remove('show');
+            }
+        } catch (e) {
+            console.warn('Could not update login badge:', e);
+        }
+    }
+
+    // Update on load and when auth changes
+    updateLoginBadge();
+    window.addEventListener('storage', updateLoginBadge);
+    document.addEventListener('userLoggedIn', updateLoginBadge);
+
     // Set current year in footer
     const currentYearElement = document.getElementById('currentYear');
     if (currentYearElement) {

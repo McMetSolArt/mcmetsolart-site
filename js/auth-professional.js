@@ -518,6 +518,8 @@
                         sidebarOverlay.classList.remove('active');
                     }
                     document.documentElement.classList.remove('no-scroll');
+                    // Dispatch an event so other scripts (badge) can update
+                    try { document.dispatchEvent(new CustomEvent('userLoggedIn')); } catch (e) {}
                     
                     // Actualizează UI-ul cu butonul de profil
                     if (window.SessionManager && window.SessionManager.checkSession) {

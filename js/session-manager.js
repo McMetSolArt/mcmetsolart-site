@@ -113,6 +113,8 @@
                 if (window.applyTranslations) {
                     window.applyTranslations();
                 }
+                // After rendering the user menu, notify other scripts (hide badges etc)
+                try { document.dispatchEvent(new CustomEvent('userLoggedIn')); } catch (e) {}
             }, 100);
         }
     }
