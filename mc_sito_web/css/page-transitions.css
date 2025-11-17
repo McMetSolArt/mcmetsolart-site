@@ -1,0 +1,293 @@
+/**
+ * PAGE TRANSITIONS - MC MetSolArt
+ * Tranziții profesionale între pagini
+ */
+
+/* ============================================
+   PREMIUM FADE IN - La încărcarea paginii
+   ============================================ */
+
+body {
+    animation: premiumFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes premiumFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* ============================================
+   PAGE TRANSITION OVERLAY - PREMIUM EFFECT
+   ============================================ */
+
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.98));
+    backdrop-filter: blur(10px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.transition-content {
+    text-align: center;
+    color: white;
+    animation: contentZoomIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes contentZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.transition-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 2rem;
+    animation: logoFloat 2s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+    }
+}
+
+.transition-spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.8);
+    border-right-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: spinSmooth 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    margin: 0 auto 1.5rem;
+}
+
+@keyframes spinSmooth {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.transition-text {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    opacity: 0.9;
+    animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+    0%, 100% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ============================================
+   SMOOTH SCROLL BEHAVIOR
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ============================================
+   PREMIUM CONTENT ENTRANCE
+   ============================================ */
+
+main {
+    animation: premiumContentIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+@keyframes premiumContentIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* ============================================
+   PREMIUM HEADER ENTRANCE
+   ============================================ */
+
+header {
+    animation: premiumHeaderIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes premiumHeaderIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ============================================
+   PREMIUM SECTION STAGGER
+   ============================================ */
+
+section {
+    animation: premiumSectionIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+section:nth-child(1) { animation-delay: 0.15s; }
+section:nth-child(2) { animation-delay: 0.25s; }
+section:nth-child(3) { animation-delay: 0.35s; }
+section:nth-child(4) { animation-delay: 0.45s; }
+section:nth-child(5) { animation-delay: 0.55s; }
+
+@keyframes premiumSectionIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+        filter: blur(3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* ============================================
+   LINK HOVER EFFECTS
+   ============================================ */
+
+a {
+    transition: all 0.3s ease;
+}
+
+/* ============================================
+   BUTTON TRANSITIONS
+   ============================================ */
+
+button, .btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active, .btn:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   PREMIUM CARD ENTRANCE
+   ============================================ */
+
+.feature-card,
+.product-card,
+.step-card {
+    animation: premiumCardIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+.product-card:nth-child(1) { animation-delay: 0.15s; }
+.product-card:nth-child(2) { animation-delay: 0.3s; }
+.product-card:nth-child(3) { animation-delay: 0.45s; }
+
+@keyframes premiumCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95) rotateX(10deg);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0);
+        filter: blur(0);
+    }
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.page-loading {
+    overflow: hidden;
+}
+
+.page-loading * {
+    pointer-events: none;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .transition-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .transition-text {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   REDUCE MOTION FOR ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}

@@ -1,0 +1,107 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                 GHID PUBLICARE MC METSOLART PE RENDER (STRUCTURA ORIGINALĂ)  ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+STRUCTURĂ:
+- Frontend: TOT ce este în McMetSolArt.sitoWEB (index.html, css/, js/, images/, etc.)
+- Backend: TOT ce este în McMetSolArtBackend/ (app.py, requirements.txt, migrate_add_api_token.py, etc.)
+- Config: render.yaml și start.sh în rădăcina McMetSolArt.sitoWEB
+
+───────────────────────────────────────────────────────────────────────────────
+
+PASUL 1: PREGĂTEȘTE FOLDERUL
+────────────────────────────
+1. Asigură-te că ai această structură:
+   c:\Users\Mc_me\Desktop\McMetSolArt.sitoWEB\
+     ├── index.html
+     ├── css/
+     ├── js/
+     ├── images/
+     ├── render.yaml
+     ├── start.sh
+     ├── .gitignore
+     ├── .env.example
+     └── McMetSolArtBackend/
+           ├── app.py
+           ├── requirements.txt
+           ├── migrate_add_api_token.py
+           └── ... (restul fișierelor backend)
+
+───────────────────────────────────────────────────────────────────────────────
+
+PASUL 2: GIT & GITHUB
+─────────────────────
+1. Creează un repository nou pe GitHub (https://github.com/new)
+   - Name: mcmetsolart-site
+   - Public: DA
+2. Deschide PowerShell în folderul McMetSolArt.sitoWEB și rulează:
+   git init
+   git add .
+   git commit -m "Initial commit - MC MetSolArt"
+   git branch -M main
+   git remote add origin https://github.com/USERNAME/mcmetsolart-site.git
+   git push -u origin main
+   (înlocuiește USERNAME cu username-ul tău)
+
+───────────────────────────────────────────────────────────────────────────────
+
+PASUL 3: DEPLOY PE RENDER
+─────────────────────────
+1. Creează cont pe https://render.com (sau loghează-te)
+2. Click "New +" → "Web Service"
+3. Alege "GitHub" și autorizează Render
+4. Selectează repo-ul tău (mcmetsolart-site)
+5. Render va detecta automat:
+   - buildCommand: pip install -r McMetSolArtBackend/requirements.txt
+   - startCommand: gunicorn -w 2 -b 0.0.0.0:$PORT McMetSolArtBackend.app:app
+   - staticPublishPath: ./
+6. La Environment Variables, adaugă:
+   DATABASE=/tmp/mc_metsolart.db
+   FLASK_DEBUG=False
+   EMAIL_ENABLED=False
+   PORT=8000
+   HOST=0.0.0.0
+7. Click "Create Web Service"
+8. Așteaptă 2-5 minute să se facă buildul și deploy-ul
+
+───────────────────────────────────────────────────────────────────────────────
+
+PASUL 4: TESTARE
+────────────────
+1. După deploy, Render îți va da un URL public (ex: https://mc-metsolart.onrender.com)
+2. Deschide în browser:
+   - https://mc-metsolart.onrender.com → trebuie să vezi site-ul complet
+   - https://mc-metsolart.onrender.com/api/health → trebuie să vezi {"success": true, ...}
+3. Testează login, register, funcționalități principale
+
+───────────────────────────────────────────────────────────────────────────────
+
+PASUL 5: ACTUALIZĂRI
+────────────────────
+1. Modifici local fișierele (frontend sau backend)
+2. În PowerShell (în McMetSolArt.sitoWEB):
+   git add .
+   git commit -m "Update..."
+   git push
+3. Render va redeploya automat la fiecare push
+
+───────────────────────────────────────────────────────────────────────────────
+
+TROUBLESHOOTING RAPID
+─────────────────────
+- Dacă nu pornește backendul: verifică logs în Render Dashboard
+- Dacă nu se servesc fișierele statice: asigură-te că index.html, css/, js/, images/ sunt în root și că app.py din backend are static_folder setat corect (deja e ok în varianta ta)
+- Dacă ai erori cu baza de date: folosește DATABASE=/tmp/mc_metsolart.db
+- Pentru orice problemă, consultă logs și ghidurile din repo
+
+───────────────────────────────────────────────────────────────────────────────
+
+REZUMAT:
+- NU muta backendul în root, lasă-l în McMetSolArtBackend/
+- Frontendul rămâne în root (McMetSolArt.sitoWEB)
+- Render.yaml și start.sh sunt în root
+- Totul e gata pentru deploy!
+
+───────────────────────────────────────────────────────────────────────────────
+
+Succes la publicare! 🚀

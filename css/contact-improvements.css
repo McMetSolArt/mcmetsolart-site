@@ -1,0 +1,448 @@
+/* ============================================
+   CONTACT FORM - ULTRA COMPACT & RESPONSIVE
+   ============================================ */
+
+/* Override pentru formular mai compact */
+.contact-section {
+    padding: 4rem 2rem !important;
+    min-height: auto !important;
+    position: relative !important;
+}
+
+.contact-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, rgba(23, 111, 135, 0.03), rgba(59, 130, 246, 0.03)) !important;
+    pointer-events: none !important;
+}
+
+.contact-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.contact-content-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4rem !important;
+    align-items: center !important;
+}
+
+/* Contact Info Side - Left */
+.contact-info-side {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    text-align: center !important;
+}
+
+.contact-logo {
+    margin-bottom: 0.5rem !important;
+}
+
+.contact-logo-img {
+    width: 180px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 10px 30px rgba(23, 111, 135, 0.3)) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.contact-logo-img:hover {
+    transform: scale(1.05) !important;
+}
+
+.contact-title {
+    font-size: 2.5rem !important;
+    margin: 0 !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    background: linear-gradient(135deg, #176f87, #3b82f6) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-align: center !important;
+}
+
+.contact-subtitle {
+    font-size: 1.25rem !important;
+    margin: 0 !important;
+    color: var(--muted-foreground) !important;
+    line-height: 1.6 !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    max-width: 400px !important;
+}
+
+.contact-subtitle {
+    font-size: 1.25rem !important;
+    margin: 0 !important;
+    color: var(--muted-foreground) !important;
+    line-height: 1.6 !important;
+    font-weight: 500 !important;
+}
+
+/* Contact Info Card */
+.contact-info-card {
+    padding: 2rem !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(40px) saturate(200%) brightness(110%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(110%) !important;
+    border-radius: 1.25rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.15),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.5),
+        inset -1px -1px 1px rgba(255, 255, 255, 0.3) !important;
+}
+
+.contact-info-title {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 2rem !important;
+    color: var(--foreground) !important;
+}
+
+.contact-info-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+}
+
+.contact-info-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    padding: 1rem !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.contact-info-item:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+    transform: translateX(5px) !important;
+}
+
+.contact-info-icon {
+    width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #176f87, #3b82f6) !important;
+    border-radius: 0.75rem !important;
+    color: white !important;
+    font-size: 1.25rem !important;
+    flex-shrink: 0 !important;
+}
+
+.contact-info-details h4 {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--muted-foreground) !important;
+    margin-bottom: 0.25rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.contact-info-details p,
+.contact-info-details a {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    color: var(--foreground) !important;
+    margin: 0 !important;
+}
+
+.contact-info-details a {
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+}
+
+.contact-info-details a:hover {
+    color: #176f87 !important;
+}
+
+/* Contact Form Card */
+.contact-form-card {
+    padding: 2rem !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(40px) saturate(200%) brightness(110%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(110%) !important;
+    border-radius: 1.25rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.15),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.5),
+        inset -1px -1px 1px rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.contact-form-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.2),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.6),
+        inset -1px -1px 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .contact-form-card {
+        background: rgba(17, 24, 39, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(40px) saturate(200%) brightness(90%) !important;
+        -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(90%) !important;
+    }
+}
+
+[data-theme="dark"] .contact-form-card {
+    background: rgba(17, 24, 39, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(40px) saturate(200%) brightness(90%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(90%) !important;
+}
+
+.contact-form {
+    gap: 0.875rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.form-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+}
+
+.form-group {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.form-label {
+    margin-bottom: 0.3rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: var(--foreground) !important;
+    letter-spacing: 0.025em !important;
+}
+
+.form-input,
+.form-textarea {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8125rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0.625rem !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    transition: all 0.3s ease !important;
+    color: var(--foreground) !important;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--muted-foreground) !important;
+    opacity: 0.6 !important;
+}
+
+.form-input:hover,
+.form-textarea:hover {
+    border-color: rgba(23, 111, 135, 0.4) !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none !important;
+    border-color: rgba(23, 111, 135, 0.6) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 
+        0 0 0 4px rgba(23, 111, 135, 0.1),
+        0 4px 20px rgba(23, 111, 135, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Dark mode pentru inputs */
+@media (prefers-color-scheme: dark) {
+    .form-input,
+    .form-textarea {
+        background: rgba(31, 41, 55, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    .form-input:hover,
+    .form-textarea:hover {
+        background: rgba(31, 41, 55, 0.5) !important;
+    }
+    
+    .form-input:focus,
+    .form-textarea:focus {
+        background: rgba(31, 41, 55, 0.6) !important;
+    }
+}
+
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-textarea {
+    background: rgba(31, 41, 55, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .form-input:hover,
+[data-theme="dark"] .form-textarea:hover {
+    background: rgba(31, 41, 55, 0.5) !important;
+}
+
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-textarea:focus {
+    background: rgba(31, 41, 55, 0.6) !important;
+}
+
+.form-textarea {
+    min-height: 70px !important;
+    max-height: 150px !important;
+    resize: vertical !important;
+    font-family: inherit !important;
+}
+
+.btn-full {
+    padding: 0.625rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    margin-top: 0.25rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #176f87, #3b82f6) !important;
+    border: none !important;
+    border-radius: 0.625rem !important;
+    color: white !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 8px 25px rgba(23, 111, 135, 0.3) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.btn-full::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.btn-full:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 35px rgba(23, 111, 135, 0.4) !important;
+}
+
+.btn-full:hover::before {
+    left: 100% !important;
+}
+
+.btn-full:active {
+    transform: translateY(0) !important;
+}
+
+/* Responsive pentru mobile */
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 2rem 1rem !important;
+    }
+    
+    .contact-container {
+        max-width: 100% !important;
+    }
+    
+    .contact-content-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .contact-info-side {
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    .contact-logo-img {
+        width: 120px !important;
+        height: auto !important;
+    }
+    
+    .contact-title {
+        font-size: 2rem !important;
+    }
+    
+    .contact-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .contact-form-card {
+        padding: 1.25rem !important;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .contact-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .contact-subtitle {
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-section {
+        padding: 1.5rem 0.75rem !important;
+    }
+    
+    .contact-container {
+        gap: 1.5rem !important;
+    }
+    
+    .contact-logo-img {
+        width: 72px !important;
+        height: 48px !important;
+        object-fit: contain !important;
+    }
+    
+    .contact-title {
+        font-size: 1.25rem !important;
+    }
+    
+    .contact-subtitle {
+        font-size: 0.875rem !important;
+    }
+    
+    .contact-form-card {
+        padding: 1rem !important;
+    }
+    
+    .form-input,
+    .form-textarea {
+        font-size: 16px !important; /* Previne zoom pe iOS */
+        padding: 0.625rem 0.875rem !important;
+    }
+    
+    .btn-full {
+        padding: 0.75rem 1.5rem !important;
+    }
+}

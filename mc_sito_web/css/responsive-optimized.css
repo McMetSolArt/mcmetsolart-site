@@ -1,0 +1,479 @@
+/* ============================================
+   RESPONSIVE DESIGN OPTIMIZAT
+   Adaptare completă pentru toate dispozitivele
+   ============================================ */
+
+/* ============================================
+   BREAKPOINTS STANDARD
+   ============================================
+   - Mobile Small: 320px - 480px
+   - Mobile: 481px - 767px
+   - Tablet: 768px - 1024px
+   - Desktop: 1025px+
+   ============================================ */
+
+/* ============================================
+   BASE - MOBILE FIRST
+   Stiluri de bază pentru mobile (320px+)
+   ============================================ */
+
+/* Container fluid pentru toate dispozitivele */
+.container-fluid {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Imagini responsive */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Text responsive */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   MOBILE SMALL (320px - 480px)
+   ============================================ */
+@media (max-width: 480px) {
+    /* Header compact */
+    .header-content {
+        padding: 0.5rem 0;
+        gap: 0.5rem;
+    }
+    
+    .header-logo img {
+        max-height: 2rem;
+    }
+    
+    /* Butoane header mai mici */
+    .theme-toggle-btn,
+    .language-btn,
+    .login-btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    /* Hero section */
+    .hero-title {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.875rem;
+    }
+    
+    /* Secțiuni */
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.875rem;
+    }
+    
+    /* Grid-uri */
+    .features-grid,
+    .products-grid,
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* Cards */
+    .feature-card,
+    .product-card,
+    .step-card {
+        padding: 1rem;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Contact form */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Chat assistant */
+    .chat-window {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .chat-button {
+        width: 3rem;
+        height: 3rem;
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
+
+/* ============================================
+   MOBILE (481px - 767px)
+   ============================================ */
+@media (min-width: 481px) and (max-width: 767px) {
+    /* Header */
+    .header-content {
+        padding: 0.75rem 0;
+    }
+    
+    .header-logo img {
+        max-height: 2.5rem;
+    }
+    
+    /* Hero */
+    .hero-title {
+        font-size: 2.25rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Secțiuni */
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Grid-uri - 2 coloane pentru unele elemente */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    /* Chat */
+    .chat-window {
+        width: 90%;
+        max-width: 400px;
+        height: 500px;
+        border-radius: 1rem;
+    }
+}
+
+/* ============================================
+   TABLET (768px - 1024px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Container */
+    .container-fluid {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    /* Header */
+    .header-content {
+        padding: 1rem 0;
+    }
+    
+    .header-logo img {
+        max-height: 3rem;
+    }
+    
+    /* Hero */
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+    
+    /* Secțiuni */
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.125rem;
+    }
+    
+    /* Grid-uri - 2-3 coloane */
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    /* Account panel - NU suprascrie lățimea originală */
+    
+    /* Login sidebar */
+    .login-sidebar {
+        width: 450px;
+    }
+    
+    /* Chat */
+    .chat-window {
+        width: 400px;
+        height: 550px;
+    }
+}
+
+/* ============================================
+   DESKTOP (1025px+)
+   ============================================ */
+@media (min-width: 1025px) {
+    /* Container */
+    .container-fluid {
+        max-width: 1280px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    /* Header */
+    .header-content {
+        padding: 1.25rem 0;
+    }
+    
+    .header-logo img {
+        max-height: 3.5rem;
+    }
+    
+    /* Hero */
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    /* Secțiuni */
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    /* Grid-uri - 3-4 coloane */
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .steps-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    
+    /* Account panel - NU suprascrie lățimea originală */
+    
+    /* Login sidebar */
+    .login-sidebar {
+        width: 500px;
+    }
+    
+    /* Chat */
+    .chat-window {
+        width: 420px;
+        height: 600px;
+    }
+}
+
+/* ============================================
+   LARGE DESKTOP (1440px+)
+   ============================================ */
+@media (min-width: 1440px) {
+    .container-fluid {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 4.5rem;
+    }
+    
+    .section-title {
+        font-size: 3.5rem;
+    }
+}
+
+/* ============================================
+   EXTRA LARGE DESKTOP (1920px+)
+   ============================================ */
+@media (min-width: 1920px) {
+    .container-fluid {
+        max-width: 1600px;
+    }
+    
+    .hero-title {
+        font-size: 5rem;
+    }
+}
+
+/* ============================================
+   ORIENTARE LANDSCAPE PE MOBILE
+   ============================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Header mai compact */
+    .header-content {
+        padding: 0.5rem 0;
+    }
+    
+    /* Hero mai compact */
+    .hero-section {
+        min-height: 400px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    /* Chat full screen */
+    .chat-window {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+    
+    /* Modale mai mici */
+    .footer-modal {
+        max-height: 90vh;
+    }
+}
+
+/* ============================================
+   TOUCH DEVICES - Butoane mai mari
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+    /* Butoane touch-friendly */
+    button,
+    .btn,
+    a.btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    /* Links mai mari */
+    a {
+        padding: 0.25rem;
+    }
+    
+    /* Input-uri mai mari */
+    input,
+    textarea,
+    select {
+        min-height: 44px;
+        font-size: 16px; /* Previne zoom pe iOS */
+    }
+    
+    /* Dropdown-uri mai mari */
+    .language-dropdown,
+    .theme-dropdown,
+    .user-dropdown-menu {
+        min-width: 200px;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    /* Ascunde elemente interactive */
+    .header,
+    .footer,
+    .chat-button,
+    .chat-window,
+    .login-btn,
+    .theme-toggle-btn,
+    .language-btn,
+    button {
+        display: none !important;
+    }
+    
+    /* Optimizează pentru print */
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .hero-section,
+    section {
+        page-break-inside: avoid;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduce Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   ============================================ */
+@media (prefers-contrast: high) {
+    * {
+        border-width: 2px !important;
+    }
+    
+    button,
+    .btn {
+        border: 2px solid currentColor !important;
+    }
+}

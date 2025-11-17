@@ -1,0 +1,173 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                     GHID RAPID - GIT SETUP & DEPLOY                           ║
+║                      (Pentru neincepatorii în Git)                             ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+PREREQUISITE: Instalare Git
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Descarcă Git: https://git-scm.com/download/win
+2. Instalează (apasă Next până la final)
+3. Verifică: Deschide PowerShell și scrie: git --version
+   - Ar trebui să vezi: git version X.XX.X
+
+
+PASUL 1: CREARE CONT GITHUB
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Du-te pe: https://github.com
+2. Click "Sign up"
+3. Completează:
+   - Email
+   - Parolă
+   - Username (ex: your_username)
+4. Finalizează verificarea
+
+REȚINE: Vei folosi USERNAME și EMAIL mai jos!
+
+
+PASUL 2: CONFIGURARE GIT LOCAL
+═══════════════════════════════════════════════════════════════════════════════
+
+Deschide PowerShell și rulează o singură dată:
+
+git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+
+Exemplu:
+git config --global user.name "John Doe"
+git config --global user.email "john@example.com"
+
+
+PASUL 3: UPLOAD PROIECT PE GITHUB (Prima dată)
+═══════════════════════════════════════════════════════════════════════════════
+
+3.1. Creare Repository pe GitHub
+   - Du-te pe: https://github.com/new
+   - Repository name: mcmetsolart-site
+   - Description: MC MetSolArt Website
+   - Selectează "Public"
+   - Click "Create repository"
+
+3.2. Copie comenzile din pagina GitHub
+   - GitHub îți va afișa comenzi ready-made
+   - SAU: Urmează pașii de mai jos:
+
+3.3. Deschide PowerShell în folderul mc_sito_web:
+   - Click dreapta în folderul mc_sito_web
+   - "Open PowerShell here" SAU "Open in Terminal"
+
+3.4. Rulează aceste comenzi UNA DUPĂ ALTA:
+
+git init
+
+git add .
+
+git commit -m "Initial commit - MC MetSolArt ready for production"
+
+git branch -M main
+
+git remote add origin https://github.com/YOUR_USERNAME/mcmetsolart-site.git
+
+git push -u origin main
+
+   NOTĂ: Înlocuiește "YOUR_USERNAME" cu username-ul tău GitHub!
+   
+   Exemplu:
+   git remote add origin https://github.com/johndoe/mcmetsolart-site.git
+
+
+3.5. Autentificare GitHub
+   - O fereastră ar trebui să apară pentru autentificare
+   - SAU: Poți folosi "GitHub CLI" (git va cere parolă sau token)
+   - ALTERNATIV: Crează Personal Access Token pe GitHub
+
+
+PASUL 4: UPLOAD RENDER (Deploy)
+═══════════════════════════════════════════════════════════════════════════════
+
+4.1. Du-te pe: https://render.com
+
+4.2. "Sign up" cu GitHub (same account)
+
+4.3. Autorizează Render să acceseze GitHub
+
+4.4. Click "New +" → "Web Service"
+
+4.5. Selectează repo-ul: mcmetsolart-site
+
+4.6. Configurare:
+   - Name: mc-metsolart
+   - Environment: Python 3
+   - Build Command: pip install -r requirements.txt
+   - Start Command: bash start.sh
+
+4.7. Click "Create Web Service"
+
+4.8. Așteptare (2-5 minute)
+   - Vezi "Logs" pentru progres
+   - Când vezi "listening on port 8000" = Gata! ✅
+
+4.9. Copiază URL-ul (ex: https://mc-metsolart.onrender.com)
+
+
+PASUL 5: ACTUALIZĂRI ULTERIOARE (Ușor!)
+═══════════════════════════════════════════════════════════════════════════════
+
+Coreaza fișiere local (ex: index.html, app.py, etc.)
+
+Deschide PowerShell în mc_sito_web și rulează:
+
+git add .
+
+git commit -m "Descrierea schimbării"
+
+git push
+
+Gata! Render va detecta automat și va redeploy în câteva minute.
+
+
+COMENZI GIT UTILE
+═══════════════════════════════════════════════════════════════════════════════
+
+git status                  # Vezi ce s-a schimbat
+git log                     # Vezi istoricul commit-urilor
+git diff                    # Vezi diferențele exacte
+git pull                    # Descarcă versiunea online
+git clone URL               # Descarcă repo într-o folder nouă
+
+
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+PROBLEMA: "fatal: not a git repository"
+SOLUȚIE: 
+  - Verifică că ești în folderul corect (mc_sito_web)
+  - Rulează: cd c:\Users\Mc_me\Desktop\McMetSolArt.sitoWEB\mc_sito_web
+  - Apoi: git status
+
+PROBLEMA: "remote origin already exists"
+SOLUȚIE:
+  - Rulează: git remote remove origin
+  - Apoi: git remote add origin [URL]
+
+PROBLEMA: "error: permission denied"
+SOLUȚIE:
+  - GitHub: Crează Personal Access Token (Settings → Developer Settings)
+  - Sau: Folosește SSH keys (mai avansat)
+
+PROBLEMA: "authentication failed"
+SOLUȚIE:
+  - Verifică parolă/token pe GitHub
+  - Sau: Folosește GitHub CLI: gh auth login
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ DONE! Site-ul tău e acum PUBLIC! 🎉
+
+Oricând vrei să actualizezi, doar:
+1. Modifică fișierele
+2. git add . && git commit -m "..." && git push
+3. Render redeploy-ează automat
+
+═══════════════════════════════════════════════════════════════════════════════
