@@ -34,7 +34,7 @@
         const accountPanel = document.getElementById('accountPanel');
         const loginSidebar = document.getElementById('loginSidebar');
         if (!accountPanel?.classList.contains('active') && !loginSidebar?.classList.contains('active')) {
-            document.body.style.overflow = '';
+            document.documentElement.classList.remove('no-scroll');
         }
     }
 

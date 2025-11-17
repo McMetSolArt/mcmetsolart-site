@@ -91,6 +91,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Utility class to disable background scrolling when overlays/modals are open */
+.no-scroll, html.no-scroll, body.no-scroll {
+  overflow: hidden !important;
+  touch-action: none !important;
+  -webkit-overflow-scrolling: auto !important;
+}
+
 h1,
 h2,
 h3,

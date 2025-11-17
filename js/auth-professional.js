@@ -96,7 +96,7 @@
         
         if (sidebar) sidebar.classList.add('active');
         if (overlay) overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.documentElement.classList.add('no-scroll');
     }
 
     function closeSidebar() {
@@ -105,7 +105,7 @@
         
         if (sidebar) sidebar.classList.remove('active');
         if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        document.documentElement.classList.remove('no-scroll');
         
         setTimeout(() => {
             showLoginForm();
@@ -517,7 +517,7 @@
                     if (sidebarOverlay) {
                         sidebarOverlay.classList.remove('active');
                     }
-                    document.body.style.overflow = '';
+                    document.documentElement.classList.remove('no-scroll');
                     
                     // Actualizează UI-ul cu butonul de profil
                     if (window.SessionManager && window.SessionManager.checkSession) {
@@ -634,7 +634,7 @@
                     
                     if (loginSidebar) loginSidebar.classList.remove('active');
                     if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
+                    document.documentElement.classList.remove('no-scroll');
                     
                     // Actualizează UI-ul
                     if (window.SessionManager && window.SessionManager.checkSession) {

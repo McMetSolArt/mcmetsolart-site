@@ -1260,6 +1260,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize theme
     initTheme();
 
+    // Mobile viewport height fix: set --vh to avoid 100vh issues on mobile browser chrome
+    function setVh() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVh();
+    window.addEventListener('resize', setVh);
+
     // Set current year in footer
     const currentYearElement = document.getElementById('currentYear');
     if (currentYearElement) {
@@ -2459,7 +2467,7 @@ async function startLoginTransition() {
         if (sidebarOverlay) {
             sidebarOverlay.classList.remove('active');
         }
-        document.body.style.overflow = '';
+        document.documentElement.classList.remove('no-scroll');
 
         // Actualizează UI-ul cu butonul de profil
         if (window.SessionManager && window.SessionManager.checkSession) {

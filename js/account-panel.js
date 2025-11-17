@@ -111,7 +111,7 @@
             // Arată panel-ul
             this.panel.classList.add('active');
             this.overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.documentElement.classList.add('no-scroll');
 
             // Aplică traducerile pentru header și tabs
             if (window.applyTranslations) {
@@ -126,7 +126,7 @@
             console.log('📁 Closing account panel');
             this.panel.classList.remove('active');
             this.overlay.classList.remove('active');
-            document.body.style.overflow = '';
+            document.documentElement.classList.remove('no-scroll');
         },
 
         loadContent(section) {

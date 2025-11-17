@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalTitle.textContent = data.title;
             modalContentEl.innerHTML = data.content;
             overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.documentElement.classList.add('no-scroll');
         }
     }
     
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close modal
     function closeModal() {
         overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        document.documentElement.classList.remove('no-scroll');
         currentModalType = null;
     }
     
