@@ -6,21 +6,24 @@
 
 class APIClient {
     constructor() {
-        // Determine API base URL with sensible defaults:
-        // 1. If `window.__API_BASE_URL__` is explicitly set (recommended for production), use it.
-        // 2. If running on localhost, default to the local Flask backend.
-        // 3. Otherwise default to same-origin `/api` so the frontend talks to the backend served from the same host.
-        if (window.__API_BASE_URL__ && window.__API_BASE_URL__.trim()) {
-            this.baseURL = window.__API_BASE_URL__.trim();
-        } else if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-            this.baseURL = 'http://localhost:5000/api';
+        // Use centralized configuration from js/config.js if available
+        // Fallback to smart defaults if config not loaded
+        if (window.CONFIG && window.CONFIG.API_BASE_URL) {
+            this.baseURL = window.CONFIG.API_BASE_URL;
         } else {
-            this.baseURL = `${location.protocol}//${location.host}/api`;
+            // Fallback logic (config.js should be loaded first)
+            if (window.__API_BASE_URL__ && window.__API_BASE_URL__.trim()) {
+                this.baseURL = window.__API_BASE_URL__.trim();
+            } else if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+                this.baseURL = 'http://localhost:5000/api';
+            } else {
+                this.baseURL = 'https://mcmetsolart-site-5.onrender.com/api';
+            }
         }
         // To override in production, set `window.__API_BASE_URL__ = 'https://api.example.com/api'` before loading this script.
         
         this.token = localStorage.getItem('authToken');
-        console.log('🔧 API Client inițializat. Token:', this.token ? this.token.substring(0, 50) + '...' : 'LIPSĂ');
+        console.log('🔧 API Client inițializat. URL:', this.baseURL, 'Token:', this.token ? this.token.substring(0, 50) + '...' : 'LIPSĂ');
     }
     
     // Metodă pentru a actualiza token-ul
