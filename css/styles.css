@@ -150,7 +150,7 @@ h6 {
 
 /* TikTok-style full-screen sections */
 .tiktok-scroll-section {
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
@@ -762,8 +762,8 @@ nav a:hover {
 .hero-section {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
-  height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2279,7 +2279,7 @@ nav a:hover {
   top: 0;
   right: calc(-1 * var(--sidebar-width));
   width: var(--sidebar-width);
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background: var(--card);
   backdrop-filter: blur(20px);
   border-left: 1px solid var(--border);
@@ -2499,7 +2499,7 @@ nav a:hover {
   transition: opacity 0.3s ease;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: calc(100vh - 180px);
+  max-height: calc((var(--vh, 1vh) * 100) - 180px);
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
 }
@@ -2849,7 +2849,7 @@ nav a:hover {
 
   .sidebar-content {
     padding: 1rem 1.5rem;
-    max-height: calc(100vh - 160px);
+    max-height: calc((var(--vh, 1vh) * 100) - 160px);
   }
 
   .login-form {
@@ -3287,7 +3287,7 @@ nav a:hover {
   flex-direction: column;
   gap: 0.875rem;
   padding: 0;
-  max-height: calc(100vh - 220px);
+  max-height: calc((var(--vh, 1vh) * 100) - 220px);
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--border) var(--background);
@@ -4720,4 +4720,16 @@ nav a:hover {
 
 [data-theme="dark"] tr:hover {
   background: rgba(30, 41, 59, 0.8);
+}
+
+/* Mobile safety: disable scroll snapping and ensure standard overscroll behavior */
+@media (max-width: 1024px) {
+  html, body {
+    scroll-snap-type: none !important;
+    overscroll-behavior: auto !important;
+  }
+
+  .tiktok-scroll-section {
+    scroll-snap-align: none !important;
+  }
 }

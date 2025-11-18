@@ -1268,6 +1268,69 @@ document.addEventListener('DOMContentLoaded', function () {
     setVh();
     window.addEventListener('resize', setVh);
 
+    // Prevent programmatic scrolls from fighting user touch interactions.
+    // When a touchstart occurs we mark a short window where programmatic scrolling is suppressed.
+    (function setupTouchGuards() {
+        window.__recentTouch = false;
+        let __recentTouchTimeout = null;
+
+        function markRecentTouch() {
+            window.__recentTouch = true;
+            if (__recentTouchTimeout) clearTimeout(__recentTouchTimeout);
+            __recentTouchTimeout = setTimeout(() => { window.__recentTouch = false; }, 800);
+        }
+
+        // Use passive listeners for touch to avoid blocking the main thread.
+        document.addEventListener('touchstart', markRecentTouch, { passive: true });
+        document.addEventListener('touchmove', markRecentTouch, { passive: true });
+
+        // Wrap addEventListener to prefer passive for touch events when not explicitly set.
+        try {
+            const origAdd = EventTarget.prototype.addEventListener;
+            EventTarget.prototype.addEventListener = function (type, listener, options) {
+                try {
+                    if ((type === 'touchstart' || type === 'touchmove' || type === 'wheel') && !options) {
+                        return origAdd.call(this, type, listener, { passive: true });
+                    }
+                } catch (e) {
+                    // swallow and fallback to original
+                }
+                return origAdd.call(this, type, listener, options);
+            };
+        } catch (e) {
+            // Not critical if this fails in some browsers
+            console.warn('Could not patch addEventListener for passive touch defaults:', e);
+        }
+
+        // Guard programmatic scroll methods for a short period after touch to avoid scripts forcing scroll back to top.
+        try {
+            const origScrollTo = window.scrollTo;
+            window.scrollTo = function () {
+                if (window.__recentTouch) {
+                    // ignore programmatic scroll immediately after touch
+                    return;
+                }
+                return origScrollTo.apply(this, arguments);
+            };
+
+            const origScrollBy = window.scrollBy;
+            window.scrollBy = function () {
+                if (window.__recentTouch) return;
+                return origScrollBy.apply(this, arguments);
+            };
+
+            const origScrollIntoView = Element.prototype.scrollIntoView;
+            Element.prototype.scrollIntoView = function () {
+                if (window.__recentTouch) {
+                    return; // suppress immediate programmatic scrolling while user is touching
+                }
+                return origScrollIntoView.apply(this, arguments);
+            };
+        } catch (e) {
+            console.warn('Could not install scroll guards:', e);
+        }
+    })();
+
     // Show login badge on touch devices when user is NOT logged in
     function updateLoginBadge() {
         try {
