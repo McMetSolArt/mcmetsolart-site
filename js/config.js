@@ -17,8 +17,10 @@
         // Local development
         apiBaseUrl = 'http://localhost:5000/api';
     } else {
-        // Production: use Render URL (or same-origin /api as fallback)
-        apiBaseUrl = 'https://mcmetsolart-site-5.onrender.com/api';
+        // Default: use same-origin /api so when backend serves frontend on LAN (http://HOST:5000)
+        // the frontend talks to the local backend automatically. For production override
+        // set `window.__API_BASE_URL__` before loading this script.
+        apiBaseUrl = `${location.protocol}//${location.host}/api`;
     }
 
     // Expose configuration globally
