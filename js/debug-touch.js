@@ -23,6 +23,17 @@
         info.textContent = 'Touch debug';
         toolbar.appendChild(info);
 
+        // Log area
+        const logArea = document.createElement('div');
+        logArea.id = 'debugTouchLog';
+        logArea.style.maxWidth = '260px';
+        logArea.style.maxHeight = '120px';
+        logArea.style.overflow = 'auto';
+        logArea.style.marginTop = '6px';
+        logArea.style.fontSize = '12px';
+        logArea.style.opacity = '0.9';
+        toolbar.appendChild(logArea);
+
         const btn = document.createElement('button');
         btn.textContent = 'Toggle Clear Overlays';
         btn.style.marginLeft = '8px';
@@ -48,6 +59,17 @@
         const h = document.documentElement.scrollHeight;
         const vh = window.innerHeight;
         info.textContent = `y:${y} h:${h} vh:${vh}`;
+    }
+
+    function appendLog(msg) {
+        const logArea = document.getElementById('debugTouchLog');
+        if (!logArea) return;
+        const time = new Date().toLocaleTimeString();
+        const entry = document.createElement('div');
+        entry.textContent = `${time} - ${msg}`;
+        logArea.insertBefore(entry, logArea.firstChild);
+        // keep only last 30
+        while (logArea.children.length > 30) logArea.removeChild(logArea.lastChild);
     }
 
     function clearOverlays() {
@@ -78,6 +100,7 @@
         document.querySelectorAll('.login-sidebar, .login-sidebar.full-page, .login-sidebar.expanding').forEach(el => {
             el.classList.remove('active','full-page','expanding');
         });
+        appendLog('clearOverlays invoked');
     }
 
     function showTouchedElement(e) {
@@ -93,8 +116,41 @@
         setTimeout(() => el.style.outline = prev, 700);
 
         console.log('DEBUG touch element at', x, y, el);
+        appendLog(`touched ${el.tagName.toLowerCase()}${el.id?('#'+el.id):''}${el.className?('.'+el.className.split(' ').join('.')):''}`);
         // also update toolbar info
         updateInfo();
+    }
+
+    // Intercept scroll methods to detect code forcing scroll
+    function installScrollInterceptors() {
+        try {
+            const origScrollTo = window.scrollTo.bind(window);
+            window.scrollTo = function() {
+                try { throw new Error('scrollTo called'); } catch (e) {
+                    appendLog('window.scrollTo called - ' + (e.stack || '').split('\n')[1]?.trim());
+                }
+                return origScrollTo.apply(this, arguments);
+            };
+
+            const origScrollBy = window.scrollBy.bind(window);
+            window.scrollBy = function() {
+                try { throw new Error('scrollBy called'); } catch (e) {
+                    appendLog('window.scrollBy called - ' + (e.stack || '').split('\n')[1]?.trim());
+                }
+                return origScrollBy.apply(this, arguments);
+            };
+
+            const origScrollIntoView = Element.prototype.scrollIntoView;
+            Element.prototype.scrollIntoView = function() {
+                try { throw new Error('scrollIntoView called'); } catch (e) {
+                    appendLog('scrollIntoView called on ' + (this.id?('#'+this.id):this.tagName) + ' - ' + (e.stack || '').split('\n')[1]?.trim());
+                }
+                return origScrollIntoView.apply(this, arguments);
+            };
+            appendLog('Scroll interceptors installed');
+        } catch (e) {
+            console.warn('Could not install scroll interceptors', e);
+        }
     }
 
     function init() {
@@ -102,6 +158,8 @@
         // create toolbar and listeners
         createToolbar();
         updateInfo();
+
+        installScrollInterceptors();
 
         // update info periodically
         setInterval(updateInfo, 800);
