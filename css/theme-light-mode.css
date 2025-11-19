@@ -595,8 +595,18 @@ html:not(.dark) .search-icon {
 }
 
 /* Logo */
-html:not(.dark) .logo img {
-  filter: none;
+html:not(.dark) .logo img,
+html:not(.dark) .logo-img {
+  filter: brightness(1.05) contrast(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+html:not(.dark) .logo-container {
+  background: transparent;
+}
+
+html:not(.dark) .logo-container:hover {
+  background: transparent;
+  filter: brightness(1.1);
 }
 
 html:not(.dark) .logo-icon {
@@ -1013,8 +1023,11 @@ html:not(.dark) .hero-section h2,
 html:not(.dark) .hero-section h3,
 html:not(.dark) .hero-section h4,
 html:not(.dark) .hero-section h5,
-html:not(.dark) .hero-section h6 {
+html:not(.dark) .hero-section h6,
+html:not(.dark) .hero-title,
+html:not(.dark) .hero-section .hero-title {
   color: white !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 html:not(.dark) .hero p,
@@ -1024,8 +1037,11 @@ html:not(.dark) .hero a,
 html:not(.dark) .hero-section p,
 html:not(.dark) .hero-section span,
 html:not(.dark) .hero-section div,
-html:not(.dark) .hero-section a {
+html:not(.dark) .hero-section a,
+html:not(.dark) .hero-subtitle,
+html:not(.dark) .hero-section .hero-subtitle {
   color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 html:not(.dark) .hero .btn,

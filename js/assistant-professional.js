@@ -247,7 +247,7 @@ Sono qui per aiutarti con informazioni sui nostri prodotti, ordini e qualsiasi d
             
             const content = document.createElement('div');
             content.className = `message-content ${type}`;
-            content.textContent = text;
+            content.innerHTML = text;
             content.style.whiteSpace = 'pre-line';
             
             messageDiv.appendChild(avatar);
@@ -554,7 +554,7 @@ Cosa ti interessa? 💬`;
                     if (currentLang === 'ro') {
                         botResponse = `Super! Iată cum ne găsești: 😊
 
-📸 Instagram: @mc.metal.art
+📸 Instagram: <a href='https://www.instagram.com/mc.metsolart/' target='_blank' rel='noopener noreferrer' style='color: #E1306C; font-weight: 600; text-decoration: none;'>@MC.MetSolArt</a>
 Cel mai rapid! Răspundem imediat + vezi portofoliul complet.
 
 📧 Email: mc_metsolart@yahoo.com
@@ -569,7 +569,7 @@ Pe ce canal preferi? 💬`;
                     } else if (currentLang === 'en') {
                         botResponse = `Great! Here's how to find us: 😊
 
-📸 Instagram: @mc.metal.art
+📸 Instagram: <a href='https://www.instagram.com/mc.metsolart/' target='_blank' rel='noopener noreferrer' style='color: #E1306C; font-weight: 600; text-decoration: none;'>@MC.MetSolArt</a>
 Fastest! Instant response + see full portfolio.
 
 📧 Email: mc_metsolart@yahoo.com
@@ -584,7 +584,7 @@ Which channel do you prefer? 💬`;
                     } else if (currentLang === 'uk') {
                         botResponse = `Чудово! Ось як нас знайти: 😊
 
-📸 Instagram: @mc.metal.art
+📸 Instagram: <a href='https://www.instagram.com/mc.metsolart/' target='_blank' rel='noopener noreferrer' style='color: #E1306C; font-weight: 600; text-decoration: none;'>@MC.MetSolArt</a>
 Найшвидше! Миттєва відповідь + повне портфоліо.
 
 📧 Email: mc_metsolart@yahoo.com
@@ -599,7 +599,7 @@ Which channel do you prefer? 💬`;
                     } else if (currentLang === 'it') {
                         botResponse = `Fantastico! Ecco come trovarci: 😊
 
-📸 Instagram: @mc.metal.art
+📸 Instagram: <a href='https://www.instagram.com/mc.metsolart/' target='_blank' rel='noopener noreferrer' style='color: #E1306C; font-weight: 600; text-decoration: none;'>@MC.MetSolArt</a>
 Il più veloce! Risposta immediata + portfolio completo.
 
 📧 Email: mc_metsolart@yahoo.com
@@ -688,3 +688,6 @@ Quale canale preferisci? 💬`;
     }
 
 })();
+
+
+

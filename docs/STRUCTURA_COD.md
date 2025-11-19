@@ -13,7 +13,7 @@ cod nou/
 ├── 👤 contul meu.js           (88.0 KB) - Logica dashboard
 ├── 🎨 contul meu.css          (122.1 KB) - Stiluri dashboard
 ├── 🖼️ IMAGINI:
-│   ├── ASCE9159_firma_1761389435580.png (210 KB) - Logo
+│   ├── Logo.png (210 KB) - Logo
 │   ├── pagina de coperta.jpg (167 KB) - Hero image
 │   ├── festival.jpg (174 KB) - Produs 1
 │   ├── rezidential (3).jpg (198 KB) - Produs 2

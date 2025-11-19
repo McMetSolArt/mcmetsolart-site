@@ -1,4 +1,98 @@
 /* ============================================
+   MOBILE & TABLET - SCROLL NATURAL (max-width: 1024px)
+   Scroll fluid și natural ca pe Instagram
+   ============================================ */
+@media (max-width: 1024px) {
+    /* Scroll natural și smooth pentru toate elementele */
+    html, body {
+        scroll-behavior: smooth;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    /* Elimină scroll-snap pentru scroll liber */
+    html, body, main, section, 
+    .hero-section, .about-section, .products-section, 
+    .how-section, .contact-section, .tiktok-scroll-section {
+        scroll-snap-type: none !important;
+        scroll-snap-align: none !important;
+        scroll-snap-stop: normal !important;
+    }
+    
+    /* Secțiuni cu înălțime automată */
+    main, section {
+        height: auto !important;
+        min-height: auto !important;
+        position: relative;
+    }
+    
+    /* Hero section adaptată la ecran pe mobil */
+    .hero-section {
+        min-height: 100vh !important;
+        height: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Touch gestures naturale */
+    * {
+        touch-action: pan-y pan-x;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Overlay pentru meniu mobil */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.3);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        pointer-events: none;
+    }
+    
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+    /* Header actions */
+    .header-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .login-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #fff;
+        border: none;
+        font-size: 1rem;
+        border-radius: 2rem;
+        padding: 0.5rem 1.2rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        transition: all 0.2s;
+    }
+    
+    .login-btn:active {
+        transform: scale(0.95);
+    }
+}
+/* ============================================
    RESPONSIVE DESIGN OPTIMIZAT
    Adaptare completă pentru toate dispozitivele
    ============================================ */
@@ -40,66 +134,130 @@ body {
 }
 
 /* ============================================
-   MOBILE SMALL (320px - 480px)
+   MOBILE & TABLET (max-width: 1024px)
    ============================================ */
-@media (max-width: 480px) {
-    /* Header compact */
+@media (max-width: 1024px) {
+    /* Header compact și sticky */
     .header-content {
-        padding: 0.5rem 0;
+        padding: 0.5rem 0.75rem !important;
         gap: 0.5rem;
+        position: sticky;
+        top: 0;
+        background: var(--background);
+        z-index: 100;
+        height: auto !important;
+        min-height: 3.5rem;
     }
     
-    .header-logo img {
-        max-height: 2rem;
+    .header-logo {
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
     }
     
-    /* Butoane header mai mici */
+    .header-logo img,
+    .logo-img {
+        height: 4rem !important;
+        max-height: 4rem !important;
+        width: auto !important;
+    }
+    
+    .logo-container {
+        padding: 0.25rem !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    
+    .logo-container:hover {
+        background: transparent !important;
+        transform: scale(1.05) !important;
+    }
     .theme-toggle-btn,
     .language-btn,
     .login-btn {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         padding: 0.4rem 0.6rem;
+        min-width: 2.2rem;
+        min-height: 2.2rem;
+        border-radius: 0.5rem;
     }
-    
     /* Hero section */
     .hero-title {
-        font-size: 1.75rem;
+        font-size: 2rem;
         line-height: 1.2;
+        text-align: center;
     }
-    
     .hero-subtitle {
-        font-size: 0.875rem;
+        font-size: 1rem;
+        text-align: center;
     }
-    
     /* Secțiuni */
     .section-title {
         font-size: 1.5rem;
+        text-align: center;
     }
-    
     .section-subtitle {
-        font-size: 0.875rem;
+        font-size: 1rem;
+        text-align: center;
     }
-    
     /* Grid-uri */
     .features-grid,
     .products-grid,
     .steps-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.2rem;
     }
-    
     /* Cards */
     .feature-card,
     .product-card,
     .step-card {
-        padding: 1rem;
+        padding: 1.1rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
     }
-    
     /* Footer */
     .footer-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        text-align: center;
     }
+    /* Butoane mari, touch-friendly */
+    button, .btn, .login-btn {
+        min-height: 2.5rem;
+        font-size: 1rem;
+        border-radius: 0.75rem;
+        padding: 0.5rem 1.2rem;
+    }
+    /* Navigație mobilă */
+    .header-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        background: var(--background);
+        border-radius: 1rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        padding: 0.5rem 0;
+    }
+    .nav-link {
+        font-size: 1.1rem;
+        padding: 0.7rem 1rem;
+        border-radius: 0.5rem;
+        transition: background 0.2s;
+    }
+    .nav-link:active, .nav-link:focus {
+        background: var(--accent);
+    }
+    /* Imagini și video responsive */
+    img, video {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.75rem;
+    }
+    /* Elimină hover pe mobil */
+    a:hover, button:hover, .btn:hover {
+        filter: none;
+        box-shadow: none;
+    }
+}
     
     /* Contact form */
     .form-row {
@@ -132,7 +290,8 @@ body {
     }
     
     .header-logo img {
-        max-height: 2.5rem;
+        height: 4rem;
+        max-height: 4rem;
     }
     
     /* Hero */
@@ -196,7 +355,8 @@ body {
     }
     
     .header-logo img {
-        max-height: 3rem;
+        height: 4.5rem;
+        max-height: 4.5rem;
     }
     
     /* Hero */

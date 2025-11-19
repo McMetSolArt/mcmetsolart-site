@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Conexiune API - MC MetSolArt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .test-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .test-result {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .test-result pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .info-box {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .config-info {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .config-info div {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .config-info strong {
+            color: #667eea;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Conexiune API</h1>
+        <p class="subtitle">Verifică comunicarea între frontend și backend</p>
+
+        <div class="info-box">
+            <strong>📋 Instrucțiuni:</strong><br>
+            1. Asigură-te că backend-ul rulează (python app.py în McMetSolArtBackend/)<br>
+            2. Apasă butoanele de test pentru a verifica fiecare endpoint<br>
+            3. Verifică rezultatele în consolă și pe pagină
+        </div>
+
+        <div class="config-info">
+            <div><strong>🌐 Hostname:</strong> <span id="hostname">-</span></div>
+            <div><strong>📡 API URL:</strong> <span id="apiUrl">-</span></div>
+            <div><strong>🔧 Mediu:</strong> <span id="environment">-</span></div>
+        </div>
+
+        <!-- Test 1: Health Check -->
+        <div class="test-section">
+            <div class="test-title">
+                <span class="icon">🏥</span>
+                Health Check
+                <span class="status pending" id="status-health">Pending</span>
+            </div>
+            <button onclick="testHealth()">Test Health Check</button>
+            <div class="test-result" id="result-health" style="display: none;">
+                <pre id="result-health-content"></pre>
+            </div>
+        </div>
+
+        <!-- Test 2: Register -->
+        <div class="test-section">
+            <div class="test-title">
+                <span class="icon">📝</span>
+                Înregistrare Utilizator
+                <span class="status pending" id="status-register">Pending</span>
+            </div>
+            <button onclick="testRegister()">Test Register</button>
+            <div class="test-result" id="result-register" style="display: none;">
+                <pre id="result-register-content"></pre>
+            </div>
+        </div>
+
+        <!-- Test 3: Login -->
+        <div class="test-section">
+            <div class="test-title">
+                <span class="icon">🔐</span>
+                Autentificare
+                <span class="status pending" id="status-login">Pending</span>
+            </div>
+            <button onclick="testLogin()">Test Login</button>
+            <div class="test-result" id="result-login" style="display: none;">
+                <pre id="result-login-content"></pre>
+            </div>
+        </div>
+
+        <!-- Test 4: Profile -->
+        <div class="test-section">
+            <div class="test-title">
+                <span class="icon">👤</span>
+                Profil Utilizator (necesită autentificare)
+                <span class="status pending" id="status-profile">Pending</span>
+            </div>
+            <button onclick="testProfile()">Test Profile</button>
+            <div class="test-result" id="result-profile" style="display: none;">
+                <pre id="result-profile-content"></pre>
+            </div>
+        </div>
+
+        <!-- Test All -->
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e5e7eb;">
+            <button onclick="testAll()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                🚀 Rulează Toate Testele
+            </button>
+            <button onclick="clearResults()" style="background: #6b7280;">
+                🗑️ Șterge Rezultate
+            </button>
+        </div>
+    </div>
+
+    <!-- Include API Config -->
+    <script src="js/config.js"></script>
+    <script src="js/api-config-production.js"></script>
+    <script src="js/api-client.js"></script>
+
+    <script>
+        // Afișează configurația
+        document.getElementById('hostname').textContent = window.location.hostname;
+        document.getElementById('apiUrl').textContent = window.API?.baseURL || window.CONFIG?.API_BASE_URL || 'N/A';
+        document.getElementById('environment').textContent = 
+            (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+            ? 'Development' : 'Production';
+
+        // Helper pentru afișare rezultate
+        function showResult(testName, status, data) {
+            const statusEl = document.getElementById(`status-${testName}`);
+            const resultEl = document.getElementById(`result-${testName}`);
+            const contentEl = document.getElementById(`result-${testName}-content`);
+
+            statusEl.className = `status ${status}`;
+            statusEl.textContent = status === 'success' ? 'Success' : status === 'error' ? 'Error' : 'Pending';
+
+            resultEl.style.display = 'block';
+            contentEl.textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Test 1: Health Check
+        async function testHealth() {
+            console.log('🏥 Testing Health Check...');
+            try {
+                const response = await fetch(window.API.baseURL + '/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult('health', 'success', data);
+                    console.log('✅ Health Check OK:', data);
+                } else {
+                    showResult('health', 'error', data);
+                    console.error('❌ Health Check Failed:', data);
+                }
+            } catch (error) {
+                showResult('health', 'error', { error: error.message });
+                console.error('❌ Health Check Error:', error);
+            }
+        }
+
+        // Test 2: Register
+        async function testRegister() {
+            console.log('📝 Testing Register...');
+            const testUser = {
+                email: `test${Date.now()}@test.com`,
+                password: 'test123456',
+                password_confirmation: 'test123456',
+                first_name: 'Test',
+                last_name: 'User',
+                language: 'ro'
+            };
+
+            try {
+                const data = await window.API.register(testUser);
+                showResult('register', 'success', data);
+                console.log('✅ Register OK:', data);
+            } catch (error) {
+                showResult('register', 'error', { error: error.message });
+                console.error('❌ Register Error:', error);
+            }
+        }
+
+        // Test 3: Login
+        async function testLogin() {
+            console.log('🔐 Testing Login...');
+            
+            // Încearcă să te loghezi cu ultimul utilizator înregistrat
+            // sau creează unul nou
+            try {
+                // Încearcă login cu un cont de test
+                const data = await window.API.login('test@test.com', 'test123456');
+                showResult('login', 'success', data);
+                console.log('✅ Login OK:', data);
+            } catch (error) {
+                // Dacă nu există, înregistrează unul
+                console.log('⚠️ Cont inexistent, creez unul nou...');
+                try {
+                    await testRegister();
+                    // Așteaptă puțin și încearcă din nou
+                    setTimeout(async () => {
+                        try {
+                            const data = await window.API.login('test@test.com', 'test123456');
+                            showResult('login', 'success', data);
+                            console.log('✅ Login OK după register:', data);
+                        } catch (err) {
+                            showResult('login', 'error', { error: err.message });
+                            console.error('❌ Login Error:', err);
+                        }
+                    }, 1000);
+                } catch (regError) {
+                    showResult('login', 'error', { error: regError.message });
+                    console.error('❌ Register & Login Error:', regError);
+                }
+            }
+        }
+
+        // Test 4: Profile
+        async function testProfile() {
+            console.log('👤 Testing Profile...');
+            try {
+                const data = await window.API.getProfile();
+                showResult('profile', 'success', data);
+                console.log('✅ Profile OK:', data);
+            } catch (error) {
+                showResult('profile', 'error', { 
+                    error: error.message,
+                    hint: 'Trebuie să fii autentificat. Rulează mai întâi testul de Login.'
+                });
+                console.error('❌ Profile Error:', error);
+            }
+        }
+
+        // Test All
+        async function testAll() {
+            console.log('🚀 Running all tests...');
+            await testHealth();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testRegister();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testLogin();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testProfile();
+            console.log('✅ All tests completed!');
+        }
+
+        // Clear Results
+        function clearResults() {
+            const results = document.querySelectorAll('.test-result');
+            results.forEach(result => result.style.display = 'none');
+            
+            const statuses = document.querySelectorAll('.status');
+            statuses.forEach(status => {
+                status.className = 'status pending';
+                status.textContent = 'Pending';
+            });
+            
+            console.clear();
+            console.log('🗑️ Results cleared');
+        }
+
+        // Auto-test la încărcare (opțional)
+        // setTimeout(testHealth, 1000);
+    </script>
+</body>
+</html>

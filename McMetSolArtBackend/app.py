@@ -1709,7 +1709,7 @@ def admin_update_order_status(order_id):
 if __name__ == '__main__':
     print("🚀 Inițializare MC MetSolArt Backend...")
     init_db()
-    print("✅ Backend pornit pe http://localhost:5000")
-    print("📚 Documentație API: http://localhost:5000")
+    print("✅ Backend pornit pe http://localhost:3000")
+    print("📚 Documentație API: http://localhost:3000")
     # Dezactivat use_reloader pentru a păstra aceeași cheie JWT
-    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+    app.run(debug=True, host='0.0.0.0', port=3000, use_reloader=False)

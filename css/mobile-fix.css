@@ -1,0 +1,248 @@
+/* ============================================
+   MOBILE FIX - Logo și Header Profesional
+   ============================================ */
+
+/* Mobile și Tabletă - FORȚAT */
+@media (max-width: 1024px) {
+    /* Header - Layout corect */
+    .header-content {
+        padding: 0.5rem 0.75rem !important;
+        height: auto !important;
+        min-height: 4rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        position: relative !important;
+    }
+    
+    /* Hamburger - Stânga */
+    .hamburger-menu-container {
+        flex: 0 0 auto !important;
+        z-index: 20 !important;
+    }
+    
+    /* Logo - Centru ABSOLUT */
+    .header-logo {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 10 !important;
+        margin: 0 !important;
+    }
+    
+    /* Butoane - Dreapta */
+    .header-actions {
+        flex: 0 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        z-index: 20 !important;
+        margin-left: auto !important;
+    }
+    
+    /* Logo mare și vizibil */
+    .header-logo img,
+    .logo-img {
+        height: 4rem !important;
+        max-height: 4rem !important;
+        width: auto !important;
+        display: block !important;
+    }
+    
+    /* Container transparent */
+    .logo-container {
+        padding: 0.25rem !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+    
+    .logo-container:hover {
+        background: transparent !important;
+        transform: scale(1.05) !important;
+    }
+}
+
+/* Telefoane mici */
+@media (max-width: 480px) {
+    .header-content {
+        padding: 0.5rem 0.5rem !important;
+        min-height: 3.5rem !important;
+    }
+    
+    .header-logo img,
+    .logo-img {
+        height: 3.5rem !important;
+        max-height: 3.5rem !important;
+    }
+    
+    /* Butoane mai mici pe telefoane mici */
+    .header-actions {
+        gap: 0.25rem !important;
+    }
+    
+    .theme-toggle-btn,
+    .language-btn,
+    .login-btn {
+        min-width: 2rem !important;
+        min-height: 2rem !important;
+        padding: 0.35rem !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Telefoane foarte mici */
+@media (max-width: 360px) {
+    .header-content {
+        padding: 0.5rem 0.25rem !important;
+    }
+    
+    .header-logo img,
+    .logo-img {
+        height: 3rem !important;
+        max-height: 3rem !important;
+    }
+    
+    .header-actions {
+        gap: 0.2rem !important;
+    }
+}
+
+/* ============================================
+   HERO TEXT - MEREU ALB PE TOATE DISPOZITIVELE
+   ============================================ */
+
+/* Titlu Hero - Alb pe toate dispozitivele */
+.hero-title,
+.hero-section .hero-title,
+.hero h1 {
+    color: white !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Subtitlu Hero - Alb pe toate dispozitivele */
+.hero-subtitle,
+.hero-section .hero-subtitle,
+.hero p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Light Mode - Forțat ALB */
+html:not(.dark) .hero-title,
+html:not(.dark) .hero-section .hero-title,
+html:not(.dark) .hero h1 {
+    color: white !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+html:not(.dark) .hero-subtitle,
+html:not(.dark) .hero-section .hero-subtitle,
+html:not(.dark) .hero p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Dark Mode - Forțat ALB */
+html.dark .hero-title,
+html.dark .hero-section .hero-title,
+html.dark .hero h1,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .hero-section .hero-title,
+[data-theme="dark"] .hero h1 {
+    color: white !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .hero-subtitle,
+html.dark .hero-section .hero-subtitle,
+html.dark .hero p,
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .hero-section .hero-subtitle,
+[data-theme="dark"] .hero p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ============================================
+   CHAT ANIMATIONS - MAI LENTE PE MOBIL
+   ============================================ */
+
+@media (max-width: 1024px) {
+    /* Online dot - Pulse mai lent */
+    .online-dot {
+        animation: pulse-slow 3s infinite !important;
+    }
+    
+    @keyframes pulse-slow {
+        0%, 100% { 
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% { 
+            opacity: 0.6;
+            transform: scale(1.1);
+        }
+    }
+    
+    /* Typing dots - Bounce mai lent și mai smooth */
+    .typing-dot {
+        animation: typingBounce-slow 2s infinite !important;
+    }
+    
+    .typing-dot:nth-child(1) {
+        animation-delay: 0s !important;
+    }
+    
+    .typing-dot:nth-child(2) {
+        animation-delay: 0.3s !important;
+    }
+    
+    .typing-dot:nth-child(3) {
+        animation-delay: 0.6s !important;
+    }
+    
+    @keyframes typingBounce-slow {
+        0%, 70%, 100% {
+            transform: translateY(0);
+            opacity: 0.7;
+        }
+        35% {
+            transform: translateY(-8px);
+            opacity: 1;
+        }
+    }
+    
+    /* Chat button pulse - Mai lent */
+    .chat-button.minimized {
+        animation: pulse-glow-slow 3s infinite !important;
+    }
+    
+    @keyframes pulse-glow-slow {
+        0%, 100% {
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
+            transform: scale(1);
+        }
+        50% {
+            box-shadow: 0 8px 40px rgba(245, 158, 11, 0.6);
+            transform: scale(1.02);
+        }
+    }
+    
+    /* Badge pulse - Mai lent */
+    .chat-button.minimized::after {
+        animation: pulse-badge-slow 3s infinite !important;
+    }
+    
+    @keyframes pulse-badge-slow {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.15);
+            opacity: 0.7;
+        }
+    }
+}

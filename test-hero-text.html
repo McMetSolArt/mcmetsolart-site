@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hero Text - Alb</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+        
+        /* Toggle Theme Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+        
+        /* Light Mode */
+        body.light {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Dark Mode */
+        body.dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        /* TEXT MEREU ALB - FORȚAT */
+        .hero-title,
+        body.light .hero-title,
+        body.dark .hero-title {
+            color: white !important;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-subtitle,
+        body.light .hero-subtitle,
+        body.dark .hero-subtitle {
+            color: rgba(255, 255, 255, 0.95) !important;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.6;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Info Box */
+        .info-box {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+        
+        .status {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .status.success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+    </style>
+</head>
+<body class="light">
+    <button class="theme-toggle" onclick="toggleTheme()">🌙/☀️</button>
+    
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Cupole Decorative Metalice Iluminate Solar</h1>
+            <p class="hero-subtitle">Craftsmanship premium care combină designul ornamental tradițional cu tehnologia solară modernă pentru instalări rezidențiale și comerciale</p>
+        </div>
+    </section>
+    
+    <div class="info-box">
+        <div><strong>Test Hero Text</strong></div>
+        <div>Temă: <span id="currentTheme">Light</span></div>
+        <div class="status success">✅ Textul ar trebui să fie ALB în ambele teme</div>
+    </div>
+    
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeSpan = document.getElementById('currentTheme');
+            
+            if (body.classList.contains('light')) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                themeSpan.textContent = 'Dark';
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                themeSpan.textContent = 'Light';
+            }
+        }
+        
+        // Log pentru debug
+        console.log('✅ Test Hero Text încărcat');
+        console.log('Culoare titlu:', getComputedStyle(document.querySelector('.hero-title')).color);
+        console.log('Culoare subtitlu:', getComputedStyle(document.querySelector('.hero-subtitle')).color);
+    </script>
+</body>
+</html>

@@ -632,74 +632,15 @@
     -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(90%) !important;
 }
 
-/* Pe mobile, fereastra ocupă tot ecranul */
-@media (max-width: 768px) {
-    .chat-window {
-        position: fixed !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        height: 70vh !important;
-        border-radius: 1rem 1rem 0 0 !important;
-    }
-}
+/* Responsive chat window moved to responsive-optimized.css */
 
 /* ============================================
    RESPONSIVE ADJUSTMENTS
    ============================================ */
 
-@media (max-width: 768px) {
-    .hero-content {
-        padding: 2rem 1.5rem;
-    }
+/* Responsive padding and grid moved to responsive-optimized.css */
 
-    .about-section,
-    .products-section,
-    .how-section,
-    .contact-section {
-        padding: 3rem 1.5rem;
-    }
-
-    .features-grid,
-    .products-grid,
-    .steps-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .contact-form-card {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-content {
-        padding: 1.5rem 1rem;
-    }
-
-    .about-section,
-    .products-section,
-    .how-section,
-    .contact-section {
-        padding: 2.5rem 1rem;
-    }
-
-    .feature-card,
-    .product-card {
-        padding: 1.5rem;
-    }
-
-    .contact-form-card {
-        padding: 1.25rem;
-    }
-}
+/* Responsive padding and card moved to responsive-optimized.css */
 
 
 /* ============================================

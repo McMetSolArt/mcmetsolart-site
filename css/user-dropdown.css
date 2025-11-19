@@ -1,3 +1,20 @@
+@media (max-width: 1024px) {
+    .user-dropdown-menu {
+        left: 0 !important;
+        right: 0 !important;
+        min-width: 100vw !important;
+        max-width: 100vw !important;
+        border-radius: 0 !important;
+        top: 60px !important;
+        z-index: 2100 !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .user-dropdown-item {
+        font-size: 1.2rem;
+        padding: 1.2rem 2rem;
+        text-align: center;
+    }
+}
 /**
  * USER DROPDOWN MENU - MC MetSolArt
  * Dropdown ultra-profesional pentru meniul utilizatorului
@@ -254,38 +271,6 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-    .user-name-main {
-        display: none;
-    }
-    
-    .user-menu-trigger {
-        padding: 0.5rem;
-        border-radius: 50%;
-        width: 44px;
-        height: 44px;
-        justify-content: center;
-    }
-    
-    .user-menu-trigger .fa-chevron-down {
-        display: none;
-    }
-    
-    .user-dropdown-menu {
-        right: -0.5rem;
-        min-width: 240px;
-    }
-    
-    .user-dropdown-menu::before {
-        right: 16px;
-    }
-}
+/* Responsive dropdown moved to responsive-optimized.css */
 
-@media (max-width: 480px) {
-    .user-dropdown-menu {
-        right: -1rem;
-        left: auto;
-        min-width: calc(100vw - 2rem);
-        max-width: 320px;
-    }
-}
+/* Responsive dropdown moved to responsive-optimized.css */

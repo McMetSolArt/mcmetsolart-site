@@ -110,8 +110,8 @@
         const deviceType = deviceDetection.getDeviceType();
         
         // Mobile specific
-        if (deviceType === 'mobile') {
-            // Previne zoom dublu-tap pe iOS
+        if (deviceType === 'mobile' || deviceType === 'tablet') {
+            // Previne zoom dublu-tap pe iOS (păstrează single tap)
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(event) {
                 const now = Date.now();
@@ -121,16 +121,14 @@
                 lastTouchEnd = now;
             }, false);
             
-            // Optimizează scroll pe mobile
+            // Scroll natural și fluid ca pe Instagram
+            document.documentElement.style.scrollBehavior = 'smooth';
             document.body.style.webkitOverflowScrolling = 'touch';
+            document.body.style.overscrollBehaviorY = 'contain';
             
-            // Ascunde bara de adrese pe scroll (iOS)
+            // Momentum scrolling pentru iOS
             if (deviceDetection.isIOS()) {
-                window.addEventListener('scroll', function() {
-                    if (window.pageYOffset > 50) {
-                        window.scrollTo(0, 1);
-                    }
-                }, { passive: true });
+                document.body.style.webkitOverflowScrolling = 'touch';
             }
         }
         

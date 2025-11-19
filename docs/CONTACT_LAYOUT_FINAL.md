@@ -33,7 +33,7 @@ Am simplificat secțiunea de contact din pagina principală (index.html) la un l
 ```html
 <div class="contact-info-side">
     <div class="contact-logo">
-        <img src="ASCE9159_firma_1761389435580.png" alt="Logo">
+        <img src="Logo.png" alt="Logo">
     </div>
     <h2 class="contact-title">Contactați-ne</h2>
     <p class="contact-subtitle">Să discutăm despre următorul dvs. proiect</p>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Scroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .section-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .section-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .section-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .section-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .section-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        
+        .info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="info" id="scrollInfo">Scroll: 0px</div>
+    
+    <div class="section section-1">Secțiunea 1<br>Scroll în jos ↓</div>
+    <div class="section section-2">Secțiunea 2<br>Scroll funcționează? ✓</div>
+    <div class="section section-3">Secțiunea 3<br>Continuă să scroll-ezi ↓</div>
+    <div class="section section-4">Secțiunea 4<br>Aproape gata! ↓</div>
+    <div class="section section-5">Secțiunea 5<br>Final! 🎉</div>
+    
+    <script>
+        // Afișează poziția scroll-ului
+        window.addEventListener('scroll', () => {
+            const scrollInfo = document.getElementById('scrollInfo');
+            scrollInfo.textContent = `Scroll: ${Math.round(window.scrollY)}px`;
+        });
+        
+        // Test la încărcare
+        console.log('✅ Test Scroll încărcat');
+        console.log('Body overflow-y:', getComputedStyle(document.body).overflowY);
+        console.log('HTML overflow-y:', getComputedStyle(document.documentElement).overflowY);
+        console.log('Body height:', getComputedStyle(document.body).height);
+    </script>
+</body>
+</html>

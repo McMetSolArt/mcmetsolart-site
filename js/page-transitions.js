@@ -35,7 +35,7 @@
         
         overlay.innerHTML = `
             <div class="transition-content">
-                <img src="ASCE9159_firma_1761389435580.png" alt="MC MetSolArt" class="transition-logo">
+                <img src="Logo.png" alt="MC MetSolArt" class="transition-logo">
                 <div class="transition-spinner"></div>
                 <p class="transition-text">Se încarcă...</p>
             </div>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Scroll - Simplu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-snap-type: none !important;
+        }
+        
+        html, body {
+            overflow-y: scroll !important;
+            height: 100% !important;
+            scroll-behavior: smooth !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .header {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .nav a {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border-radius: 0.5rem;
+            transition: background 0.2s;
+        }
+        
+        .nav a:hover {
+            background: #f0f0f0;
+        }
+        
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .section-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .section-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; }
+        .section-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .section-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; }
+        .section-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; }
+        
+        .info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+        
+        .status {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <nav class="nav">
+            <a href="#section1">Secțiunea 1</a>
+            <a href="#section2">Secțiunea 2</a>
+            <a href="#section3">Secțiunea 3</a>
+            <a href="#section4">Secțiunea 4</a>
+            <a href="#section5">Secțiunea 5</a>
+        </nav>
+    </div>
+    
+    <div class="section section-1" id="section1">
+        <div>Secțiunea 1</div>
+        <div style="font-size: 1rem; margin-top: 1rem;">Scroll în jos ↓</div>
+    </div>
+    
+    <div class="section section-2" id="section2">
+        <div>Secțiunea 2</div>
+        <div style="font-size: 1rem; margin-top: 1rem;">Scroll funcționează? ✓</div>
+    </div>
+    
+    <div class="section section-3" id="section3">
+        <div>Secțiunea 3</div>
+        <div style="font-size: 1rem; margin-top: 1rem;">Continuă să scroll-ezi ↓</div>
+    </div>
+    
+    <div class="section section-4" id="section4">
+        <div>Secțiunea 4</div>
+        <div style="font-size: 1rem; margin-top: 1rem;">Aproape gata! ↓</div>
+    </div>
+    
+    <div class="section section-5" id="section5">
+        <div>Secțiunea 5</div>
+        <div style="font-size: 1rem; margin-top: 1rem;">Final! 🎉</div>
+    </div>
+    
+    <div class="info" id="scrollInfo">
+        <div>Scroll: <span id="scrollY">0</span>px</div>
+        <div class="status" id="status">✅ Scroll funcționează</div>
+    </div>
+    
+    <script>
+        // Smooth scroll pentru link-uri
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a[href^="#"]');
+            if (!link) return;
+            
+            const href = link.getAttribute('href');
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+                history.pushState(null, null, href);
+            }
+        });
+        
+        // Afișează poziția scroll-ului
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scrollY = Math.round(window.scrollY);
+            document.getElementById('scrollY').textContent = scrollY;
+            
+            // Verifică dacă scroll-ul funcționează
+            if (scrollY !== lastScroll) {
+                document.getElementById('status').textContent = '✅ Scroll funcționează';
+                document.getElementById('status').style.color = '#4ade80';
+            }
+            lastScroll = scrollY;
+        });
+        
+        // Test la încărcare
+        console.log('✅ Test Scroll încărcat');
+        console.log('HTML overflow:', getComputedStyle(document.documentElement).overflowY);
+        console.log('Body overflow:', getComputedStyle(document.body).overflowY);
+        console.log('HTML height:', getComputedStyle(document.documentElement).height);
+        console.log('Body height:', getComputedStyle(document.body).height);
+        console.log('Document height:', document.documentElement.scrollHeight);
+        console.log('Window height:', window.innerHeight);
+        console.log('Can scroll:', document.documentElement.scrollHeight > window.innerHeight);
+    </script>
+</body>
+</html>

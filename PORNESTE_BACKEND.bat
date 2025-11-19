@@ -36,7 +36,7 @@ echo ========================================
 echo   Backend se porneste...
 echo ========================================
 echo.
-echo Backend va rula pe: http://localhost:5000
+echo Backend va rula pe: http://localhost:3000
 echo.
 echo Pentru a opri backend-ul, apasa Ctrl+C
 echo.

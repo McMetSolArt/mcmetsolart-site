@@ -1,0 +1,83 @@
+/* ============================================
+   SCROLL FIX - Simplu ca pe Instagram/Facebook
+   ============================================ */
+
+/* RESET TOTAL - Scroll liber pe tot */
+* {
+    scroll-snap-type: none !important;
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+}
+
+/* HTML și BODY - Scroll liber */
+html,
+body {
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    height: 100% !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Main - Permite scroll */
+main {
+    display: block !important;
+    overflow: visible !important;
+}
+
+/* Secțiuni - Height auto */
+section {
+    overflow: visible !important;
+}
+
+/* Hero - Full height dar permite scroll */
+.hero-section {
+    min-height: 100vh;
+    overflow: visible !important;
+}
+
+/* Ascunde scrollbar COMPLET pe desktop */
+@media (min-width: 1025px) {
+    /* Firefox */
+    * {
+        scrollbar-width: none !important;
+    }
+    
+    /* Chrome, Safari, Edge */
+    *::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+        display: none !important;
+    }
+    
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    main::-webkit-scrollbar,
+    section::-webkit-scrollbar,
+    div::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+        display: none !important;
+        background: transparent !important;
+    }
+    
+    /* Elimină orice gap, margin, border, outline */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Elimină orice border sau outline din stânga */
+    html::before,
+    html::after,
+    body::before,
+    body::after {
+        display: none !important;
+    }
+}

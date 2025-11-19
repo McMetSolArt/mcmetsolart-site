@@ -40,8 +40,8 @@ const localTranslations = {
         // Products Section
         "products.title": "Portofoliul Nostru",
         "products.subtitle": "Explorează instalările noastre de cupole solare",
-        "products.card1.title": "Instalare Comercială",
-        "products.card1.desc": "Cupole metalice moderne pentru spații comerciale",
+        "products.card1.title": "Proiecte pentru Spații Comerciale și Festivaluri",
+        "products.card1.desc": "Cupole metalice spectaculoase pentru evenimente și spații comerciale",
         "products.card2.title": "Proiect Rezidențial",
         "products.card2.desc": "Finisaj elegant pentru proprietăți private",
         "products.card3.title": "Proiecte Personalizate",
@@ -89,7 +89,7 @@ const localTranslations = {
         "assistant.response.solar": "Integrăm tehnologie solară de vârf cu panouri fotovoltaice discrete și sisteme LED eficiente. Cupolele noastre oferă iluminare automată de la apus la răsărit, fără costuri de energie.",
         "assistant.response.materials": "Folosim exclusiv materiale premium: oțel inoxidabil, aliaje speciale rezistente la coroziune și finisaje durabile. Fiecare cupola este tratată pentru rezistență extremă la intemperii.",
         "assistant.response.price": "Investiția în cupolele MC variază între 2.500-15.000 EUR, în funcție de dimensiuni și personalizări. Oferim consultanță gratuită și devis personalizat în 24h.",
-        "assistant.response.contact": "📸 Contactează echipa MC direct pe Instagram:\n\n🌟 @mc.metal.art\n\nPe Instagram găsești:\n✅ Portofoliul nostru complet\n✅ Proiecte recente\n✅ Răspuns rapid la mesaje\n✅ Prețuri și detalii\n\n📧 Email: mc_metsolart@yahoo.com\n📱 Telefon: +40 123 456 789",
+        "assistant.response.contact": "📸 Contactează echipa MC direct pe Instagram:\n\n🌟 <a href='https://www.instagram.com/mc.metsolart/' target='_blank' rel='noopener noreferrer' style='color: #E1306C; font-weight: 600; text-decoration: none;'>@MC.MetSolArt</a>\n\nPe Instagram găsești:\n✅ Portofoliul nostru complet\n✅ Proiecte recente\n✅ Răspuns rapid la mesaje\n✅ Prețuri și detalii\n\n📧 Email: mc_metsolart@yahoo.com\n📱 Telefon: +40 123 456 789",
         "assistant.response.installation": "Serviciul nostru premium include: consultanță tehnică, transport securizat, instalare profesională și configurare completă. Garantăm instalarea perfectă în 1-2 zile.",
         "assistant.response.custom": "Excelăm în proiecte unice! Realizăm cupole personalizate după designul tău: dimensiuni speciale, finisaje exclusive, sisteme de iluminare avansate. Fiecare proiect este o creație unică.",
         "assistant.response.warranty": "Oferim garanție extinsă: 5 ani pentru structura metalică, 3 ani pentru sistemul solar și 2 ani pentru componentele LED. Service gratuit în primul an.",
@@ -194,8 +194,8 @@ const localTranslations = {
         // Products Section
         "products.title": "Наше Портфоліо",
         "products.subtitle": "Дослідіть наші установки сонячних куполів",
-        "products.card1.title": "Комерційна Установка",
-        "products.card1.desc": "Сучасні металеві куполи для комерційних просторів",
+        "products.card1.title": "Проекти для Комерційних Просторів та Фестивалів",
+        "products.card1.desc": "Вражаючі металеві куполи для подій та комерційних просторів",
         "products.card2.title": "Житловий Проект",
         "products.card2.desc": "Елегантна обробка для приватних об'єктів",
         "products.card3.title": "Персоналізовані Проекти",
@@ -243,7 +243,7 @@ const localTranslations = {
         "assistant.response.solar": "Ми інтегруємо найкращу сонячну технологію з дискретними фотоелектричними панелями та ефективними LED системами. Наші куполи забезпечують автоматичне освітлення від заходу до сходу сонця без витрат на енергію.",
         "assistant.response.materials": "Використовуємо виключно преміум матеріали: нержавіючу сталь, спеціальні корозійностійкі сплави та довговічні покриття. Кожен купол обробляється для екстремальної стійкості до погодних умов.",
         "assistant.response.price": "Інвестиція в куполи MC варіюється від 2.500-15.000 EUR, залежно від розмірів та персоналізації. Пропонуємо безкоштовну консультацію та персональну пропозицію за 24 години.",
-        "assistant.response.contact": "📸 Зв'яжіться з командою MC в Instagram:\n\n🌟 @mc.metal.art\n\nВ Instagram ви знайдете:\n✅ Наше повне портфоліо\n✅ Останні проекти\n✅ Швидка відповідь на повідомлення\n✅ Ціни та деталі\n\n📧 Email: mc_metsolart@yahoo.com\n📱 Телефон: +40 123 456 789",
+        "assistant.response.contact": "📸 Зв'яжіться з командою MC в Instagram:\n\n🌟 <a href='https://www.instagram.com/mc.metsolart/' target='_blank' rel='noopener noreferrer' style='color: #E1306C; font-weight: 600; text-decoration: none;'>@MC.MetSolArt</a>\n\nВ Instagram ви знайдете:\n✅ Наше повне портфоліо\n✅ Останні проекти\n✅ Швидка відповідь на повідомлення\n✅ Ціни та деталі\n\n📧 Email: mc_metsolart@yahoo.com\n📱 Телефон: +40 123 456 789",
         "assistant.response.installation": "Наш преміум сервіс включає: технічну консультацію, безпечне транспортування, професійну установку та повне налаштування. Гарантуємо ідеальну установку за 1-2 дні.",
         "assistant.response.custom": "Ми досконалі в унікальних проектах! Створюємо персоналізовані куполи за вашим дизайном: спеціальні розміри, ексклюзивні покриття, передові системи освітлення. Кожен проект - унікальне творіння.",
         "assistant.response.warranty": "Пропонуємо розширену гарантію: 5 років на металеву конструкцію, 3 роки на сонячну систему та 2 роки на LED компоненти. Безкоштовний сервіс у перший рік.",
@@ -337,8 +337,8 @@ const localTranslations = {
         // Products Section
         "products.title": "Il Nostro Portfolio",
         "products.subtitle": "Esplora le nostre installazioni di cupole solari",
-        "products.card1.title": "Installazione Commerciale",
-        "products.card1.desc": "Cupole metalliche moderne per spazi commerciali",
+        "products.card1.title": "Progetti per Spazi Commerciali e Festival",
+        "products.card1.desc": "Cupole metalliche spettacolari per eventi e spazi commerciali",
         "products.card2.title": "Progetto Residenziale",
         "products.card2.desc": "Finitura elegante per proprietà private",
         "products.card3.title": "Progetti Personalizzati",
@@ -479,8 +479,8 @@ const localTranslations = {
         // Products Section
         "products.title": "Our Portfolio",
         "products.subtitle": "Explore our solar dome installations",
-        "products.card1.title": "Commercial Installation",
-        "products.card1.desc": "Modern metal domes for commercial spaces",
+        "products.card1.title": "Projects for Commercial Spaces and Festivals",
+        "products.card1.desc": "Spectacular metal domes for events and commercial spaces",
         "products.card2.title": "Residential Project",
         "products.card2.desc": "Elegant finish for private properties",
         "products.card3.title": "Custom Projects",
@@ -738,18 +738,9 @@ function updateLoginSidebarTranslations() {
 
 // Smooth scrolling for navigation links
 function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+    // Smooth scroll este gestionat de smooth-scroll.js
+    // Nu mai blocăm navigarea cu #
+    console.log('✅ Smooth scrolling delegat la smooth-scroll.js');
 }
 
 // Mobile menu functionality
@@ -1020,7 +1011,7 @@ class VirtualAssistant {
             this.addMessage(t('assistant.welcome'), true);
         }
 
-        this.scrollToBottom();
+        // Eliminat scrollToBottom automat pentru a preveni repoziționarea la scroll rapid
     }
 
     minimizeChat() {
@@ -1053,7 +1044,7 @@ class VirtualAssistant {
             this.notificationDot.classList.remove('active');
         }
 
-        this.scrollToBottom();
+        // Eliminat scrollToBottom automat pentru a preveni repoziționarea la scroll rapid
     }
 
     closeChat() {
@@ -1121,7 +1112,7 @@ class VirtualAssistant {
 
         this.messages.push(message);
         this.renderMessage(message);
-        this.scrollToBottom();
+        // Eliminat scrollToBottom automat pentru a preveni repoziționarea la scroll rapid
     }
 
     renderMessage(message) {
@@ -1163,7 +1154,7 @@ class VirtualAssistant {
     `;
 
         this.chatMessages.appendChild(typingDiv);
-        this.scrollToBottom();
+        // Eliminat scrollToBottom automat pentru a preveni repoziționarea la scroll rapid
     }
 
     hideTyping() {
@@ -1246,13 +1237,8 @@ class VirtualAssistant {
         return t('assistant.response.professional');
     }
 
-    scrollToBottom() {
-        if (this.chatMessages) {
-            setTimeout(() => {
-                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
-            }, 100);
-        }
-    }
+    // Eliminat complet funcția scrollToBottom pentru a preveni repoziționarea automată
+    // Dacă este nevoie, se poate adăuga doar la trimitere mesaj nou, nu la fiecare update
 }
 
 // Initialize everything when DOM is loaded
@@ -1270,66 +1256,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Prevent programmatic scrolls from fighting user touch interactions.
     // When a touchstart occurs we mark a short window where programmatic scrolling is suppressed.
-    (function setupTouchGuards() {
-        window.__recentTouch = false;
-        let __recentTouchTimeout = null;
-
-        function markRecentTouch() {
-            window.__recentTouch = true;
-            if (__recentTouchTimeout) clearTimeout(__recentTouchTimeout);
-            __recentTouchTimeout = setTimeout(() => { window.__recentTouch = false; }, 800);
-        }
-
-        // Use passive listeners for touch to avoid blocking the main thread.
-        document.addEventListener('touchstart', markRecentTouch, { passive: true });
-        document.addEventListener('touchmove', markRecentTouch, { passive: true });
-
-        // Wrap addEventListener to prefer passive for touch events when not explicitly set.
-        try {
-            const origAdd = EventTarget.prototype.addEventListener;
-            EventTarget.prototype.addEventListener = function (type, listener, options) {
-                try {
-                    if ((type === 'touchstart' || type === 'touchmove' || type === 'wheel') && !options) {
-                        return origAdd.call(this, type, listener, { passive: true });
-                    }
-                } catch (e) {
-                    // swallow and fallback to original
-                }
-                return origAdd.call(this, type, listener, options);
-            };
-        } catch (e) {
-            // Not critical if this fails in some browsers
-            console.warn('Could not patch addEventListener for passive touch defaults:', e);
-        }
-
-        // Guard programmatic scroll methods for a short period after touch to avoid scripts forcing scroll back to top.
-        try {
-            const origScrollTo = window.scrollTo;
-            window.scrollTo = function () {
-                if (window.__recentTouch) {
-                    // ignore programmatic scroll immediately after touch
-                    return;
-                }
-                return origScrollTo.apply(this, arguments);
-            };
-
-            const origScrollBy = window.scrollBy;
-            window.scrollBy = function () {
-                if (window.__recentTouch) return;
-                return origScrollBy.apply(this, arguments);
-            };
-
-            const origScrollIntoView = Element.prototype.scrollIntoView;
-            Element.prototype.scrollIntoView = function () {
-                if (window.__recentTouch) {
-                    return; // suppress immediate programmatic scrolling while user is touching
-                }
-                return origScrollIntoView.apply(this, arguments);
-            };
-        } catch (e) {
-            console.warn('Could not install scroll guards:', e);
-        }
-    })();
+    // Eliminat complet override-urile la scrollTo, scrollBy, scrollIntoView pentru a nu interfera cu scroll-ul nativ
 
     // Show login badge on touch devices when user is NOT logged in
     function updateLoginBadge() {
@@ -2903,3 +2830,5 @@ window.debugAuth = {
 };
 
 // Eliminat: definiție duplicată showErrorMessage. Se folosește versiunea îmbunătățită definită anterior.
+
+

@@ -28,7 +28,14 @@
     <link rel="stylesheet" href="css/contact-premium.css">
     <link rel="stylesheet" href="css/theme-light-mode.css">
     <link rel="stylesheet" href="css/responsive-optimized.css">
-    <link rel="icon" href="images/ASCE9159_firma_1761389435580.png" type="image/png">
+    <!-- Scroll Fix -->
+    <link rel="stylesheet" href="css/scroll-fix.css">
+    <!-- Mobile Fix -->
+    <link rel="stylesheet" href="css/mobile-fix.css">
+
+    <!-- No Bars - ULTIMUL - Elimină toate barele -->
+    <link rel="stylesheet" href="css/no-bars.css">
+    <link rel="icon" href="images/Logo.png" type="image/png">
 </head>
 
 <body>
@@ -56,7 +63,7 @@
                 <div class="header-logo">
                     <a href="#hero">
                         <div class="logo-container">
-                            <img src="images/ASCE9159_firma_1761389435580.png" alt="Mc MetSolArt Logo" class="logo-img">
+                            <img src="images/Logo.png" alt="Mc MetSolArt Logo" class="logo-img">
                         </div>
                     </a>
                 </div>
@@ -125,6 +132,7 @@
 
                     <!-- Login Button -->
                     <button class="login-btn" id="loginBtn">
+                        <i class="fas fa-user-circle login-icon" aria-hidden="true"></i>
                         <span data-text="nav.login">Autentificare</span>
                         <span class="login-badge" id="loginBadge" aria-hidden="true"></span>
                     </button>
@@ -200,9 +208,8 @@
                             <img src="images/festival.jpg" alt="Commercial Installation">
                         </div>
                         <div class="product-content">
-                            <h3 class="product-title" data-text="products.card1.title">Instalare Comercială</h3>
-                            <p class="product-desc" data-text="products.card1.desc">Cupole metalice moderne pentru
-                                spații comerciale</p>
+                            <h3 class="product-title" data-text="products.card1.title">Proiecte pentru Spații Comerciale și Festivaluri</h3>
+                            <p class="product-desc" data-text="products.card1.desc">Cupole metalice spectaculoase pentru evenimente și spații comerciale</p>
                         </div>
                     </div>
                     <div class="product-card">
@@ -211,8 +218,7 @@
                         </div>
                         <div class="product-content">
                             <h3 class="product-title" data-text="products.card2.title">Proiect Rezidențial</h3>
-                            <p class="product-desc" data-text="products.card2.desc">Finisaj elegant pentru proprietăți
-                                private</p>
+                            <p class="product-desc" data-text="products.card2.desc">Finisaj elegant pentru proprietăți private</p>
                         </div>
                     </div>
                     <div class="product-card">
@@ -221,8 +227,7 @@
                         </div>
                         <div class="product-content">
                             <h3 class="product-title" data-text="products.card3.title">Proiecte Personalizate</h3>
-                            <p class="product-desc" data-text="products.card3.desc">Soluții unice adaptate nevoilor
-                                dumneavoastră</p>
+                            <p class="product-desc" data-text="products.card3.desc">Soluții unice adaptate nevoilor dumneavoastră</p>
                         </div>
                     </div>
                 </div>
@@ -270,7 +275,7 @@
                     <!-- Contact Info - Left Side -->
                     <div class="contact-info-side">
                         <div class="contact-logo">
-                            <img src="images/ASCE9159_firma_1761389435580.png" alt="Mc MetSolArt Logo"
+                            <img src="images/Logo.png" alt="Mc MetSolArt Logo"
                                 class="contact-logo-img">
                         </div>
                         <h2 class="contact-title" data-text="contact.title">Contactați-ne</h2>
@@ -327,7 +332,7 @@
                 <i class="fas fa-times"></i>
             </button>
             <button class="sidebar-logo" id="sidebarLogo" title="Înapoi la pagina principală">
-                <img src="images/ASCE9159_firma_1761389435580.png" alt="Mc MetSolArt Logo" class="sidebar-logo-img">
+                <img src="images/Logo.png" alt="Mc MetSolArt Logo" class="sidebar-logo-img">
             </button>
             <div class="sidebar-header-content">
                 <h2 class="sidebar-title" data-text="login.welcome">Bine ai venit!</h2>
@@ -661,7 +666,7 @@
                 <!-- Company Info -->
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="images/ASCE9159_firma_1761389435580.png" alt="Mc MetSolArt Logo"
+                        <img src="images/Logo.png" alt="Mc MetSolArt Logo"
                             class="footer-logo-img">
                         <span class="footer-brand">Mc MetSolArt</span>
                     </div>
@@ -672,8 +677,8 @@
                     <div class="footer-social">
                         <h4 class="footer-social-heading" data-text="footer.followUs">Urmărește-ne</h4>
                         <div class="social-icons-compact">
-                            <a href="https://www.instagram.com/mc.metal.art" target="_blank" class="social-icon-link"
-                                aria-label="Instagram" title="Instagram">
+                            <a href="https://www.instagram.com/mc.metsolart/" target="_blank" rel="noopener noreferrer" class="social-icon-link"
+                                aria-label="Instagram - MC.MetSolArt" title="Instagram - MC.MetSolArt">
                                 <img src="images/instagram.png" alt="Instagram" class="social-icon-img">
                             </a>
                             <a href="#" class="social-icon-link" aria-label="Facebook" title="Facebook">
@@ -740,9 +745,13 @@
 
     <!-- Device Detection - PRIMUL (detectează tipul de dispozitiv) -->
     <script src="js/device-detection.js"></script>
+    
+    <!-- Scroll Fix - Simplu și profesional -->
+    <script src="js/scroll-fix.js"></script>
 
     <!-- Configuration - setează URL-uri înainte ca API să se inițializeze -->
     <script src="js/config.js"></script>
+    <script src="js/api-config-production.js"></script>
 
     <!-- API Client - pentru comunicare cu backend -->
     <script src="js/api-client.js"></script>
@@ -767,7 +776,7 @@
     <script src="js/auth-professional.js"></script>
     <script src="js/account-panel.js"></script>
     <script src="js/session-manager.js"></script>
-    <script src="js/debug-touch.js"></script>
+    <!-- <script src="js/debug-touch.js"></script> -->
 </body>
 
 </html>
