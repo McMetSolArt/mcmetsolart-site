@@ -14,16 +14,25 @@ from datetime import datetime, timedelta
 import secrets
 import re
 import uuid
+# Import translations and email service
+# Use absolute imports for better compatibility with gunicorn
+import sys
+import os
+# Add current directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 try:
-    # Prefer package-relative imports when running as a package (recommended)
-    from .translations import t
-    from .email_service import send_contact_email, send_order_notification_email
-except Exception:
-    # Fallback: allow running app.py directly (script mode) by adjusting sys.path
-    import sys
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from translations import t
     from email_service import send_contact_email, send_order_notification_email
+except ImportError as e:
+    print(f"⚠️ Import warning: {e}")
+    # Fallback: create dummy functions
+    def t(key, lang='ro', **kwargs):
+        return key
+    def send_contact_email(*args, **kwargs):
+        return True, None
+    def send_order_notification_email(*args, **kwargs):
+        return True, None
 
 # Determine static folder path (serve frontend from parent if index.html exists there)
 frontend_static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
