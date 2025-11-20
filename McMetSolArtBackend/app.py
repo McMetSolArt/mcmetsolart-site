@@ -72,7 +72,8 @@ HOST = os.getenv('HOST', '0.0.0.0')
 PORT = int(os.getenv('PORT', '5000'))
 
 # -------------------------
-# Decorator pentru autentificare cu token permanent
+# Funcții pentru baza de date (definite mai jos, dar apelate aici pentru auto-init)
+# -------------------------
 # -------------------------
 def token_required(f):
     """Decorator pentru endpoint-uri protejate - folosește api_token permanent"""
@@ -329,6 +330,16 @@ def init_db():
     print("✅ Baza de date inițializată cu succes!")
     print("📊 Tabele create: users, orders, order_items, user_settings, support_messages,")
     print("   password_resets, notifications, shipping_addresses, email_logs, sessions, activity_logs")
+
+# -------------------------
+# Auto-inițializare bază de date la pornirea aplicației
+# -------------------------
+try:
+    print("🔄 Verificare și inițializare bază de date...")
+    init_db()
+except Exception as e:
+    print(f"⚠️ Eroare la inițializarea bazei de date: {str(e)}")
+    print("   Aplicația va continua, dar funcționalitatea poate fi limitată.")
 
 # -------------------------
 # Funcții helper
