@@ -131,6 +131,16 @@ def get_db():
 
 def init_db():
     """Inițializează baza de date cu toate tabelele necesare"""
+    # Pe Render (producție), șterge baza veche dacă există pentru a evita conflicte de schemă
+    if os.path.exists(DATABASE) and not FLASK_DEBUG:
+        print(f"⚠️  Bază de date existentă găsită: {DATABASE}")
+        print("🗑️  Ștergere bază veche pentru re-inițializare curată...")
+        try:
+            os.remove(DATABASE)
+            print("✅ Bază veche ștearsă cu succes")
+        except Exception as e:
+            print(f"⚠️  Nu s-a putut șterge baza veche: {str(e)}")
+    
     conn = get_db()
     c = conn.cursor()
     
@@ -335,11 +345,31 @@ def init_db():
 # Auto-inițializare bază de date la pornirea aplicației
 # -------------------------
 try:
-    print("🔄 Verificare și inițializare bază de date...")
+    print("\n" + "="*60)
+    print("🔄 AUTO-INIȚIALIZARE BAZĂ DE DATE")
+    print("="*60)
+    print(f"📂 Database path: {DATABASE}")
+    print(f"📂 Current directory: {os.getcwd()}")
+    
+    # Verifică dacă fișierul DB există
+    db_exists = os.path.exists(DATABASE)
+    print(f"📊 Database exists: {db_exists}")
+    
     init_db()
+    
+    print("="*60)
+    print("✅ AUTO-INIȚIALIZARE COMPLETĂ")
+    print("="*60 + "\n")
 except Exception as e:
-    print(f"⚠️ Eroare la inițializarea bazei de date: {str(e)}")
-    print("   Aplicația va continua, dar funcționalitatea poate fi limitată.")
+    print("\n" + "="*60)
+    print(f"❌ EROARE LA INIȚIALIZAREA BAZEI DE DATE")
+    print("="*60)
+    print(f"Eroare: {str(e)}")
+    import traceback
+    traceback.print_exc()
+    print("="*60)
+    print("⚠️  Aplicația va continua, dar funcționalitatea poate fi limitată.")
+    print("="*60 + "\n")
 
 # -------------------------
 # Funcții helper
@@ -634,6 +664,19 @@ def register():
         
     except Exception as e:
         print(f"❌ Eroare înregistrare: {str(e)}")
+        print(f"📊 Tip eroare: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
+        
+        # Verifică dacă e eroare de tabel lipsă
+        if "no such table" in str(e).lower():
+            print("⚠️  EROARE: Tabela nu există! Încerc re-inițializare...")
+            try:
+                init_db()
+                print("✅ Re-inițializare reușită! Încearcă din nou înregistrarea.")
+            except Exception as init_error:
+                print(f"❌ Re-inițializare eșuată: {str(init_error)}")
+        
         lang = get_language()
         return jsonify({
             'success': False,
