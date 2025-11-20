@@ -6,6 +6,17 @@
 // Extinde API Client cu funcționalități noi
 if (window.API) {
     // ============================================
+    // PROFIL UTILIZATOR
+    // ============================================
+    
+    window.API.updateAvatar = async function(base64Image) {
+        return this.request('/user/avatar', {
+            method: 'PUT',
+            body: JSON.stringify({ avatar: base64Image })
+        });
+    };
+    
+    // ============================================
     // COMENZI COMPLETE
     // ============================================
     
