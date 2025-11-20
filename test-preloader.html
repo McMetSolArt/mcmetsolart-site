@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Preloader - MC MetSolArt</title>
+    <link rel="stylesheet" href="css/preloader.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #176f87;
+            margin-bottom: 20px;
+        }
+        
+        .test-info {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: #176f87;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #135a6d;
+        }
+        
+        .status {
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        
+        .navbar-mock {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+        
+        .navbar-logo {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .navbar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            
+            <div class="preloader-logo">
+                <img src="images/Logo.png" alt="MC MetSolArt Logo">
+            </div>
+            
+            <div class="preloader-text">
+                Încărcare<span class="loading-dots"></span>
+            </div>
+            
+            <div class="preloader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR MOCK (pentru a vedea tranziția) -->
+    <div class="navbar-mock">
+        <div class="navbar-logo">
+            <img src="images/Logo.png" alt="MC Logo">
+        </div>
+        <span style="margin-left: 15px; font-weight: bold; color: #176f87;">MC MetSolArt</span>
+    </div>
+
+    <!-- CONȚINUT PAGINĂ -->
+    <div class="test-container">
+        <h1>🧪 Test Preloader Profesional</h1>
+        
+        <div class="test-info">
+            <h3>📋 Instrucțiuni de testare:</h3>
+            <ol>
+                <li><strong>Reîmprospătează pagina</strong> (F5 sau Ctrl+F5) pentru a vedea preloader-ul</li>
+                <li>Observă animația logo-ului cu spinner-ul rotativ</li>
+                <li>După 1-2 secunde, logo-ul se va anima către navbar</li>
+                <li>Preloader-ul va dispărea smooth</li>
+            </ol>
+        </div>
+
+        <div class="test-buttons">
+            <button onclick="showPreloader()">🔄 Arată Preloader</button>
+            <button onclick="hidePreloader()">❌ Ascunde Preloader</button>
+            <button onclick="updateText()">📝 Schimbă Text</button>
+            <button onclick="updateProgress()">📊 Actualizează Progres</button>
+        </div>
+
+        <div class="status" id="status">
+            Status: Gata pentru testare
+        </div>
+
+        <div class="test-info">
+            <h3>✨ Caracteristici:</h3>
+            <ul>
+                <li>✅ Logo MC cu 3 inele rotative</li>
+                <li>✅ Animație float pentru logo</li>
+                <li>✅ Text cu puncte animate</li>
+                <li>✅ Bară de progres</li>
+                <li>✅ Tranziție smooth către navbar</li>
+                <li>✅ Responsive design</li>
+                <li>✅ Dark mode support</li>
+            </ul>
+        </div>
+
+        <div class="test-info">
+            <h3>🎨 Personalizare:</h3>
+            <p>Editează <code>css/preloader.css</code> pentru a schimba:</p>
+            <ul>
+                <li>Culorile spinner-ului</li>
+                <li>Viteza animațiilor</li>
+                <li>Dimensiunile logo-ului</li>
+                <li>Durata tranziției</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/preloader.js"></script>
+    <script>
+        // Funcții de test
+        function showPreloader() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.remove('loaded', 'transitioning');
+                preloader.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                updateStatus('Preloader afișat');
+            }
+        }
+
+        function hidePreloader() {
+            if (window.PreloaderAPI) {
+                window.PreloaderAPI.hide();
+                updateStatus('Preloader ascuns manual');
+            }
+        }
+
+        function updateText() {
+            if (window.PreloaderAPI) {
+                const texts = ['Conectare...', 'Încărcare date...', 'Aproape gata...', 'Finalizare...'];
+                const randomText = texts[Math.floor(Math.random() * texts.length)];
+                window.PreloaderAPI.updateText(randomText);
+                updateStatus('Text actualizat: ' + randomText);
+            }
+        }
+
+        function updateProgress() {
+            if (window.PreloaderAPI) {
+                const progress = Math.floor(Math.random() * 100);
+                window.PreloaderAPI.updateProgress(progress);
+                updateStatus('Progres actualizat: ' + progress + '%');
+            }
+        }
+
+        function updateStatus(message) {
+            const status = document.getElementById('status');
+            const timestamp = new Date().toLocaleTimeString();
+            status.textContent = `[${timestamp}] ${message}`;
+        }
+
+        // Ascultă evenimentul de ascundere
+        window.addEventListener('preloaderHidden', () => {
+            updateStatus('Preloader ascuns - eveniment declanșat');
+        });
+
+        // Simulează încărcare lentă pentru testare
+        console.log('🧪 Pagină de test preloader încărcată');
+        console.log('💡 Reîmprospătează pagina pentru a vedea preloader-ul în acțiune');
+    </script>
+</body>
+</html>
