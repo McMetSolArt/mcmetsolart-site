@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="css/scroll-fix.css">
     <!-- Mobile Fix -->
     <link rel="stylesheet" href="css/mobile-fix.css">
+    <!-- Preloader -->
+    <link rel="stylesheet" href="css/preloader.css">
 
     <!-- No Bars - ULTIMUL - Elimină toate barele -->
     <link rel="stylesheet" href="css/no-bars.css">
@@ -39,6 +41,38 @@
 </head>
 
 <body>
+    <!-- ============================================
+         PRELOADER - Afișat în timpul încărcării
+         ============================================ -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <!-- Spinner rotativ -->
+            <div class="preloader-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            
+            <!-- Logo MC -->
+            <div class="preloader-logo">
+                <img src="images/Logo.png" alt="MC MetSolArt Logo">
+            </div>
+            
+            <!-- Text încărcare -->
+            <div class="preloader-text">
+                Încărcare<span class="loading-dots"></span>
+            </div>
+            
+            <!-- Bară progres (opțional) -->
+            <div class="preloader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================
+         SFÂRȘIT PRELOADER
+         ============================================ -->
+
     <!-- Header -->
     <header class="header-main">
         <div class="header-container">
@@ -768,6 +802,9 @@
     <script src="js/translations-account-extended.js"></script>
 
     <!-- Core Scripts -->
+    <!-- Preloader - PRIMUL script care se încarcă -->
+    <script src="js/preloader.js"></script>
+    
     <script src="js/hamburger-menu.js"></script>
     <script src="js/page-transitions.js"></script>
     <script src="js/script.js"></script>
