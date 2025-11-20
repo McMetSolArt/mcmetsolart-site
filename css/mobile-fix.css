@@ -365,3 +365,54 @@ html.dark .hero p,
         -webkit-overflow-scrolling: touch !important;
     }
 }
+
+
+/* ============================================
+   LOGIN SIDEBAR - FIX BUTON CLOSE PE MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Buton close mai mare și mai vizibil pe mobile */
+    .sidebar-close {
+        width: 48px !important;
+        height: 48px !important;
+        top: 1rem !important;
+        right: 1rem !important;
+        background: rgba(239, 68, 68, 0.9) !important;
+        border: 2px solid white !important;
+        color: white !important;
+        font-size: 1.5rem !important;
+        z-index: 99999 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .sidebar-close:active {
+        transform: scale(0.95) !important;
+        background: rgba(220, 38, 38, 1) !important;
+    }
+    
+    /* Asigură că overlay-ul nu blochează butonul */
+    .sidebar-overlay {
+        z-index: 9998 !important;
+    }
+    
+    /* Sidebar peste overlay */
+    .login-sidebar {
+        z-index: 9999 !important;
+    }
+    
+    /* Header sidebar cu z-index corect */
+    .sidebar-header {
+        position: relative !important;
+        z-index: 10 !important;
+    }
+}
+
+/* Telefoane foarte mici */
+@media (max-width: 480px) {
+    .sidebar-close {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.3rem !important;
+    }
+}
