@@ -33,7 +33,7 @@
 .preloader-logo {
     width: 100px;
     height: 100px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     position: relative;
     animation: logoFadeIn 0.6s ease-out;
 }
@@ -56,35 +56,70 @@
     }
 }
 
-/* Spinner minimalist sub logo */
+/* Animație construcție cupolă */
 .preloader-spinner {
     position: relative;
-    width: 40px;
-    height: 40px;
-    margin: 25px auto 0;
+    width: 120px;
+    height: 60px;
+    margin: 0 auto;
 }
 
-.spinner-ring {
+/* Cupolă în construcție - segmente care apar progresiv */
+.dome-segment {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #f0f0f0;
-    border-top-color: #176f87;
-    border-radius: 50%;
-    animation: spinRotate 0.8s linear infinite;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom center;
+    border: 2px solid #176f87;
+    border-bottom: none;
+    opacity: 0;
+    animation: buildDome 2s ease-in-out infinite;
 }
 
-.spinner-ring:nth-child(2),
-.spinner-ring:nth-child(3) {
-    display: none;
+/* Segment 1 - Baza (cel mai lat) */
+.dome-segment:nth-child(1) {
+    width: 120px;
+    height: 20px;
+    margin-left: -60px;
+    border-radius: 60px 60px 0 0;
+    animation-delay: 0s;
 }
 
-@keyframes spinRotate {
+/* Segment 2 - Mijloc */
+.dome-segment:nth-child(2) {
+    width: 90px;
+    height: 30px;
+    margin-left: -45px;
+    border-radius: 45px 45px 0 0;
+    animation-delay: 0.3s;
+}
+
+/* Segment 3 - Vârf */
+.dome-segment:nth-child(3) {
+    width: 60px;
+    height: 40px;
+    margin-left: -30px;
+    border-radius: 30px 30px 0 0;
+    animation-delay: 0.6s;
+}
+
+/* Animație construcție progresivă */
+@keyframes buildDome {
     0% {
-        transform: rotate(0deg);
+        opacity: 0;
+        transform: translateY(10px) scaleY(0);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
     }
     100% {
-        transform: rotate(360deg);
+        opacity: 0;
+        transform: translateY(-5px) scaleY(0.8);
     }
 }
 
@@ -134,26 +169,24 @@
    ANIMAȚIE TRANZIȚIE CĂTRE NAVBAR
    ============================================ */
 
-/* Când pagina e gata, logo-ul se mută în navbar */
+/* Când pagina e gata, logo-ul se retrage în centrul navbar-ului */
 #preloader.transitioning {
     background: transparent;
     pointer-events: none;
 }
 
 #preloader.transitioning .preloader-content {
-    animation: moveToNavbar 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    animation: moveToNavbarCenter 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
-@keyframes moveToNavbar {
+@keyframes moveToNavbarCenter {
     0% {
         transform: translate(0, 0) scale(1);
         opacity: 1;
     }
     100% {
-        transform: translate(
-            calc(-50vw + 80px), 
-            calc(-50vh + 40px)
-        ) scale(0.4);
+        /* Se mută în centrul navbar-ului (top center) */
+        transform: translate(0, calc(-50vh + 40px)) scale(0.5);
         opacity: 0;
     }
 }
@@ -172,35 +205,33 @@
 
 @media (max-width: 768px) {
     .preloader-logo {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
+        margin-bottom: 25px;
     }
     
     .preloader-spinner {
-        width: 140px;
-        height: 140px;
-    }
-    
-    .spinner-ring:nth-child(2) {
-        width: 120px;
-        height: 120px;
-        top: 10px;
-        left: 10px;
-    }
-    
-    .spinner-ring:nth-child(3) {
         width: 100px;
-        height: 100px;
-        top: 20px;
-        left: 20px;
+        height: 50px;
+    }
+    
+    .dome-segment:nth-child(1) {
+        width: 100px;
+        margin-left: -50px;
+    }
+    
+    .dome-segment:nth-child(2) {
+        width: 75px;
+        margin-left: -37.5px;
+    }
+    
+    .dome-segment:nth-child(3) {
+        width: 50px;
+        margin-left: -25px;
     }
     
     .preloader-text {
-        font-size: 14px;
-    }
-    
-    .preloader-progress {
-        width: 150px;
+        font-size: 12px;
     }
 }
 
@@ -208,16 +239,34 @@
     .preloader-logo {
         width: 80px;
         height: 80px;
+        margin-bottom: 20px;
     }
     
     .preloader-spinner {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 40px;
+    }
+    
+    .dome-segment:nth-child(1) {
+        width: 80px;
+        margin-left: -40px;
+        height: 16px;
+    }
+    
+    .dome-segment:nth-child(2) {
+        width: 60px;
+        margin-left: -30px;
+        height: 24px;
+    }
+    
+    .dome-segment:nth-child(3) {
+        width: 40px;
+        margin-left: -20px;
+        height: 32px;
     }
     
     .preloader-text {
-        font-size: 12px;
-        letter-spacing: 1px;
+        font-size: 11px;
     }
 }
 
