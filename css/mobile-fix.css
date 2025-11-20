@@ -337,3 +337,31 @@ html.dark .hero p,
         display: none !important;
     }
 }
+
+
+/* ============================================
+   LOGIN MODAL - FIX MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Asigură că modal-ul e vizibil complet pe mobile */
+    .login-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow-y: auto !important;
+        z-index: 9999 !important;
+    }
+    
+    /* Sidebar content scrollable */
+    .sidebar-content {
+        max-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+}

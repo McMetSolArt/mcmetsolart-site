@@ -10,6 +10,15 @@ if (window.API) {
     // ============================================
     
     window.API.updateAvatar = async function(base64Image) {
+        // Asigură-te că token-ul e actualizat
+        this.updateToken();
+        
+        // Verifică dacă avem token
+        if (!this.token) {
+            console.error('❌ Token lipsă la upload avatar');
+            throw new Error('Nu ești autentificat. Te rugăm să te loghezi din nou.');
+        }
+        
         return this.request('/user/avatar', {
             method: 'PUT',
             body: JSON.stringify({ avatar: base64Image })
