@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Funcționalitate Completă - MC MetSolArt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #176f87;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #176f87;
+        }
+        
+        .test-section h2 {
+            color: #176f87;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .success {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        
+        .error {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+        
+        .info {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: #176f87;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #135a6d;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .badge-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .badge-error {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .badge-warning {
+            background: #f59e0b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Funcționalitate Completă - MC MetSolArt</h1>
+        
+        <!-- Test 1: Backend Connection -->
+        <div class="test-section">
+            <h2>1. Conexiune Backend <span id="backend-status" class="status-badge badge-warning">TESTING...</span></h2>
+            <button onclick="testBackend()">🔄 Test Backend</button>
+            <div id="backend-result"></div>
+        </div>
+        
+        <!-- Test 2: API Client -->
+        <div class="test-section">
+            <h2>2. API Client <span id="api-status" class="status-badge badge-warning">TESTING...</span></h2>
+            <button onclick="testAPIClient()">🔄 Test API Client</button>
+            <div id="api-result"></div>
+        </div>
+        
+        <!-- Test 3: LocalStorage -->
+        <div class="test-section">
+            <h2>3. LocalStorage <span id="storage-status" class="status-badge badge-warning">TESTING...</span></h2>
+            <button onclick="testLocalStorage()">🔄 Test LocalStorage</button>
+            <div id="storage-result"></div>
+        </div>
+        
+        <!-- Test 4: Authentication -->
+        <div class="test-section">
+            <h2>4. Autentificare <span id="auth-status" class="status-badge badge-warning">PENDING</span></h2>
+            <button onclick="testRegister()">📝 Test Înregistrare</button>
+            <button onclick="testLogin()">🔐 Test Login</button>
+            <div id="auth-result"></div>
+        </div>
+        
+        <!-- Test 5: Session -->
+        <div class="test-section">
+            <h2>5. Sesiune <span id="session-status" class="status-badge badge-warning">PENDING</span></h2>
+            <button onclick="testSession()">🔄 Test Sesiune</button>
+            <div id="session-result"></div>
+        </div>
+        
+        <!-- Test 6: Scripts Loading -->
+        <div class="test-section">
+            <h2>6. Scripturi Încărcate <span id="scripts-status" class="status-badge badge-warning">TESTING...</span></h2>
+            <button onclick="testScripts()">🔄 Test Scripturi</button>
+            <div id="scripts-result"></div>
+        </div>
+        
+        <!-- Run All Tests -->
+        <div style="text-align: center; margin-top: 40px;">
+            <button onclick="runAllTests()" style="background: #10b981; font-size: 18px; padding: 15px 40px;">
+                ▶️ Rulează Toate Testele
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Test 1: Backend Connection
+        async function testBackend() {
+            const resultDiv = document.getElementById('backend-result');
+            const statusBadge = document.getElementById('backend-status');
+            resultDiv.innerHTML = '<div class="test-result info">⏳ Testare conexiune backend...</div>';
+            
+            try {
+                const response = await fetch('https://mcmetsolart-site-5.onrender.com/api/health');
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            ✅ Backend funcționează!<br>
+                            Status: ${data.status}<br>
+                            Database: ${data.database}<br>
+                            Message: ${data.message}
+                        </div>
+                    `;
+                    statusBadge.textContent = 'OK';
+                    statusBadge.className = 'status-badge badge-success';
+                } else {
+                    throw new Error('Backend răspunde dar cu eroare');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        ❌ Eroare backend: ${error.message}
+                    </div>
+                `;
+                statusBadge.textContent = 'ERROR';
+                statusBadge.className = 'status-badge badge-error';
+            }
+        }
+        
+        // Test 2: API Client
+        function testAPIClient() {
+            const resultDiv = document.getElementById('api-result');
+            const statusBadge = document.getElementById('api-status');
+            
+            const checks = [];
+            
+            // Check if window.API exists
+            if (typeof window.API !== 'undefined') {
+                checks.push('✅ window.API există');
+            } else {
+                checks.push('❌ window.API LIPSĂ');
+            }
+            
+            // Check API methods
+            const methods = ['login', 'register', 'getProfile', 'updateProfile', 'updateAvatar'];
+            methods.forEach(method => {
+                if (window.API && typeof window.API[method] === 'function') {
+                    checks.push(`✅ API.${method}() există`);
+                } else {
+                    checks.push(`❌ API.${method}() LIPSĂ`);
+                }
+            });
+            
+            // Check baseURL
+            if (window.API && window.API.baseURL) {
+                checks.push(`✅ API baseURL: ${window.API.baseURL}`);
+            } else {
+                checks.push('❌ API baseURL LIPSĂ');
+            }
+            
+            const hasErrors = checks.some(c => c.includes('❌'));
+            
+            resultDiv.innerHTML = `
+                <div class="test-result ${hasErrors ? 'error' : 'success'}">
+                    ${checks.join('<br>')}
+                </div>
+            `;
+            
+            statusBadge.textContent = hasErrors ? 'ERROR' : 'OK';
+            statusBadge.className = `status-badge ${hasErrors ? 'badge-error' : 'badge-success'}`;
+        }
+        
+        // Test 3: LocalStorage
+        function testLocalStorage() {
+            const resultDiv = document.getElementById('storage-result');
+            const statusBadge = document.getElementById('storage-status');
+            
+            try {
+                // Test write
+                localStorage.setItem('test_key', 'test_value');
+                
+                // Test read
+                const value = localStorage.getItem('test_key');
+                
+                // Test delete
+                localStorage.removeItem('test_key');
+                
+                // Check existing data
+                const currentUser = localStorage.getItem('currentUser');
+                const authToken = localStorage.getItem('authToken');
+                
+                resultDiv.innerHTML = `
+                    <div class="test-result success">
+                        ✅ LocalStorage funcționează!<br>
+                        currentUser: ${currentUser ? 'EXISTĂ' : 'LIPSĂ'}<br>
+                        authToken: ${authToken ? 'EXISTĂ (' + authToken.substring(0, 20) + '...)' : 'LIPSĂ'}
+                    </div>
+                `;
+                
+                statusBadge.textContent = 'OK';
+                statusBadge.className = 'status-badge badge-success';
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        ❌ Eroare localStorage: ${error.message}
+                    </div>
+                `;
+                statusBadge.textContent = 'ERROR';
+                statusBadge.className = 'status-badge badge-error';
+            }
+        }
+        
+        // Test 4: Register
+        async function testRegister() {
+            const resultDiv = document.getElementById('auth-result');
+            const statusBadge = document.getElementById('auth-status');
+            resultDiv.innerHTML = '<div class="test-result info">⏳ Testare înregistrare...</div>';
+            
+            try {
+                if (!window.API) {
+                    throw new Error('API Client nu este disponibil');
+                }
+                
+                const testUser = {
+                    email: `test${Date.now()}@example.com`,
+                    password: 'test123',
+                    firstName: 'Test',
+                    lastName: 'User',
+                    language: 'ro'
+                };
+                
+                const response = await window.API.register(testUser);
+                
+                if (response && response.success) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            ✅ Înregistrare reușită!<br>
+                            Email: ${testUser.email}<br>
+                            Token: ${response.data.token ? response.data.token.substring(0, 30) + '...' : 'LIPSĂ'}
+                        </div>
+                    `;
+                    statusBadge.textContent = 'OK';
+                    statusBadge.className = 'status-badge badge-success';
+                } else {
+                    throw new Error(response.message || 'Înregistrare eșuată');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        ❌ Eroare înregistrare: ${error.message}
+                    </div>
+                `;
+                statusBadge.textContent = 'ERROR';
+                statusBadge.className = 'status-badge badge-error';
+            }
+        }
+        
+        // Test 5: Login
+        async function testLogin() {
+            const resultDiv = document.getElementById('auth-result');
+            const statusBadge = document.getElementById('auth-status');
+            resultDiv.innerHTML = '<div class="test-result info">⏳ Testare login...</div>';
+            
+            // Use the test user created in register
+            const testEmail = prompt('Email pentru test login:', 'test@example.com');
+            const testPassword = prompt('Parolă pentru test login:', 'test123');
+            
+            if (!testEmail || !testPassword) {
+                resultDiv.innerHTML = '<div class="test-result error">❌ Email sau parolă lipsă</div>';
+                return;
+            }
+            
+            try {
+                if (!window.API) {
+                    throw new Error('API Client nu este disponibil');
+                }
+                
+                const response = await window.API.login({
+                    email: testEmail,
+                    password: testPassword
+                });
+                
+                if (response && response.success) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            ✅ Login reușit!<br>
+                            User: ${response.data.user.firstName} ${response.data.user.lastName}<br>
+                            Token: ${response.data.token ? response.data.token.substring(0, 30) + '...' : 'LIPSĂ'}
+                        </div>
+                    `;
+                    statusBadge.textContent = 'OK';
+                    statusBadge.className = 'status-badge badge-success';
+                } else {
+                    throw new Error(response.message || 'Login eșuat');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        ❌ Eroare login: ${error.message}
+                    </div>
+                `;
+                statusBadge.textContent = 'ERROR';
+                statusBadge.className = 'status-badge badge-error';
+            }
+        }
+        
+        // Test 6: Session
+        function testSession() {
+            const resultDiv = document.getElementById('session-result');
+            const statusBadge = document.getElementById('session-status');
+            
+            const currentUser = localStorage.getItem('currentUser');
+            const authToken = localStorage.getItem('authToken');
+            
+            if (currentUser && authToken) {
+                try {
+                    const user = JSON.parse(currentUser);
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            ✅ Sesiune activă!<br>
+                            User: ${user.firstName} ${user.lastName}<br>
+                            Email: ${user.email}<br>
+                            Token: ${authToken.substring(0, 30)}...
+                        </div>
+                    `;
+                    statusBadge.textContent = 'ACTIVE';
+                    statusBadge.className = 'status-badge badge-success';
+                } catch (error) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result error">
+                            ❌ Eroare parsare sesiune: ${error.message}
+                        </div>
+                    `;
+                    statusBadge.textContent = 'ERROR';
+                    statusBadge.className = 'status-badge badge-error';
+                }
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="test-result info">
+                        ℹ️ Nu există sesiune activă
+                    </div>
+                `;
+                statusBadge.textContent = 'NONE';
+                statusBadge.className = 'status-badge badge-warning';
+            }
+        }
+        
+        // Test 7: Scripts
+        function testScripts() {
+            const resultDiv = document.getElementById('scripts-result');
+            const statusBadge = document.getElementById('scripts-status');
+            
+            const scripts = [
+                { name: 'window.API', exists: typeof window.API !== 'undefined' },
+                { name: 'window.CONFIG', exists: typeof window.CONFIG !== 'undefined' },
+                { name: 'window.translations', exists: typeof window.translations !== 'undefined' },
+                { name: 'window.AccountPanel', exists: typeof window.AccountPanel !== 'undefined' }
+            ];
+            
+            const checks = scripts.map(s => 
+                s.exists ? `✅ ${s.name} încărcat` : `❌ ${s.name} LIPSĂ`
+            );
+            
+            const hasErrors = scripts.some(s => !s.exists);
+            
+            resultDiv.innerHTML = `
+                <div class="test-result ${hasErrors ? 'error' : 'success'}">
+                    ${checks.join('<br>')}
+                </div>
+            `;
+            
+            statusBadge.textContent = hasErrors ? 'ERROR' : 'OK';
+            statusBadge.className = `status-badge ${hasErrors ? 'badge-error' : 'badge-success'}`;
+        }
+        
+        // Run all tests
+        async function runAllTests() {
+            await testBackend();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            testAPIClient();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            testLocalStorage();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            testSession();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            testScripts();
+        }
+        
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>
