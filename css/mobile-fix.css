@@ -433,3 +433,58 @@ html.dark .hero p,
         font-size: 1.3rem !important;
     }
 }
+
+
+/* ============================================
+   USER DROPDOWN - POZIȚIONARE CORECTĂ PE MOBILE
+   ============================================ */
+
+@media (max-width: 1024px) {
+    /* Container user menu - poziționare relativă */
+    .user-menu-container {
+        position: relative !important;
+    }
+    
+    /* Dropdown aliniat la dreapta, nu iese din ecran */
+    .user-menu-container .user-dropdown-menu {
+        position: absolute !important;
+        right: 0 !important;
+        left: auto !important;
+        top: calc(100% + 0.5rem) !important;
+        min-width: 260px !important;
+        max-width: calc(100vw - 20px) !important;
+        transform-origin: top right !important;
+    }
+    
+    /* Asigură că dropdown-ul e vizibil complet */
+    .user-menu-container .user-dropdown-menu.active {
+        transform: translateY(0) scale(1) !important;
+    }
+}
+
+/* Telefoane mici - dropdown mai compact */
+@media (max-width: 480px) {
+    .user-menu-container .user-dropdown-menu {
+        min-width: 240px !important;
+        right: -10px !important;
+    }
+    
+    .user-dropdown-item {
+        padding: 0.875rem 1.25rem !important;
+        font-size: 0.9375rem !important;
+    }
+    
+    .user-dropdown-item i {
+        font-size: 1rem !important;
+    }
+}
+
+/* Foarte mici - dropdown aproape full width */
+@media (max-width: 380px) {
+    .user-menu-container .user-dropdown-menu {
+        right: 0 !important;
+        left: 10px !important;
+        min-width: auto !important;
+        width: calc(100vw - 20px) !important;
+    }
+}
