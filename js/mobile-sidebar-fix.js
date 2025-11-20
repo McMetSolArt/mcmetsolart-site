@@ -1,12 +1,39 @@
 /**
  * MOBILE SIDEBAR FIX
  * Asigură că butonul de închidere funcționează pe mobile
+ * ȘI că sidebar-ul NU se deschide automat
  */
 
 (function() {
     'use strict';
     
     console.log('📱 Mobile Sidebar Fix - Inițializare');
+    
+    // FORȚEAZĂ închiderea sidebar-ului la încărcarea paginii
+    function forceHideSidebarOnLoad() {
+        const loginSidebar = document.getElementById('loginSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        if (loginSidebar) {
+            loginSidebar.classList.remove('active', 'expanding', 'full-page');
+            loginSidebar.style.display = 'none'; // Forțează ascundere
+            setTimeout(() => {
+                loginSidebar.style.display = ''; // Resetează după 100ms
+            }, 100);
+        }
+        
+        if (sidebarOverlay) {
+            sidebarOverlay.classList.remove('active');
+        }
+        
+        document.documentElement.classList.remove('no-scroll');
+        document.body.classList.remove('no-scroll');
+        
+        console.log('✅ Sidebar forțat ascuns la încărcare');
+    }
+    
+    // Rulează IMEDIAT
+    forceHideSidebarOnLoad();
     
     function initMobileSidebarFix() {
         const sidebarClose = document.getElementById('sidebarClose');

@@ -368,6 +368,23 @@ html.dark .hero p,
 
 
 /* ============================================
+   LOGIN SIDEBAR - ASCUNS BY DEFAULT
+   ============================================ */
+
+/* Asigură că sidebar-ul e ascuns la încărcare */
+.login-sidebar:not(.active) {
+    transform: translateX(100%) !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+.sidebar-overlay:not(.active) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* ============================================
    LOGIN SIDEBAR - FIX BUTON CLOSE PE MOBILE
    ============================================ */
 
