@@ -246,3 +246,94 @@ html.dark .hero p,
         }
     }
 }
+
+
+/* ============================================
+   USER MENU - RESPONSIVE FIX
+   ============================================ */
+
+/* Pe tabletă și mobile - ascunde numele, arată doar avatar */
+@media (max-width: 1024px) {
+    /* User menu trigger - compact */
+    .user-menu-trigger {
+        padding: 0.4rem !important;
+        min-width: auto !important;
+        gap: 0 !important;
+    }
+    
+    /* Ascunde numele utilizatorului pe mobile/tablet */
+    .user-name-main {
+        display: none !important;
+    }
+    
+    /* Ascunde chevron-ul pe mobile/tablet */
+    .user-menu-trigger .fa-chevron-down {
+        display: none !important;
+    }
+    
+    /* Avatar mai mic și rotund */
+    .user-avatar-main {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        border: 2px solid #176f87 !important;
+    }
+    
+    /* Butoane temă și limbă - mai compacte */
+    .theme-toggle-btn,
+    .language-btn {
+        padding: 0.5rem !important;
+        min-width: auto !important;
+    }
+    
+    /* Ascunde textul din butonul de limbă pe mobile */
+    .current-lang-name {
+        display: none !important;
+    }
+    
+    /* Păstrează doar codul limbii */
+    .current-lang-code {
+        display: inline !important;
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+    }
+}
+
+/* Pe telefoane foarte mici - și mai compact */
+@media (max-width: 480px) {
+    .header-actions {
+        gap: 0.3rem !important;
+    }
+    
+    .user-avatar-main {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    
+    .theme-toggle-btn,
+    .language-btn {
+        padding: 0.4rem !important;
+    }
+    
+    /* Iconițe mai mici */
+    .theme-toggle-btn svg,
+    .language-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
+
+/* Desktop - arată numele complet */
+@media (min-width: 1025px) {
+    .user-name-main {
+        display: inline !important;
+    }
+    
+    .current-lang-name {
+        display: inline !important;
+    }
+    
+    .current-lang-code {
+        display: none !important;
+    }
+}
