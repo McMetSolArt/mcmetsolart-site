@@ -3,8 +3,8 @@ services:
     name: mcmetsolart
     env: python
     plan: free
-    buildCommand: cd McMetSolArtBackend && pip install -r requirements.txt
-    startCommand: cd McMetSolArtBackend && gunicorn --workers 4 --bind 0.0.0.0:$PORT app:app
+    buildCommand: pip install -r McMetSolArtBackend/requirements.txt
+    startCommand: gunicorn --workers 4 --bind 0.0.0.0:$PORT --chdir McMetSolArtBackend app:app
     envVars:
       - key: DATABASE
         value: mc_metsolart.db
