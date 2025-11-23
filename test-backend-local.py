@@ -1,40 +1,40 @@
 #!/usr/bin/env python3
 """
-Test rapid backend local pentru a vedea erorile
+Test rapid pentru backend - verifica daca merge totul
 """
 
 import sys
 import os
 
-# Add backend to path
+# Adauga backend in path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'McMetSolArtBackend'))
 
-print("🧪 Testing backend imports...")
+print("Testez backend-ul...")
 
 try:
-    print("1. Testing translations import...")
+    print("1. Verific translations...")
     from translations import t
-    print("   ✅ translations.py OK")
+    print("   OK - translations.py merge")
     print(f"   Test: {t('success', 'ro')}")
 except Exception as e:
-    print(f"   ❌ translations.py FAILED: {e}")
+    print(f"   Eroare la translations.py: {e}")
 
 try:
-    print("\n2. Testing email_service import...")
+    print("\n2. Verific email_service...")
     from email_service import send_contact_email, send_order_notification_email
-    print("   ✅ email_service.py OK")
+    print("   OK - email_service.py merge")
 except Exception as e:
-    print(f"   ❌ email_service.py FAILED: {e}")
+    print(f"   Eroare la email_service.py: {e}")
 
 try:
-    print("\n3. Testing Flask app import...")
+    print("\n3. Verific Flask app...")
     from app import app, init_db
-    print("   ✅ app.py OK")
+    print("   OK - app.py merge")
 except Exception as e:
-    print(f"   ❌ app.py FAILED: {e}")
+    print(f"   Eroare la app.py: {e}")
     import traceback
     traceback.print_exc()
 
-print("\n✅ All imports successful!")
-print("\n🚀 Starting test server...")
-print("   Run: cd McMetSolArtBackend && python app.py")
+print("\nTot merge bine!")
+print("\nPorneste serverul cu:")
+print("   cd McMetSolArtBackend && python app.py")
