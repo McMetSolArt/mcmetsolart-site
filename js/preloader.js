@@ -1,63 +1,55 @@
-/**
- * PRELOADER PROFESIONAL CU LOGO MC
- * Gestionează încărcarea paginii și animația de tranziție
- */
+// Preloader cu logo si animatie
+// Se ocupa de ecranul de incarcare
 
 (function() {
     'use strict';
     
-    // Configurare
+    // Setari
     const CONFIG = {
-        minDisplayTime: 1000,      // Timp minim de afișare (ms)
-        transitionDuration: 800,   // Durată animație tranziție (ms)
-        fadeOutDuration: 500       // Durată fade out final (ms)
+        minDisplayTime: 1000,      // Cat sta minim pe ecran (ms)
+        transitionDuration: 800,   // Cat dureaza animatia (ms)
+        fadeOutDuration: 500       // Cat dureaza sa dispara (ms)
     };
     
     let startTime = Date.now();
     let isPageLoaded = false;
     let isPreloaderHidden = false;
     
-    /**
-     * Inițializare preloader
-     */
+    // Porneste preloader-ul
     function initPreloader() {
-        // Previne scroll în timpul încărcării
+        // Blocheaza scroll-ul cat se incarca
         document.body.style.overflow = 'hidden';
         
-        // Ascultă evenimentul de încărcare completă
+        // Asteapta sa se incarce tot
         if (document.readyState === 'complete') {
             onPageLoad();
         } else {
             window.addEventListener('load', onPageLoad);
         }
         
-        // Fallback - ascunde preloader-ul după 5 secunde oricum
+        // Daca dureaza prea mult, il ascunde oricum dupa 5 secunde
         setTimeout(() => {
             if (!isPreloaderHidden) {
-                console.warn('Preloader timeout - forțare ascundere');
+                console.warn('Preloader timeout - il ascund fortat');
                 hidePreloader();
             }
         }, 5000);
     }
     
-    /**
-     * Callback când pagina e complet încărcată
-     */
+    // Cand s-a incarcat tot
     function onPageLoad() {
         isPageLoaded = true;
         
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, CONFIG.minDisplayTime - elapsedTime);
         
-        // Așteaptă timpul minim de afișare
+        // Asteapta timpul minim
         setTimeout(() => {
             hidePreloader();
         }, remainingTime);
     }
     
-    /**
-     * Ascunde preloader-ul cu animație
-     */
+    // Ascunde preloader-ul
     function hidePreloader() {
         if (isPreloaderHidden) return;
         isPreloaderHidden = true;
@@ -65,17 +57,17 @@
         const preloader = document.getElementById('preloader');
         if (!preloader) return;
         
-        // Permite scroll
+        // Permite scroll din nou
         document.body.style.overflow = '';
         
-        // Animație de tranziție către navbar
+        // Animatie de tranzitie
         preloader.classList.add('transitioning');
         
-        // După animația de tranziție, fade out complet
+        // Dupa animatie, il scoate complet
         setTimeout(() => {
             preloader.classList.add('loaded');
             
-            // Elimină complet din DOM după fade out
+            // Il sterge din pagina
             setTimeout(() => {
                 if (preloader.parentNode) {
                     preloader.parentNode.removeChild(preloader);
@@ -84,13 +76,11 @@
             
         }, CONFIG.transitionDuration);
         
-        // Trigger event personalizat pentru alte scripturi
+        // Trimite event ca s-a ascuns
         window.dispatchEvent(new CustomEvent('preloaderHidden'));
     }
     
-    /**
-     * Actualizează textul de încărcare (opțional)
-     */
+    // Schimba textul (optional)
     function updateLoadingText(text) {
         const textElement = document.querySelector('.preloader-text');
         if (textElement) {
@@ -103,9 +93,7 @@
         }
     }
     
-    /**
-     * Actualizează progresul (opțional)
-     */
+    // Actualizeaza progresul (optional)
     function updateProgress(percent) {
         const progressBar = document.querySelector('.progress-bar');
         if (progressBar) {
@@ -114,14 +102,14 @@
         }
     }
     
-    // Inițializare la încărcarea scriptului
+    // Porneste cand se incarca scriptul
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initPreloader);
     } else {
         initPreloader();
     }
     
-    // Export funcții pentru uz extern (opțional)
+    // API pentru alte scripturi
     window.PreloaderAPI = {
         updateText: updateLoadingText,
         updateProgress: updateProgress,
@@ -130,14 +118,11 @@
     
 })();
 
-/**
- * INTEGRARE CU BACKEND
- * Monitorizează conexiunea la backend și actualizează statusul
- */
+// Verifica daca backend-ul merge
 (function() {
     'use strict';
     
-    // Verifică dacă backend-ul e disponibil
+    // Verifica statusul backend-ului
     async function checkBackendStatus() {
         try {
             const response = await fetch('/api/health', {
@@ -150,22 +135,22 @@
             
             if (response.ok) {
                 const data = await response.json();
-                console.log('✅ Backend conectat:', data);
+                console.log('Backend conectat:', data);
                 
                 if (window.PreloaderAPI) {
                     window.PreloaderAPI.updateText('Conectat');
                     window.PreloaderAPI.updateProgress(100);
                 }
             } else {
-                console.warn('⚠️ Backend răspunde cu eroare:', response.status);
+                console.warn('Backend raspunde cu eroare:', response.status);
             }
         } catch (error) {
-            console.warn('⚠️ Backend nu răspunde:', error.message);
-            // Nu blocăm încărcarea paginii dacă backend-ul nu răspunde
+            console.warn('Backend nu raspunde:', error.message);
+            // Nu blocam pagina daca backend-ul nu merge
         }
     }
     
-    // Verifică backend-ul după ce DOM-ul e gata
+    // Verifica backend-ul dupa ce s-a incarcat pagina
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(checkBackendStatus, 500);
