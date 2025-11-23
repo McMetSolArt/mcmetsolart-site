@@ -1,15 +1,11 @@
-/**
- * MOBILE SIDEBAR FIX
- * Asigură că butonul de închidere funcționează pe mobile
- * ȘI că sidebar-ul NU se deschide automat
- */
+// Fix pentru sidebar pe mobile - se asigura ca butonul X merge si ca nu se deschide singur
 
 (function() {
     'use strict';
     
-    console.log('📱 Mobile Sidebar Fix - Inițializare');
+    console.log('Mobile Sidebar Fix - pornit');
     
-    // FORȚEAZĂ închiderea sidebar-ului la încărcarea paginii
+    // Ascunde sidebar-ul cand se incarca pagina
     function forceHideSidebarOnLoad() {
         const loginSidebar = document.getElementById('loginSidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -29,10 +25,10 @@
         document.documentElement.classList.remove('no-scroll');
         document.body.classList.remove('no-scroll');
         
-        console.log('✅ Sidebar forțat ascuns la încărcare');
+        console.log('Sidebar ascuns la incarcare');
     }
     
-    // Rulează IMEDIAT
+    // Ruleaza imediat
     forceHideSidebarOnLoad();
     
     function initMobileSidebarFix() {
@@ -41,20 +37,20 @@
         const loginSidebar = document.getElementById('loginSidebar');
         
         if (!sidebarClose || !loginSidebar) {
-            console.warn('⚠️ Sidebar elements nu au fost găsite');
+            console.warn('Nu am gasit elementele sidebar');
             return;
         }
         
-        // Funcție de închidere forțată
+        // Inchide sidebar-ul fortat
         function forceCloseSidebar(e) {
             if (e) {
                 e.preventDefault();
                 e.stopPropagation();
             }
             
-            console.log('🔴 Închidere forțată sidebar');
+            console.log('Inchid sidebar fortat');
             
-            // Elimină toate clasele active
+            // Scoate toate clasele active
             if (loginSidebar) {
                 loginSidebar.classList.remove('active', 'expanding', 'full-page');
             }
@@ -67,28 +63,28 @@
             document.documentElement.classList.remove('no-scroll');
             document.body.classList.remove('no-scroll');
             
-            // Trigger event pentru alte scripturi
+            // Trimite event ca s-a inchis
             window.dispatchEvent(new CustomEvent('sidebarClosed'));
         }
         
-        // Adaugă event listener pe butonul close (cu priority)
+        // Pune listener pe butonul X
         sidebarClose.addEventListener('click', forceCloseSidebar, true);
         sidebarClose.addEventListener('touchend', forceCloseSidebar, true);
         
-        // Adaugă event listener pe overlay
+        // Si pe overlay
         if (sidebarOverlay) {
             sidebarOverlay.addEventListener('click', forceCloseSidebar);
             sidebarOverlay.addEventListener('touchend', forceCloseSidebar);
         }
         
-        // Escape key
+        // Escape inchide sidebar-ul
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && loginSidebar.classList.contains('active')) {
                 forceCloseSidebar(e);
             }
         });
         
-        // Swipe down pentru închidere pe mobile
+        // Swipe in jos inchide sidebar-ul
         let touchStartY = 0;
         let touchEndY = 0;
         
@@ -104,24 +100,24 @@
         }
         
         function handleSwipe() {
-            // Swipe down (de sus în jos) pentru a închide
+            // Daca dai swipe in jos, inchide
             if (touchEndY > touchStartY + 100) {
-                console.log('👆 Swipe down detectat - închidere sidebar');
+                console.log('Swipe in jos - inchid sidebar');
                 forceCloseSidebar();
             }
         }
         
-        console.log('✅ Mobile Sidebar Fix - Inițializat cu succes');
+        console.log('Mobile Sidebar Fix - gata');
     }
     
-    // Inițializare la încărcarea paginii
+    // Porneste cand se incarca pagina
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initMobileSidebarFix);
     } else {
         initMobileSidebarFix();
     }
     
-    // Re-inițializare după ce alte scripturi se încarcă
+    // Mai ruleaza o data dupa ce s-au incarcat toate scripturile
     window.addEventListener('load', function() {
         setTimeout(initMobileSidebarFix, 1000);
     });
