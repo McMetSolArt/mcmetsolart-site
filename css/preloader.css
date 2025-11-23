@@ -1,8 +1,6 @@
-/* ============================================
-   PRELOADER PROFESIONAL CU LOGO MC
-   ============================================ */
+/* Preloader cu logo */
 
-/* Overlay preloader - acoperă tot ecranul */
+/* Overlay peste tot ecranul */
 #preloader {
     position: fixed;
     top: 0;
@@ -17,19 +15,19 @@
     transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-/* Când pagina e încărcată */
+/* Cand s-a incarcat */
 #preloader.loaded {
     opacity: 0;
     visibility: hidden;
 }
 
-/* Container pentru logo și spinner */
+/* Container pentru logo si animatie */
 .preloader-content {
     text-align: center;
     position: relative;
 }
 
-/* Logo MC - simplu și elegant */
+/* Logo */
 .preloader-logo {
     width: 100px;
     height: 100px;
@@ -44,7 +42,7 @@
     object-fit: contain;
 }
 
-/* Animație fade in pentru logo */
+/* Animatie fade in */
 @keyframes logoFadeIn {
     0% {
         opacity: 0;
@@ -56,7 +54,7 @@
     }
 }
 
-/* Container animație construcție */
+/* Container animatie */
 .preloader-spinner {
     position: relative;
     width: 140px;
