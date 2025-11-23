@@ -1,0 +1,57 @@
+🚀 TRIGGER DEPLOY RENDER - Pași Rapizi
+
+1. Deschide: https://dashboard.render.com
+
+2. Găsește serviciul: mcmetsolart-site-5
+
+3. Click pe serviciu
+
+4. Opțiuni pentru deploy:
+
+   A. Auto-Deploy (dacă e activat):
+      - Render detectează automat commit-urile
+      - Așteaptă 2-3 minute
+      - Verifică tab "Events" pentru status
+
+   B. Manual Deploy:
+      - Click tab "Manual Deploy"
+      - Click "Deploy latest commit"
+      - Așteaptă 5-10 minute
+
+   C. Clear Build Cache (dacă ai probleme):
+      - Click tab "Manual Deploy"
+      - Click "Clear build cache & deploy"
+      - Așteaptă 10-15 minute
+
+5. Monitorizează în tab "Logs":
+   - Vei vedea procesul de build
+   - Așteaptă mesajul: "Your service is live 🎉"
+
+6. Verifică:
+   - Site: https://mcmetsolart-site-5.onrender.com
+   - API: https://mcmetsolart-site-5.onrender.com/api/health
+
+✅ GATA! Site-ul este actualizat!
+
+---
+
+PROBLEME COMUNE:
+
+1. "Build failed" → Verifică Logs pentru erori
+2. "Service unavailable" → Așteaptă 1-2 minute după deploy
+3. "Old version still showing" → Clear browser cache (Ctrl+F5)
+
+---
+
+COMENZI UTILE:
+
+Verifică status:
+curl https://mcmetsolart-site-5.onrender.com/api/health
+
+Test în browser:
+https://mcmetsolart-site-5.onrender.com
+
+---
+
+Data: 19 Noiembrie 2025
+Status: ✅ READY TO DEPLOY

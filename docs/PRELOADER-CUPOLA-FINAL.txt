@@ -1,0 +1,189 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║          ✨ PRELOADER CU ANIMAȚIE CONSTRUCȚIE CUPOLĂ - IMPLEMENTAT!          ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🎯 CONCEPT UNIC:
+
+În loc de o roată care se învârte, acum ai o CUPOLĂ care se CONSTRUIEȘTE!
+Perfect pentru business-ul tău de cupole decorative metalice! 🏛️
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏗️ ANIMAȚIA:
+
+┌─────────────────────────────────────┐
+│                                     │
+│          [MC LOGO]                  │
+│                                     │
+│            ╭───╮                    │  ← Segment 3 (vârf)
+│          ╭─────╮                    │  ← Segment 2 (mijloc)
+│        ╭─────────╮                  │  ← Segment 1 (bază)
+│       ─────────────                 │
+│                                     │
+│        Construim...                 │
+│                                     │
+└─────────────────────────────────────┘
+
+FAZE ANIMAȚIE:
+1. Logo MC apare (fade-in)
+2. Segment 1 (baza) se construiește de jos în sus
+3. Segment 2 (mijlocul) se adaugă
+4. Segment 3 (vârful) completează cupola
+5. Cupola dispare și ciclul se repetă
+6. Text: "Construim..." (în loc de "Încărcare...")
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 DESIGN:
+
+• Background: Alb curat (#ffffff)
+• Logo MC: 100px, centrat
+• Cupolă: 3 segmente animate (120px lățime)
+• Culoare: #176f87 (brand color)
+• Text: "Construim..." (relevant pentru business)
+• Animație: 2 secunde per ciclu, smooth și profesional
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 TRANZIȚIE ÎMBUNĂTĂȚITĂ:
+
+ÎNAINTE:
+   ❌ Logo se retrăgea în colțul stânga-sus
+   ❌ Poziție ciudată, nu se alinia cu navbar
+
+ACUM:
+   ✅ Logo se retrage în CENTRUL paginii
+   ✅ Exact unde va fi în navbar (centrat)
+   ✅ Tranziție smooth și naturală
+   ✅ Animație elegantă cu scale și fade
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚙️ DETALII TEHNICE:
+
+SEGMENTE CUPOLĂ:
+   Segment 1 (bază):   120px lățime, 20px înălțime
+   Segment 2 (mijloc):  90px lățime, 30px înălțime
+   Segment 3 (vârf):    60px lățime, 40px înălțime
+
+TIMING ANIMAȚIE:
+   Segment 1: 0s delay
+   Segment 2: 0.3s delay
+   Segment 3: 0.6s delay
+   Durată totală: 2s per ciclu
+
+ANIMAȚIE TRANZIȚIE:
+   - Mișcare: translateY (sus către navbar)
+   - Scale: 1 → 0.5 (se micșorează)
+   - Opacity: 1 → 0 (fade out)
+   - Durată: 0.8s
+   - Easing: cubic-bezier (smooth)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 RESPONSIVE:
+
+DESKTOP (>768px):
+   Logo: 100px
+   Cupolă: 120px lățime, 60px înălțime
+
+TABLET (768px):
+   Logo: 90px
+   Cupolă: 100px lățime, 50px înălțime
+
+MOBILE (480px):
+   Logo: 80px
+   Cupolă: 80px lățime, 40px înălțime
+   Segmente proporțional mai mici
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌙 DARK MODE:
+
+Preloader-ul se adaptează automat:
+   Light: Background alb, cupolă #176f87
+   Dark:  Background negru, cupolă #54b8d1 (mai luminoasă)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 DEPLOYMENT:
+
+Modificările sunt pe GitHub! ✅
+Render va redeploy-a automat în 2-3 minute.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 TESTARE:
+
+1. ACCESEAZĂ:
+   🌐 https://mcmetsolart-site-5.onrender.com
+
+2. REÎMPROSPĂTEAZĂ (F5)
+
+3. VEI VEDEA:
+   ✨ Logo MC apare
+   🏗️ Cupola se construiește segment cu segment
+   📝 Text "Construim..."
+   🎯 Logo se retrage în centrul navbar-ului
+   ✅ Tranziție smooth către pagină
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 DE CE E SPECIAL:
+
+1. RELEVANT PENTRU BUSINESS
+   Nu e o animație generică - e o CUPOLĂ care se construiește!
+   Perfect pentru MC MetSolArt - cupole decorative metalice
+
+2. PROFESIONAL ȘI UNIC
+   Nimeni altcineva nu are așa ceva
+   Arată atenție la detalii și creativitate
+
+3. SMOOTH ȘI ELEGANT
+   Nu e "busy" sau distragător
+   E minimalist dar memorabil
+
+4. TRANZIȚIE NATURALĂ
+   Logo-ul se retrage exact unde trebuie (centru navbar)
+   Nu mai e poziționat ciudat în colț
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST:
+
+[✓] Animație construcție cupolă (3 segmente)
+[✓] Text "Construim..." (relevant)
+[✓] Logo se retrage în centrul paginii
+[✓] Tranziție smooth către navbar
+[✓] Design minimalist și profesional
+[✓] Responsive pentru toate dispozitivele
+[✓] Dark mode support
+[✓] Commit și push efectuate
+[✓] Gata pentru Render deploy
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 PERSONALIZARE (OPȚIONAL):
+
+Vrei să ajustezi viteza?
+   css/preloader.css → animation: buildDome 2s (schimbă 2s)
+
+Vrei alte culori?
+   css/preloader.css → border: 2px solid #176f87 (schimbă culoarea)
+
+Vrei mai multe segmente?
+   Adaugă <div class="dome-segment"></div> în HTML
+   Adaugă CSS pentru .dome-segment:nth-child(4)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏱️  TIMP ESTIMAT: 2-3 minute până la deploy complet
+
+🎯 REZULTAT: Preloader unic și relevant pentru business-ul tău! 🏛️✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ PRELOADER CU CUPOLĂ - GATA ȘI FUNCȚIONAL! ✨
+
+Acum site-ul tău are o animație de încărcare care reflectă perfect
+ce faci: CONSTRUIEȘTI CUPOLE! 🏗️🏛️

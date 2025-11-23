@@ -1,0 +1,57 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    🔧 FIX HTTP 503 - APLICAT!                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+❌ PROBLEMA:
+   HTTP ERROR 503 - serviciul nu pornea pe Render
+   
+🔍 CAUZA:
+   Scriptul separat init_db.py eșua în buildCommand
+   
+✅ SOLUȚIA:
+   Inițializare automată a bazei de date direct în app.py la pornire
+   (mai simplu și mai sigur)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CE AM FĂCUT:
+
+1. ✅ Modificat app.py - adăugat auto-inițializare la pornire
+2. ✅ Simplificat render.yaml - eliminat scriptul problematic
+3. ✅ Commit și push efectuate
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏳ AȘTEAPTĂ 2-3 MINUTE:
+
+Render detectează automat push-ul și redeploy-ează serviciul.
+
+În Logs vei vedea:
+   🔄 Verificare și inițializare bază de date...
+   ✅ Baza de date inițializată cu succes!
+   📊 Tabele create: users, orders, order_items...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 VERIFICARE:
+
+După 2-3 minute, accesează:
+   🌐 https://mcmetsolart-site-5.onrender.com
+
+Ar trebui să se deschidă site-ul normal! ✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 MONITORIZARE:
+
+Verifică pe Render Dashboard:
+   https://dashboard.render.com
+   
+   → Serviciul "mcmetsolart"
+   → Tab "Logs"
+   
+Când vezi "Your service is live 🎉" - e gata!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ Acum ar trebui să funcționeze perfect! ✨

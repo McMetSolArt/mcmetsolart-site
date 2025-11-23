@@ -1,0 +1,175 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                    🚨 DEPLOY URGENT NECESAR ÎN RENDER! 🚨                   ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+❌ PROBLEMA:
+   Register și Login dau eroare 500 pe site
+   Backend-ul pe Render rulează versiunea VECHE (fără fix)
+
+✅ SOLUȚIA:
+   Trebuie să faci DEPLOY MANUAL în Render Dashboard
+   Fix-ul este deja pe GitHub, dar Render nu l-a luat automat
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 PAȘI PENTRU DEPLOY (10 MINUTE):
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PASUL 1: Deschide Render Dashboard                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   Link: https://dashboard.render.com
+
+   1. Deschide link-ul în browser
+   2. Login cu contul tău Render
+   3. Ar trebui să vezi lista cu serviciile tale
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PASUL 2: Găsește Serviciul                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   Caută în listă: "mcmetsolart-site-5" sau "mcmetsolart"
+   
+   Click pe numele serviciului pentru a-l deschide
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PASUL 3: Verifică Dacă E Deploy Automat                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   Uită-te în partea de sus a paginii:
+   
+   ✅ Dacă vezi banner: "New commits available" 
+      → Click pe butonul "Deploy"
+      → Sari la PASUL 5
+   
+   ❌ Dacă NU vezi banner
+      → Continuă la PASUL 4
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PASUL 4: Forțează Deploy Manual                                             │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   În pagina serviciului:
+   
+   1. Click pe tab "Manual Deploy" (în partea de sus)
+   
+   2. Vei vedea două butoane:
+      - "Deploy latest commit"
+      - "Clear build cache & deploy"
+   
+   3. Click pe "Clear build cache & deploy" ← ACESTA!
+      (Este mai sigur, șterge cache-ul vechi)
+   
+   4. Confirmă dacă îți cere
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PASUL 5: Așteaptă Deploy-ul (10-15 minute)                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   1. Click pe tab "Logs" pentru a vedea progresul
+   
+   2. Ar trebui să vezi:
+      
+      ==> Downloading cache...
+      ==> Installing dependencies...
+      pip install -r McMetSolArtBackend/requirements.txt
+      Successfully installed Flask-3.0.0 ...
+      
+      ==> Starting service...
+      gunicorn --workers 4 --bind 0.0.0.0:$PORT --chdir McMetSolArtBackend app:app
+      
+      ✅ Baza de date inițializată cu succes!
+      🔑 Sistem cu Token Permanent
+      ✅ Backend pornit pe http://0.0.0.0:10000
+      
+      ==> Your service is live 🎉
+   
+   3. Când vezi "Your service is live 🎉" → Deploy GATA!
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PASUL 6: Testează Site-ul                                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   1. Deschide: https://mcmetsolart-site-5.onrender.com
+   
+   2. Click pe "Login" în header
+   
+   3. Click pe "Creează cont nou"
+   
+   4. Completează formularul:
+      - Email: [email-ul tău]
+      - Parolă: [parola ta]
+      - Prenume: [prenumele tău]
+      - Nume: [numele tău]
+   
+   5. Click "Creează Cont"
+   
+   6. ✅ AR TREBUI SĂ FUNCȚIONEZE!
+      Dacă vezi mesaj de succes → PROBLEMA REZOLVATĂ!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CHECKLIST:
+
+   [ ] Deschis https://dashboard.render.com
+   [ ] Găsit serviciul mcmetsolart-site-5
+   [ ] Click pe serviciu
+   [ ] Click "Manual Deploy"
+   [ ] Click "Clear build cache & deploy"
+   [ ] Așteptat 10-15 minute
+   [ ] Văzut în Logs: "Your service is live 🎉"
+   [ ] Testat Register pe site
+   [ ] ✅ FUNCȚIONEAZĂ!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🆘 DACĂ TOT NU FUNCȚIONEAZĂ DUPĂ DEPLOY:
+
+   1. Verifică în Logs dacă sunt erori (linii roșii)
+   
+   2. Verifică Environment Variables:
+      - Click "Environment" în sidebar
+      - Verifică că ai: DATABASE, FLASK_DEBUG, HOST
+   
+   3. Verifică Build & Start Commands:
+      - Click "Settings"
+      - Build Command: pip install -r McMetSolArtBackend/requirements.txt
+      - Start Command: gunicorn --workers 4 --bind 0.0.0.0:$PORT --chdir McMetSolArtBackend app:app
+   
+   4. Dacă vezi erori în Logs, copiază-le și trimite-mi-le!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 DE CE TREBUIE SĂ FAC ASTA?
+
+   Render nu face întotdeauna auto-deploy când faci push pe GitHub.
+   
+   Pentru viitor, activează Auto-Deploy:
+   1. Settings → Build & Deploy
+   2. Auto-Deploy: Yes
+   3. Branch: main
+   4. Save
+   
+   Acum va face deploy automat la fiecare push!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ QUICK SUMMARY:
+
+   1. https://dashboard.render.com
+   2. Click pe mcmetsolart-site-5
+   3. Manual Deploy → Clear build cache & deploy
+   4. Așteaptă 10-15 minute
+   5. Testează Register
+   6. ✅ GATA!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Data: 19 Noiembrie 2025
+Status: 🚨 DEPLOY URGENT NECESAR
+Fix Commit: 412ffb6
+
+IMPORTANT: Fix-ul este deja pe GitHub!
+          Trebuie doar să faci deploy în Render!
