@@ -15,7 +15,7 @@
         apiBaseUrl = window.__API_BASE_URL__.trim();
     } else if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         // Local development
-        apiBaseUrl = 'http://localhost:5000/api';
+        apiBaseUrl = 'http://localhost:3000/api';
     } else {
         // Default: use same-origin /api so when backend serves frontend on LAN (http://HOST:5000)
         // the frontend talks to the local backend automatically. For production override

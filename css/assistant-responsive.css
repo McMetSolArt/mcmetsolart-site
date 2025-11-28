@@ -1,0 +1,189 @@
+/* Asistent Virtual - Responsive pentru toate dispozitivele */
+
+/* Telefon mobil (până la 480px) */
+@media (max-width: 480px) {
+  .chat-button {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    bottom: 1rem !important;
+    right: 1rem !important;
+    font-size: 1.5rem !important;
+  }
+
+  .chat-window {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 70vh !important;
+    max-height: 70vh !important;
+    border-radius: 1.5rem 1.5rem 0 0 !important;
+    transform-origin: bottom center !important;
+  }
+
+  .chat-header {
+    padding: 0.75rem 1rem !important;
+    min-height: 55px !important;
+  }
+
+  .chat-title h4 {
+    font-size: 0.9rem !important;
+  }
+
+  .chat-title .online-status {
+    font-size: 0.7rem !important;
+  }
+
+  .bot-avatar {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .chat-messages {
+    padding: 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .message-avatar {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .message-content {
+    font-size: 0.85rem !important;
+    padding: 0.6rem 0.8rem !important;
+  }
+
+  .chat-input-container {
+    padding: 0.65rem 0.85rem !important;
+  }
+
+  .chat-input {
+    font-size: 0.85rem !important;
+    padding: 0.6rem 0.75rem !important;
+  }
+
+  .send-button {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .chat-quick-options {
+    display: none !important;
+  }
+
+  .chat-control-btn {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Telefon mare / Tabletă mică (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .chat-button {
+    width: 3.75rem !important;
+    height: 3.75rem !important;
+    bottom: 1.25rem !important;
+    right: 1.25rem !important;
+    font-size: 1.6rem !important;
+  }
+
+  .chat-window {
+    position: fixed !important;
+    bottom: 5.5rem !important;
+    right: 1rem !important;
+    left: 1rem !important;
+    width: calc(100% - 2rem) !important;
+    height: 60vh !important;
+    max-height: 550px !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .chat-header {
+    padding: 0.85rem 1.1rem !important;
+    min-height: 60px !important;
+  }
+
+  .chat-title h4 {
+    font-size: 0.95rem !important;
+  }
+
+  .bot-avatar {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .chat-messages {
+    padding: 0.85rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .message-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+  }
+
+  .message-content {
+    font-size: 0.9rem !important;
+  }
+
+  .chat-quick-options {
+    padding: 0.5rem 0.75rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .quick-option-btn {
+    font-size: 0.75rem !important;
+    padding: 0.45rem 0.6rem !important;
+  }
+}
+
+/* Tabletă (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chat-button {
+    width: 4rem !important;
+    height: 4rem !important;
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+  }
+
+  .chat-window {
+    position: fixed !important;
+    bottom: 6rem !important;
+    right: 1.5rem !important;
+    width: 420px !important;
+    height: 65vh !important;
+    max-height: 600px !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .chat-header {
+    padding: 0.9rem 1.2rem !important;
+  }
+
+  .bot-avatar {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .message-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+  }
+}
+
+/* Desktop (peste 1024px) */
+@media (min-width: 1025px) {
+  .chat-window {
+    width: 420px !important;
+    height: 650px !important;
+    max-height: 80vh !important;
+  }
+}

@@ -57,6 +57,33 @@ else:
 
 CORS(app)  # Permite cereri de la frontend
 
+# Secret key pentru sesiuni
+app.secret_key = os.getenv('SECRET_KEY', 'schimba-aceasta-cheie-in-productie-' + secrets.token_hex(16))
+
+# Înregistrează Admin Panel Blueprint
+try:
+    from admin_panel import admin_bp
+    app.register_blueprint(admin_bp)
+    print("✅ Admin Panel înregistrat la /admin")
+except ImportError as e:
+    print(f"⚠️ Admin Panel nu a putut fi încărcat: {e}")
+
+# Înregistrează Admin API Extended
+try:
+    from admin_api_extended import register_admin_api_routes
+    register_admin_api_routes(app)
+    print("✅ Admin API Extended înregistrat")
+except ImportError as e:
+    print(f"⚠️ Admin API Extended nu a putut fi încărcat: {e}")
+
+# Înregistrează Admin API Advanced
+try:
+    from admin_api_advanced import register_advanced_admin_routes
+    register_advanced_admin_routes(app)
+    print("✅ Admin API Advanced înregistrat")
+except ImportError as e:
+    print(f"⚠️ Admin API Extended nu a putut fi încărcat: {e}")
+
 # Load configuration from environment (sa fie ușor de configurat în producție)
 print("🔑 Sistem cu Token Permanent - inițializare cu variabile de mediu dacă sunt setate")
 
@@ -487,6 +514,10 @@ def index():
 @app.route('/<path:path>')
 def serve_static(path):
     """Serve static files (css, js, images, etc.)"""
+    # Exclude admin routes - let the admin blueprint handle them
+    if path.startswith('admin'):
+        return jsonify({'error': 'Not found'}), 404
+    
     if frontend_static_path and path:
         file_path = os.path.join(frontend_static_path, path)
         if os.path.isfile(file_path):
@@ -1014,23 +1045,23 @@ def get_orders():
                 'totalAmount': float(order['total_amount']) if order['total_amount'] else 0.0,
                 'currency': order['currency'] or 'RON',
                 'paymentMethod': order['payment_method'],
-                'paymentStatus': order.get('payment_status', 'unpaid'),
+                'paymentStatus': order['payment_status'] if 'payment_status' in order.keys() else 'unpaid',
                 'shippingAddress': order['shipping_address'],
-                'trackingNumber': order.get('tracking_number'),
+                'trackingNumber': order['tracking_number'] if 'tracking_number' in order.keys() else None,
                 'notes': order['notes'],
                 'createdAt': order['created_at'],
-                'updatedAt': order.get('updated_at'),
-                'confirmedAt': order.get('confirmed_at'),
-                'shippedAt': order.get('shipped_at'),
-                'deliveredAt': order.get('delivered_at'),
+                'updatedAt': order['updated_at'] if 'updated_at' in order.keys() else None,
+                'confirmedAt': order['confirmed_at'] if 'confirmed_at' in order.keys() else None,
+                'shippedAt': order['shipped_at'] if 'shipped_at' in order.keys() else None,
+                'deliveredAt': order['delivered_at'] if 'delivered_at' in order.keys() else None,
                 'items': [{
                     'id': item['id'],
-                    'productId': item.get('product_id'),
+                    'productId': item['product_id'] if 'product_id' in item.keys() else None,
                     'productName': item['product_name'],
-                    'productDescription': item.get('product_description', ''),
+                    'productDescription': item['product_description'] if 'product_description' in item.keys() else '',
                     'quantity': int(item['quantity']) if item['quantity'] else 1,
                     'price': float(item['price']) if item['price'] else 0.0,
-                    'subtotal': float(item.get('subtotal', 0)) if item.get('subtotal') else 0.0
+                    'subtotal': float(item['subtotal']) if 'subtotal' in item.keys() and item['subtotal'] else 0.0
                 } for item in items]
             })
         

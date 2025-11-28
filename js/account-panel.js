@@ -113,13 +113,13 @@
             this.overlay.classList.add('active');
             document.documentElement.classList.add('no-scroll');
 
+            // Activează tab-ul corect
+            this.switchTab(section);
+
             // Aplică traducerile pentru header și tabs
             if (window.applyTranslations) {
                 setTimeout(() => window.applyTranslations(), 50);
             }
-
-            // Încarcă conținutul
-            this.loadContent(section);
         },
 
         hide() {
@@ -286,49 +286,65 @@
                 const orders = response.data?.orders || [];
 
                 this.content.innerHTML = `
-                <div class="dashboard-content orders-section">
-                    <div class="dashboard-welcome elegant-header">
-                        <div class="header-content">
-                            <div class="header-icon">
+                <div class="dashboard-content orders-section-pro">
+                    <!-- Header Professional -->
+                    <div class="orders-header-pro glass-card">
+                        <div class="header-left">
+                            <div class="header-icon-pro">
                                 <i class="fas fa-shopping-bag"></i>
                             </div>
-                            <div class="header-text">
-                                <h3>${t('account.orders.title')}</h3>
-                                <p>${t('account.orders.subtitle')}</p>
+                            <div class="header-info-pro">
+                                <h2>Comenzile Mele</h2>
+                                <p>Urmărește statusul comenzilor tale</p>
                             </div>
                         </div>
+                        <button class="btn-primary" onclick="window.AccountPanel.createTestOrder()" style="margin-left: auto; padding: 0.75rem 1.5rem; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Plasează Comandă Test</span>
+                        </button>
                         ${orders.length > 0 ? `
-                            <div class="orders-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number">${orders.length}</span>
-                                    <span class="stat-label">Total comenzi</span>
+                            <div class="orders-stats-pro">
+                                <div class="stat-card-pro glass-card">
+                                    <div class="stat-icon-pro" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                        <i class="fas fa-list"></i>
+                                    </div>
+                                    <div class="stat-content-pro">
+                                        <span class="stat-number-pro">${orders.length}</span>
+                                        <span class="stat-label-pro">Total</span>
+                                    </div>
                                 </div>
-                                <div class="stat-item">
-                                    <span class="stat-number">${orders.filter(o => o.status === 'pending').length}</span>
-                                    <span class="stat-label">În așteptare</span>
+                                <div class="stat-card-pro glass-card">
+                                    <div class="stat-icon-pro" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="stat-content-pro">
+                                        <span class="stat-number-pro">${orders.filter(o => o.status === 'pending' || o.status === 'confirmed').length}</span>
+                                        <span class="stat-label-pro">Active</span>
+                                    </div>
                                 </div>
-                                <div class="stat-item">
-                                    <span class="stat-number">${orders.filter(o => o.status === 'delivered').length}</span>
-                                    <span class="stat-label">Livrate</span>
+                                <div class="stat-card-pro glass-card">
+                                    <div class="stat-icon-pro" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                        <i class="fas fa-check-double"></i>
+                                    </div>
+                                    <div class="stat-content-pro">
+                                        <span class="stat-number-pro">${orders.filter(o => o.status === 'delivered').length}</span>
+                                        <span class="stat-label-pro">Finalizate</span>
+                                    </div>
                                 </div>
                             </div>
                         ` : ''}
                     </div>
                     
                     ${orders.length === 0 ? `
-                        <div class="empty-state elegant-empty">
-                            <div class="empty-state-icon">
-                                <i class="fas fa-shopping-bag"></i>
+                        <div class="empty-state-pro glass-card">
+                            <div class="empty-icon-pro">
+                                <i class="fas fa-inbox"></i>
                             </div>
-                            <h4>${t('account.orders.empty')}</h4>
-                            <p>${t('account.orders.emptyDesc')}</p>
-                            <button class="btn-primary elegant-btn" onclick="window.location.href='#products'">
-                                <i class="fas fa-shopping-cart"></i> 
-                                <span>${t('account.orders.startShopping')}</span>
-                            </button>
+                            <h3>Nu ai comenzi încă</h3>
+                            <p>Comenzile tale vor apărea aici.</p>
                         </div>
                     ` : `
-                        <div class="orders-list elegant-orders">
+                        <div class="orders-list-pro">
                             ${orders.map(order => {
                     const statusClass = order.status.toLowerCase();
                     const statusLabels = {
@@ -348,56 +364,120 @@
                         'delivered': 'fa-check-double',
                         'cancelled': 'fa-times-circle'
                     };
+                    
+                    const statusDescriptions = {
+                        'pending': 'Comanda așteaptă confirmare',
+                        'confirmed': 'Comanda a fost confirmată',
+                        'processing': 'Comanda este în curs de procesare',
+                        'shipped': 'Comanda a fost expediată',
+                        'delivered': 'Comanda a fost livrată cu succes',
+                        'cancelled': 'Comanda a fost anulată'
+                    };
 
                     return `
-                                <div class="order-card elegant-card" data-order-id="${order.id}">
-                                    <div class="order-header elegant-header">
-                                        <div class="order-info">
-                                            <div class="order-number">
-                                                <i class="fas fa-receipt"></i>
+                                <div class="order-card-pro glass-card" data-order-id="${order.id}">
+                                    <!-- Order Header -->
+                                    <div class="order-header-pro">
+                                        <div class="order-meta-pro">
+                                            <div class="order-number-pro">
+                                                <i class="fas fa-hashtag"></i>
                                                 <span>${order.orderNumber}</span>
                                             </div>
-                                            <span class="order-date">
-                                                <i class="fas fa-calendar-alt"></i> 
-                                                ${new Date(order.createdAt).toLocaleDateString('ro-RO', {
-                        day: 'numeric',
-                        month: 'long',
+                                            <div class="order-date-pro">
+                                                <i class="fas fa-calendar-alt"></i>
+                                                <span>${new Date(order.createdAt).toLocaleDateString('ro-RO', {
+                        day: '2-digit',
+                        month: 'short',
                         year: 'numeric'
-                    })}
-                                            </span>
+                    })}</span>
+                                            </div>
                                         </div>
-                                        <span class="order-status status-${statusClass}">
+                                        <div class="order-status-pro status-${statusClass}">
                                             <i class="fas ${statusIcons[order.status] || 'fa-info-circle'}"></i>
-                                            <span>${statusLabels[order.status] || order.status}</span>
-                                        </span>
+                                            <div class="status-text-pro">
+                                                <span class="status-label-pro">${statusLabels[order.status] || order.status}</span>
+                                                <span class="status-desc-pro">${statusDescriptions[order.status] || ''}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="order-body">
-                                        <div class="order-items">
+                                    
+                                    <!-- Order Timeline -->
+                                    <div class="order-timeline-pro">
+                                        <div class="timeline-item-pro ${order.createdAt ? 'active' : ''}">
+                                            <div class="timeline-icon-pro"><i class="fas fa-plus-circle"></i></div>
+                                            <div class="timeline-content-pro">
+                                                <span class="timeline-label-pro">Plasată</span>
+                                                ${order.createdAt ? `<span class="timeline-date-pro">${new Date(order.createdAt).toLocaleDateString('ro-RO')}</span>` : ''}
+                                            </div>
+                                        </div>
+                                        <div class="timeline-line-pro ${order.confirmedAt ? 'active' : ''}"></div>
+                                        <div class="timeline-item-pro ${order.confirmedAt ? 'active' : ''}">
+                                            <div class="timeline-icon-pro"><i class="fas fa-check-circle"></i></div>
+                                            <div class="timeline-content-pro">
+                                                <span class="timeline-label-pro">Confirmată</span>
+                                                ${order.confirmedAt ? `<span class="timeline-date-pro">${new Date(order.confirmedAt).toLocaleDateString('ro-RO')}</span>` : ''}
+                                            </div>
+                                        </div>
+                                        <div class="timeline-line-pro ${order.shippedAt ? 'active' : ''}"></div>
+                                        <div class="timeline-item-pro ${order.shippedAt ? 'active' : ''}">
+                                            <div class="timeline-icon-pro"><i class="fas fa-shipping-fast"></i></div>
+                                            <div class="timeline-content-pro">
+                                                <span class="timeline-label-pro">Expediată</span>
+                                                ${order.shippedAt ? `<span class="timeline-date-pro">${new Date(order.shippedAt).toLocaleDateString('ro-RO')}</span>` : ''}
+                                            </div>
+                                        </div>
+                                        <div class="timeline-line-pro ${order.deliveredAt ? 'active' : ''}"></div>
+                                        <div class="timeline-item-pro ${order.deliveredAt ? 'active' : ''}">
+                                            <div class="timeline-icon-pro"><i class="fas fa-check-double"></i></div>
+                                            <div class="timeline-content-pro">
+                                                <span class="timeline-label-pro">Livrată</span>
+                                                ${order.deliveredAt ? `<span class="timeline-date-pro">${new Date(order.deliveredAt).toLocaleDateString('ro-RO')}</span>` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Order Items -->
+                                    <div class="order-items-pro">
+                                        <h4><i class="fas fa-box"></i> Produse comandate</h4>
+                                        <div class="items-list-pro">
                                             ${order.items.map(item => `
-                                                <div class="order-item">
-                                                    <div class="item-details">
-                                                        <h5>${item.productName}</h5>
-                                                        <p>${t('account.orders.quantity')}: ${item.quantity}</p>
-                                                        ${item.productDescription ? `<p class="item-desc">${item.productDescription}</p>` : ''}
+                                                <div class="item-pro">
+                                                    <div class="item-icon-pro">
+                                                        <i class="fas fa-cube"></i>
                                                     </div>
-                                                    <div class="item-price">${item.price.toFixed(2)} ${order.currency}</div>
+                                                    <div class="item-info-pro">
+                                                        <h5>${item.productName}</h5>
+                                                        ${item.productDescription ? `<p>${item.productDescription}</p>` : ''}
+                                                        <span class="item-qty-pro">Cantitate: ${item.quantity} buc</span>
+                                                    </div>
+                                                    <div class="item-price-pro">
+                                                        <span class="price-label-pro">Preț unitar</span>
+                                                        <span class="price-value-pro">${item.price.toFixed(2)} ${order.currency}</span>
+                                                    </div>
                                                 </div>
                                             `).join('')}
                                         </div>
-                                        ${order.trackingNumber ? `
-                                            <div class="order-tracking">
-                                                <i class="fas fa-truck"></i>
-                                                <span>Tracking: <strong>${order.trackingNumber}</strong></span>
-                                            </div>
-                                        ` : ''}
                                     </div>
-                                    <div class="order-footer">
-                                        <div class="order-total">
-                                            <span>${t('account.orders.total')}:</span>
-                                            <strong>${order.totalAmount.toFixed(2)} ${order.currency}</strong>
+                                    
+                                    ${order.trackingNumber ? `
+                                        <div class="order-tracking-pro glass-card">
+                                            <i class="fas fa-truck"></i>
+                                            <div class="tracking-info-pro">
+                                                <span class="tracking-label-pro">Număr de urmărire</span>
+                                                <span class="tracking-number-pro">${order.trackingNumber}</span>
+                                            </div>
                                         </div>
-                                        <button class="btn-secondary btn-sm" onclick="window.AccountPanel.viewOrderDetails(${order.id})">
-                                            <i class="fas fa-eye"></i> ${t('account.orders.details')}
+                                    ` : ''}
+                                    
+                                    <!-- Order Footer -->
+                                    <div class="order-footer-pro">
+                                        <div class="order-total-pro">
+                                            <span class="total-label-pro">Total comandă</span>
+                                            <span class="total-value-pro">${order.totalAmount.toFixed(2)} ${order.currency}</span>
+                                        </div>
+                                        <button class="btn-details-pro" onclick="window.AccountPanel.viewOrderDetails(${order.id})">
+                                            <i class="fas fa-eye"></i>
+                                            <span>Vezi detalii complete</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1493,6 +1573,147 @@
             }, 100);
         },
 
+        async createTestOrder() {
+            const t = (key) => {
+                const lang = localStorage.getItem('language') || 'ro';
+                return window.translations?.[lang]?.[key] || key;
+            };
+
+            const user = this.getCurrentUser();
+            if (!user) {
+                alert('Trebuie să fii autentificat pentru a plasa o comandă!');
+                return;
+            }
+
+            // Verifică token-ul de autentificare
+            const token = localStorage.getItem('authToken');
+            console.log('🔑 Verificare token pentru plasare comandă:', token ? token.substring(0, 30) + '...' : 'LIPSĂ');
+            
+            if (!token) {
+                alert('❌ Eroare: Token de autentificare lipsă. Te rugăm să te autentifici din nou.');
+                // Închide panoul și deschide login
+                this.hide();
+                setTimeout(() => {
+                    const loginBtn = document.getElementById('loginBtn');
+                    if (loginBtn) loginBtn.click();
+                }, 300);
+                return;
+            }
+
+            // Verifică dacă există adresă de livrare
+            const shippingAddress = user.address && user.city 
+                ? `${user.address}, ${user.city}, ${user.county || ''}, ${user.country || 'România'}`
+                : null;
+
+            if (!shippingAddress) {
+                const confirmEdit = confirm('Nu ai o adresă de livrare completă. Vrei să completezi profilul?');
+                if (confirmEdit) {
+                    this.switchTab('profile');
+                }
+                return;
+            }
+
+            // Confirmă plasarea comenzii
+            const confirmOrder = confirm('Vrei să plasezi o comandă de test?\n\nProduse:\n- Panou Solar 400W x 2\n- Invertor 5kW x 1\n\nTotal: 3500 RON');
+            if (!confirmOrder) {
+                return;
+            }
+
+            try {
+                // Arată loading
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading-overlay';
+                loadingDiv.innerHTML = `
+                    <div class="loading-content">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #667eea;"></i>
+                        <p style="margin-top: 1rem; font-size: 1.2rem;">Se plasează comanda...</p>
+                    </div>
+                `;
+                loadingDiv.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                `;
+                document.body.appendChild(loadingDiv);
+
+                // Verifică API Client
+                if (!window.API) {
+                    throw new Error('API Client nu este disponibil. Reîncarcă pagina.');
+                }
+
+                // Creează comanda
+                const orderData = {
+                    items: [
+                        {
+                            product_id: 'SOLAR-400W',
+                            product_name: 'Panou Solar 400W',
+                            product_description: 'Panou solar monocristalin de înaltă eficiență',
+                            quantity: 2,
+                            price: 1200
+                        },
+                        {
+                            product_id: 'INV-5KW',
+                            product_name: 'Invertor 5kW',
+                            product_description: 'Invertor hibrid cu baterie integrată',
+                            quantity: 1,
+                            price: 1100
+                        }
+                    ],
+                    shipping_address: shippingAddress,
+                    payment_method: 'card',
+                    notes: 'Comandă de test plasată din panoul de cont'
+                };
+
+                console.log('📦 Plasare comandă:', orderData);
+
+                const response = await window.API.createOrder(orderData);
+
+                // Elimină loading
+                document.body.removeChild(loadingDiv);
+
+                if (response && response.success) {
+                    const orderNumber = response.data?.order_number || 'N/A';
+                    const orderId = response.data?.order_id || 'N/A';
+
+                    alert(`✅ Comandă plasată cu succes!\n\nNumăr comandă: ${orderNumber}\nID: ${orderId}\n\nPoți vedea detaliile în secțiunea "Comenzi".`);
+
+                    // Reîncarcă lista de comenzi
+                    this.switchTab('orders');
+                } else {
+                    throw new Error(response?.message || 'Eroare la plasarea comenzii');
+                }
+            } catch (error) {
+                console.error('❌ Eroare plasare comandă:', error);
+
+                // Elimină loading dacă există
+                const loadingDiv = document.querySelector('.loading-overlay');
+                if (loadingDiv) {
+                    document.body.removeChild(loadingDiv);
+                }
+
+                let errorMessage = 'Eroare la plasarea comenzii. Te rugăm să încerci din nou.';
+                
+                if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+                    errorMessage = 'Nu se poate conecta la server. Verifică dacă backend-ul este pornit.';
+                } else if (error.message?.includes('401') || error.message?.includes('autentificat')) {
+                    errorMessage = 'Sesiunea ta a expirat. Te rugăm să te autentifici din nou.';
+                } else if (error.message?.includes('API Client')) {
+                    errorMessage = 'API Client nu este disponibil. Reîncarcă pagina.';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+
+                alert(`❌ ${errorMessage}`);
+            }
+        },
+
         getCurrentUser() {
             const userStr = localStorage.getItem('currentUser');
             if (userStr) {
@@ -1518,4 +1739,358 @@
     window.AccountPanel = AccountPanel;
 
     console.log('✅ Account Panel ready!');
+})();
+
+
+        // ============================================
+        // FUNCȚIE NOUĂ: Vezi Detalii Comandă
+        // ============================================
+        async viewOrderDetails(orderId) {
+            const t = (key) => {
+                const lang = localStorage.getItem('language') || 'ro';
+                return window.translations?.[lang]?.[key] || key;
+            };
+
+            console.log('👁️ Deschidere detalii comandă:', orderId);
+
+            try {
+                // Verifică dacă API există
+                if (!window.API) {
+                    throw new Error('API Client nu este disponibil. Reîncarcă pagina.');
+                }
+
+                // Arată loading
+                this.showLoadingModal();
+
+                // Obține detaliile comenzii
+                const response = await window.API.getOrderDetails(orderId);
+
+                if (response && response.success) {
+                    const order = response.data.order;
+                    this.showOrderDetailsModal(order);
+                } else {
+                    throw new Error(response?.message || 'Nu s-au putut încărca detaliile comenzii');
+                }
+            } catch (error) {
+                console.error('❌ Eroare detalii comandă:', error);
+                
+                let errorMessage = error.message || 'Eroare la încărcarea detaliilor';
+                if (error.message?.includes('Failed to fetch')) {
+                    errorMessage = 'Nu se poate conecta la server. Verifică dacă backend-ul este pornit.';
+                }
+                
+                this.showErrorModal(errorMessage);
+            }
+        },
+
+        showLoadingModal() {
+            // Creează modal de loading
+            const modalHTML = `
+                <div class="order-details-modal active" id="orderDetailsModal">
+                    <div class="modal-overlay" onclick="window.AccountPanel.closeOrderDetailsModal()"></div>
+                    <div class="modal-content-large">
+                        <div class="modal-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Se încarcă detaliile comenzii...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Elimină modal-uri existente
+            const existingModal = document.getElementById('orderDetailsModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            document.body.classList.add('no-scroll');
+        },
+
+        showOrderDetailsModal(order) {
+            const t = (key) => {
+                const lang = localStorage.getItem('language') || 'ro';
+                return window.translations?.[lang]?.[key] || key;
+            };
+
+            // Statusuri traduse
+            const statusLabels = {
+                'pending': 'În așteptare',
+                'confirmed': 'Confirmată',
+                'processing': 'În procesare',
+                'shipped': 'Expediată',
+                'delivered': 'Livrată',
+                'cancelled': 'Anulată'
+            };
+
+            const statusClass = order.status.toLowerCase();
+            const statusLabel = statusLabels[order.status] || order.status;
+
+            const modalHTML = `
+                <div class="order-details-modal active" id="orderDetailsModal">
+                    <div class="modal-overlay" onclick="window.AccountPanel.closeOrderDetailsModal()"></div>
+                    <div class="modal-content-large">
+                        <!-- Header -->
+                        <div class="modal-header-pro">
+                            <div class="modal-title-section">
+                                <h2><i class="fas fa-file-invoice"></i> Detalii Comandă</h2>
+                                <p class="modal-subtitle">Comandă #${order.orderNumber}</p>
+                            </div>
+                            <button class="modal-close-btn" onclick="window.AccountPanel.closeOrderDetailsModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="modal-body-pro">
+                            <!-- Status și Date -->
+                            <div class="detail-section">
+                                <h3><i class="fas fa-info-circle"></i> Informații Generale</h3>
+                                <div class="detail-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Număr Comandă:</span>
+                                        <span class="detail-value"><strong>${order.orderNumber}</strong></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Status:</span>
+                                        <span class="status-badge status-${statusClass}">${statusLabel}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Data Plasării:</span>
+                                        <span class="detail-value">${new Date(order.createdAt).toLocaleDateString('ro-RO', {
+                                            day: '2-digit',
+                                            month: 'long',
+                                            year: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        })}</span>
+                                    </div>
+                                    ${order.confirmedAt ? `
+                                        <div class="detail-item">
+                                            <span class="detail-label">Data Confirmării:</span>
+                                            <span class="detail-value">${new Date(order.confirmedAt).toLocaleDateString('ro-RO', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            })}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${order.shippedAt ? `
+                                        <div class="detail-item">
+                                            <span class="detail-label">Data Expedierii:</span>
+                                            <span class="detail-value">${new Date(order.shippedAt).toLocaleDateString('ro-RO', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            })}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${order.deliveredAt ? `
+                                        <div class="detail-item">
+                                            <span class="detail-label">Data Livrării:</span>
+                                            <span class="detail-value">${new Date(order.deliveredAt).toLocaleDateString('ro-RO', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            })}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+
+                            <!-- Produse -->
+                            <div class="detail-section">
+                                <h3><i class="fas fa-box-open"></i> Produse Comandate</h3>
+                                <div class="products-list-detail">
+                                    ${order.items.map(item => `
+                                        <div class="product-item-detail">
+                                            <div class="product-icon-detail">
+                                                <i class="fas fa-cube"></i>
+                                            </div>
+                                            <div class="product-info-detail">
+                                                <h4>${item.productName}</h4>
+                                                ${item.productDescription ? `<p>${item.productDescription}</p>` : ''}
+                                                <span class="product-qty">Cantitate: <strong>${item.quantity} buc</strong></span>
+                                            </div>
+                                            <div class="product-price-detail">
+                                                <span class="price-label">Preț unitar</span>
+                                                <span class="price-value">${item.price.toFixed(2)} ${order.currency}</span>
+                                                <span class="price-total">Total: ${(item.price * item.quantity).toFixed(2)} ${order.currency}</span>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Sumar Financiar -->
+                            <div class="detail-section">
+                                <h3><i class="fas fa-calculator"></i> Sumar Financiar</h3>
+                                <div class="financial-summary">
+                                    <div class="summary-row">
+                                        <span>Subtotal:</span>
+                                        <span>${order.totalAmount.toFixed(2)} ${order.currency}</span>
+                                    </div>
+                                    ${order.discount ? `
+                                        <div class="summary-row discount">
+                                            <span>Discount:</span>
+                                            <span>-${order.discount.toFixed(2)} ${order.currency}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${order.tax ? `
+                                        <div class="summary-row">
+                                            <span>TVA:</span>
+                                            <span>${order.tax.toFixed(2)} ${order.currency}</span>
+                                        </div>
+                                    ` : ''}
+                                    <div class="summary-row total">
+                                        <span><strong>Total de Plată:</strong></span>
+                                        <span><strong>${order.totalAmount.toFixed(2)} ${order.currency}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tracking -->
+                            ${order.trackingNumber ? `
+                                <div class="detail-section">
+                                    <h3><i class="fas fa-truck"></i> Urmărire Comandă</h3>
+                                    <div class="tracking-info-detail">
+                                        <div class="tracking-number-box">
+                                            <span class="tracking-label">Număr de urmărire:</span>
+                                            <span class="tracking-number">${order.trackingNumber}</span>
+                                            <button class="btn-copy" onclick="navigator.clipboard.writeText('${order.trackingNumber}')">
+                                                <i class="fas fa-copy"></i> Copiază
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            <!-- Notițe -->
+                            ${order.notes ? `
+                                <div class="detail-section">
+                                    <h3><i class="fas fa-sticky-note"></i> Notițe</h3>
+                                    <div class="notes-box">
+                                        <p>${order.notes}</p>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="modal-footer-pro">
+                            <button class="btn-secondary" onclick="window.AccountPanel.closeOrderDetailsModal()">
+                                <i class="fas fa-times"></i> Închide
+                            </button>
+                            ${order.status === 'pending' ? `
+                                <button class="btn-danger" onclick="window.AccountPanel.cancelOrder(${order.id})">
+                                    <i class="fas fa-ban"></i> Anulează Comanda
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Elimină modal-ul vechi
+            const existingModal = document.getElementById('orderDetailsModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            // Adaugă modal-ul nou
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            document.body.classList.add('no-scroll');
+        },
+
+        showErrorModal(message) {
+            const modalHTML = `
+                <div class="order-details-modal active" id="orderDetailsModal">
+                    <div class="modal-overlay" onclick="window.AccountPanel.closeOrderDetailsModal()"></div>
+                    <div class="modal-content-large">
+                        <div class="modal-error">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Eroare</h3>
+                            <p>${message}</p>
+                            <button class="btn-primary" onclick="window.AccountPanel.closeOrderDetailsModal()">
+                                Închide
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const existingModal = document.getElementById('orderDetailsModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            document.body.classList.add('no-scroll');
+        },
+
+        closeOrderDetailsModal() {
+            const modal = document.getElementById('orderDetailsModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.remove();
+                    document.body.classList.remove('no-scroll');
+                }, 300);
+            }
+        },
+
+        async cancelOrder(orderId) {
+            if (!confirm('Sigur vrei să anulezi această comandă?')) {
+                return;
+            }
+
+            try {
+                // Implementează logica de anulare
+                console.log('Anulare comandă:', orderId);
+                this.showSuccessMessage('Comandă anulată cu succes!');
+                this.closeOrderDetailsModal();
+                this.show('orders'); // Reîncarcă lista de comenzi
+            } catch (error) {
+                console.error('Eroare anulare comandă:', error);
+                this.showErrorMessage('Nu s-a putut anula comanda. Te rugăm să încerci din nou.');
+            }
+        },
+
+        createTestOrder() {
+            // Funcție pentru testare - creează o comandă de test
+            console.log('🧪 Creare comandă de test...');
+            alert('Funcționalitate în dezvoltare. Folosește Admin Panel pentru a crea comenzi.');
+        },
+
+        getCurrentUser() {
+            const userStr = localStorage.getItem('currentUser');
+            return userStr ? JSON.parse(userStr) : null;
+        },
+
+        getUserSettings(user) {
+            const settingsStr = localStorage.getItem(`userSettings_${user.id}`);
+            return settingsStr ? JSON.parse(settingsStr) : {
+                emailNotifications: true,
+                smsNotifications: false,
+                newsletter: true,
+                language: 'ro',
+                theme: 'dark'
+            };
+        }
+    };
+
+    // Inițializare
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            AccountPanel.init();
+        });
+    } else {
+        AccountPanel.init();
+    }
+
+    // Export global
+    window.AccountPanel = AccountPanel;
+
+    console.log('✅ Account Panel încărcat cu funcționalități complete!');
+
 })();

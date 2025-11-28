@@ -1,32 +1,20 @@
-# .gitignore - exclude unnecessary files from git repo
-
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-venv/
 env/
+venv/
 ENV/
+*.egg-info/
+dist/
+build/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
 # IDE
 .vscode/
@@ -39,38 +27,27 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
+# Logs
+*.log
 
-# Environment files
+# Environment
 .env
 .env.local
-.env.*.local
 
-# Node (if using npm for frontend build)
-node_modules/
-package-lock.json
+# Admin Privat - NU PUBLICA!
+admin-private/
 
-# Temporary files
+# Arhive - NU PUBLICA!
+DOCS-ARHIVA/
+TESTE-ARHIVA/
+docs/
+tests/
+
+# Fișiere temporare
 *.tmp
-*.log
 *.bak
+*.csv
+clear-session.txt
 
-# Test files (optional - keep if you use them)
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Backup and archive files
-*.zip
-*.tar.gz
-*.bak
-*.old
-
-# Sensitive files
-config_email.py
-
-# Render specific
-staticfiles/
+# Batch files
+*.bat

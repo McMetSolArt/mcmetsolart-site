@@ -92,7 +92,7 @@ def login_user(email, password):
 
 
 if __name__ == '__main__':
-    # Wait a bit to allow server to start
+    # Așteaptă puțin pentru ca serverul să pornească
     print('Aștept serverul pe http://127.0.0.1:5000 ...')
     for i in range(8):
         ok = check_health()
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         print('\n❌ Serverul nu răspunde la health check. Asigură-te că backend-ul este pornit.')
         sys.exit(2)
 
-    # Use unique email to avoid conflicts
+    # Folosește email unic pentru a evita conflictele
     unique = str(uuid.uuid4())[:8]
     email = f'test+{unique}@example.com'
     password = 'Test1234'

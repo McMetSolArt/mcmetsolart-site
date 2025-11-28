@@ -294,6 +294,10 @@
     background: rgba(255, 255, 255, 0.15);
     transition: all 0.3s ease;
     padding: 0.5rem;
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
 }
 
 .social-icon-link:hover {
@@ -307,6 +311,7 @@
     height: 100%;
     object-fit: contain;
     transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 .social-icon-link:hover .social-icon-img {

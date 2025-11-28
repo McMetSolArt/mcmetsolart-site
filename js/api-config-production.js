@@ -20,7 +20,7 @@
     // Configurare URL-uri
     const API_URLS = {
         // Development local
-        development: 'http://localhost:5000/api',
+        development: 'http://localhost:3000/api',
         
         // Production - backend-ul servește și frontend-ul
         // Când backend-ul Flask servește frontend-ul, API-ul este pe același domeniu

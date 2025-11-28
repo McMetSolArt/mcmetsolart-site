@@ -99,7 +99,7 @@ Sono qui per aiutarti con informazioni sui nostri prodotti, ordini e qualsiasi d
             
             // Maryna folosește imaginea Maryna.png
             const img = document.createElement('img');
-            img.src = 'Maryna.png';
+            img.src = 'images/Maryna.png';
             img.alt = 'Maryna';
             img.style.width = '100%';
             img.style.height = '100%';
@@ -218,7 +218,7 @@ Sono qui per aiutarti con informazioni sui nostri prodotti, ordini e qualsiasi d
             if (type === 'bot') {
                 // Maryna folosește imaginea Maryna.png
                 const img = document.createElement('img');
-                img.src = 'Maryna.png';
+                img.src = 'images/Maryna.png';
                 img.alt = 'Maryna';
                 img.style.width = '100%';
                 img.style.height = '100%';
@@ -270,7 +270,7 @@ Sono qui per aiutarti con informazioni sui nostri prodotti, ordini e qualsiasi d
             
             // Maryna folosește imaginea Maryna.png
             const img = document.createElement('img');
-            img.src = 'Maryna.png';
+            img.src = 'images/Maryna.png';
             img.alt = 'Maryna';
             img.style.width = '100%';
             img.style.height = '100%';

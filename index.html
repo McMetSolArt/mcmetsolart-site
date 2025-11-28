@@ -7,6 +7,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Previne cache-ul pentru JavaScript -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Mc MetSolArt - Cupole Decorative Metalice Iluminate Solar</title>
     <meta name="description"
         content="Mc MetSolArt specializes in decorative metallic domes illuminated with solar panels. Premium craftsmanship combining traditional ornamental design with modern solar technology for residential and commercial installations.">
@@ -16,58 +20,67 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&family=Roboto+Mono:wght@400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2.0">
     <link rel="stylesheet" href="css/login-professional.css">
     <link rel="stylesheet" href="css/sections-professional.css">
     <link rel="stylesheet" href="css/page-transitions.css">
     <link rel="stylesheet" href="css/user-dropdown.css">
-    <link rel="stylesheet" href="css/account-panel.css">
+    <link rel="stylesheet" href="css/account-panel.css?v=3.4">
+    <link rel="stylesheet" href="css/orders-professional.css?v=3.4">
     <link rel="stylesheet" href="css/contact-improvements.css">
     <link rel="stylesheet" href="css/hamburger-menu.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/contact-premium.css">
     <link rel="stylesheet" href="css/theme-light-mode.css">
     <link rel="stylesheet" href="css/responsive-optimized.css">
-    <!-- Fix pentru scroll -->
+    <!-- Remediere pentru derulare -->
     <link rel="stylesheet" href="css/scroll-fix.css">
-    <!-- Fix pentru mobile -->
+    <!-- Remediere pentru dispozitive mobile -->
     <link rel="stylesheet" href="css/mobile-fix.css">
-    <!-- Preloader -->
-    <link rel="stylesheet" href="css/preloader.css">
+    <!-- Ecran de încărcare -->
+    <link rel="stylesheet" href="css/preloader.css?v=3.0">
+    <!-- Asistent virtual responsive -->
+    <link rel="stylesheet" href="css/assistant-responsive.css">
 
-    <!-- Ultimul - elimina barele -->
+    <!-- Ultimul - elimină barele de derulare -->
     <link rel="stylesheet" href="css/no-bars.css">
     <link rel="icon" href="images/Logo.png" type="image/png">
 </head>
 
 <body>
-    <!-- Preloader -->
+    <!-- Ecran de încărcare -->
     <div id="preloader">
         <div class="preloader-content">
-            <!-- Logo -->
+            <!-- Sigla companiei -->
             <div class="preloader-logo">
                 <img src="images/Logo.png" alt="MC MetSolArt">
             </div>
 
-            <!-- Animatie cupola -->
+            <!-- Animație cupola -->
             <div class="preloader-spinner">
-                <div class="dome-segment"></div>
-                <div class="dome-segment"></div>
-                <div class="dome-segment"></div>
+                <!-- Piese metalice care se asamblează -->
+                <div class="dome-piece piece-1"></div>
+                <div class="dome-piece piece-2"></div>
+                <div class="dome-piece piece-3"></div>
+                <div class="dome-piece piece-4"></div>
+                <div class="dome-piece piece-5"></div>
+                <div class="dome-piece piece-6"></div>
+                <!-- Panou solar în vârf -->
+                <div class="solar-panel"></div>
             </div>
 
-            <!-- Text -->
+            <!-- Text de încărcare -->
             <div class="preloader-text">
                 Construim<span class="loading-dots"></span>
             </div>
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- Antet -->
     <header class="header-main">
         <div class="header-container">
             <div class="header-content">
-                <!-- Left Side - Hamburger Menu -->
+                <!-- Partea stângă - Meniu hamburger -->
                 <div class="hamburger-menu-container">
                     <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
                         <span class="hamburger-line"></span>
@@ -83,7 +96,7 @@
                     </nav>
                 </div>
 
-                <!-- Center Logo -->
+                <!-- Logo centrat -->
                 <div class="header-logo">
                     <a href="#hero">
                         <div class="logo-container">
@@ -92,9 +105,9 @@
                     </a>
                 </div>
 
-                <!-- Right Side - Actions and Mobile Menu -->
+                <!-- Partea dreaptă - Acțiuni și meniu mobil -->
                 <div class="header-actions">
-                    <!-- Theme Toggle -->
+                    <!-- Comutator temă -->
                     <div class="theme-toggle-dropdown">
                         <button class="theme-toggle-btn" id="themeToggleBtn" title="Schimbă tema">
                             <svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -124,7 +137,7 @@
                         </div>
                     </div>
 
-                    <!-- Language Selector -->
+                    <!-- Selector de limbă -->
                     <div class="language-selector-dropdown">
                         <button class="language-btn" id="languageBtn">
                             <svg class="globe-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -154,7 +167,7 @@
                         </div>
                     </div>
 
-                    <!-- Login Button -->
+                    <!-- Buton de autentificare -->
                     <button class="login-btn" id="loginBtn">
                         <i class="fas fa-user-circle login-icon" aria-hidden="true"></i>
                         <span data-text="nav.login">Autentificare</span>
@@ -165,9 +178,9 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Conținut principal -->
     <main class="flex-1">
-        <!-- Hero Section -->
+        <!-- Secțiune principală -->
         <section class="hero-section" id="hero">
             <div class="hero-bg">
                 <img src="images/pagina de coperta.jpg" alt="Solar Dome Installation" class="hero-image">
@@ -180,7 +193,7 @@
             </div>
         </section>
 
-        <!-- About Section -->
+        <!-- Secțiune despre noi -->
         <section id="about" class="about-section">
             <div class="section-container">
                 <div class="section-header">
@@ -217,7 +230,7 @@
             </div>
         </section>
 
-        <!-- Products Section -->
+        <!-- Secțiune produse -->
         <section id="products" class="products-section">
             <div class="section-container">
                 <div class="section-header">
@@ -262,7 +275,7 @@
             </div>
         </section>
 
-        <!-- How It Works Section -->
+        <!-- Secțiune cum funcționează -->
         <section class="how-section">
             <div class="section-container">
                 <div class="section-header">
@@ -296,11 +309,11 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Secțiune contact -->
         <section id="contact" class="contact-section">
             <div class="contact-container">
                 <div class="contact-content-grid">
-                    <!-- Contact Info - Left Side -->
+                    <!-- Informații de contact - Partea stângă -->
                     <div class="contact-info-side">
                         <div class="contact-logo">
                             <img src="images/Logo.png" alt="Mc MetSolArt Logo" class="contact-logo-img">
@@ -310,7 +323,7 @@
                             proiect</p>
                     </div>
 
-                    <!-- Contact Form - Right Side -->
+                    <!-- Formular de contact - Partea dreaptă -->
                     <div class="contact-form-card">
                         <form class="contact-form" id="contactForm">
                             <div class="form-group">
@@ -348,7 +361,7 @@
         </section>
     </main>
 
-    <!-- Login Sidebar -->
+    <!-- Bară laterală de autentificare -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="login-sidebar" id="loginSidebar">
         <div class="sidebar-header">
@@ -378,7 +391,7 @@
         </div>
 
         <div class="sidebar-content" id="sidebarContent">
-            <!-- Alert Messages -->
+            <!-- Mesaje de alertă -->
             <div class="alert alert-error" id="loginError" style="display: none;">
                 <div class="alert-icon">
                     <i class="fas fa-exclamation-circle"></i>
@@ -405,7 +418,7 @@
                 </button>
             </div>
 
-            <!-- Login Form -->
+            <!-- Formular de autentificare -->
             <form class="auth-form login-form" id="loginForm">
                 <div class="form-section">
                     <h3 class="form-section-title" data-text="login.welcome">Bine ai venit!</h3>
@@ -458,7 +471,7 @@
                 </div>
             </form>
 
-            <!-- Reset Password Form -->
+            <!-- Formular de resetare parolă -->
             <form class="auth-form reset-password-form" id="resetPasswordForm" style="display: none;">
                 <div class="form-section">
                     <h3 class="form-section-title" data-text="reset.title">Resetează Parola</h3>
@@ -492,7 +505,7 @@
                 </button>
             </form>
 
-            <!-- Register Form -->
+            <!-- Formular de înregistrare -->
             <form class="auth-form register-form" id="registerForm" style="display: none;">
                 <div class="form-section">
                     <h3 class="form-section-title" data-text="register.title">Creează contul tău</h3>
@@ -577,14 +590,14 @@
                 </button>
             </form>
 
-            <!-- Account page will be loaded here after successful login -->
+            <!-- Pagina de cont va fi încărcată aici după autentificare reușită -->
             <div class="account-page-container" id="accountPageContainer" style="display: none;">
-                <!-- Account page content will be dynamically loaded -->
+                <!-- Conținutul paginii de cont va fi încărcat dinamic -->
             </div>
         </div>
     </div>
 
-    <!-- Account Panel Overlay -->
+    <!-- Suprapunere panou cont -->
     <div class="account-panel-overlay" id="accountPanelOverlay"></div>
     <div class="account-panel" id="accountPanel">
         <div class="account-panel-header">
@@ -597,7 +610,7 @@
             </button>
         </div>
 
-        <!-- Navigation Tabs -->
+        <!-- File de navigare -->
         <div class="account-tabs" id="accountTabs">
             <button class="account-tab active" data-tab="dashboard">
                 <i class="fas fa-home"></i>
@@ -629,10 +642,10 @@
         </div>
     </div>
 
-    <!-- Toast Notifications Container -->
+    <!-- Container notificări toast -->
     <div class="toast-notifications" id="toastNotifications"></div>
 
-    <!-- Virtual Assistant -->
+    <!-- Asistent virtual -->
     <button class="chat-button" id="chatButton" title="Asistent Virtual MC">
         <i class="fas fa-comments"></i>
     </button>
@@ -661,7 +674,7 @@
             </div>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <!-- Mesajele vor fi adăugate dinamic de JavaScript -->
+            <!-- Mesajele vor fi adăugate dinamic prin JavaScript -->
         </div>
         <div class="chat-quick-options" id="chatQuickOptions">
             <button class="quick-option-btn" data-option="info">
@@ -686,11 +699,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Subsol -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-grid">
-                <!-- Company Info -->
+                <!-- Informații companie -->
                 <div class="footer-section">
                     <div class="footer-logo">
                         <img src="images/Logo.png" alt="Mc MetSolArt Logo" class="footer-logo-img">
@@ -699,7 +712,7 @@
                     <p class="footer-description" data-text="footer.description">Cupole decorative metalice premium
                         iluminate cu tehnologie solară</p>
 
-                    <!-- Social Media -->
+                    <!-- Rețele sociale -->
                     <div class="footer-social">
                         <h4 class="footer-social-heading" data-text="footer.followUs">Urmărește-ne</h4>
                         <div class="social-icons-compact">
@@ -708,20 +721,27 @@
                                 title="Instagram - MC.MetSolArt">
                                 <img src="images/instagram.png" alt="Instagram" class="social-icon-img">
                             </a>
-                            <a href="#" class="social-icon-link" aria-label="Facebook" title="Facebook">
+                            <a href="https://www.facebook.com/profile.php?id=61583888654047" target="_blank"
+                                rel="noopener noreferrer" class="social-icon-link" aria-label="Facebook - MC.MetSolArt"
+                                title="Facebook - MC.MetSolArt">
                                 <img src="images/facebook.png" alt="Facebook" class="social-icon-img">
                             </a>
-                            <a href="#" class="social-icon-link" aria-label="TikTok" title="TikTok">
+                            <a href="https://www.tiktok.com/@mcmetsolart" target="_blank" rel="noopener noreferrer"
+                                class="social-icon-link" aria-label="TikTok - MC.MetSolArt"
+                                title="TikTok - MC.MetSolArt">
                                 <img src="images/tiktok.png" alt="TikTok" class="social-icon-img">
                             </a>
-                            <a href="#" class="social-icon-link" aria-label="LinkedIn" title="LinkedIn">
+                            <a href="https://www.linkedin.com/in/mc-metsolart-88b66a39a" target="_blank"
+                                rel="noopener noreferrer" class="social-icon-link" aria-label="LinkedIn - MC.MetSolArt"
+                                title="LinkedIn - MC.MetSolArt"
+                                onclick="window.open('https://www.linkedin.com/in/mc-metsolart-88b66a39a', '_blank'); return false;">
                                 <img src="images/linkedin.png" alt="LinkedIn" class="social-icon-img">
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Quick Links -->
+                <!-- Link-uri rapide -->
                 <div class="footer-section">
                     <h3 class="footer-heading" data-text="footer.quickLinks">Link-uri Rapide</h3>
                     <ul class="footer-links">
@@ -731,7 +751,7 @@
                     </ul>
                 </div>
 
-                <!-- Contact Info -->
+                <!-- Informații de contact -->
                 <div class="footer-section">
                     <h3 class="footer-heading" data-text="footer.contact">Contact</h3>
                     <ul class="footer-contact">
@@ -746,7 +766,7 @@
                     </ul>
                 </div>
 
-                <!-- Legal Links -->
+                <!-- Link-uri legale -->
                 <div class="footer-section">
                     <h3 class="footer-heading" data-text="footer.legal">Informații Legale</h3>
                     <ul class="footer-links">
@@ -770,35 +790,35 @@
         </div>
     </footer>
 
-    <!-- Device Detection - PRIMUL (detectează tipul de dispozitiv) -->
+    <!-- Detectare dispozitiv - PRIMUL (detectează tipul de dispozitiv) -->
     <script src="js/device-detection.js"></script>
 
-    <!-- Scroll Fix - Simplu și profesional -->
+    <!-- Remediere derulare - Simplu și profesional -->
     <script src="js/scroll-fix.js"></script>
 
-    <!-- Configuration - setează URL-uri înainte ca API să se inițializeze -->
-    <script src="js/config.js"></script>
-    <script src="js/api-config-production.js"></script>
+    <!-- Configurare - setează URL-uri înainte ca API să se inițializeze -->
+    <script src="js/config.js?v=4.0"></script>
+    <script src="js/api-config-production.js?v=4.0"></script>
 
-    <!-- API Client - pentru comunicare cu backend -->
-    <script src="js/api-client.js"></script>
-    <script src="js/api-client-extended.js"></script>
+    <!-- Client API - pentru comunicare cu backend -->
+    <script src="js/api-client.js?v=4.0"></script>
+    <script src="js/api-client-extended.js?v=4.0"></script>
 
-    <!-- Window Controller -->
+    <!-- Controler ferestre -->
     <script src="js/window-controller.js"></script>
 
-    <!-- Translations -->
+    <!-- Traduceri -->
     <script src="js/translations-global-complete.js"></script>
     <script src="js/translations-assistant.js"></script>
     <script src="js/translations-modals.js"></script>
     <script src="js/translations-account-panel.js"></script>
     <script src="js/translations-account-extended.js"></script>
 
-    <!-- Core Scripts -->
-    <!-- Preloader - PRIMUL script care se încarcă -->
+    <!-- Script-uri principale -->
+    <!-- Ecran de încărcare - PRIMUL script care se încarcă -->
     <script src="js/preloader.js"></script>
 
-    <!-- Mobile Sidebar Fix - pentru buton close pe mobile -->
+    <!-- Remediere bară laterală mobil - pentru buton închidere pe mobil -->
     <script src="js/mobile-sidebar-fix.js"></script>
 
     <script src="js/hamburger-menu.js"></script>
@@ -807,9 +827,12 @@
     <script src="js/footer-modals.js"></script>
     <script src="js/assistant-professional.js"></script>
     <script src="js/auth-professional.js"></script>
-    <script src="js/account-panel.js"></script>
+    <script src="js/account-panel.js?v=3.3"></script>
     <script src="js/session-manager.js"></script>
     <!-- <script src="js/debug-touch.js"></script> -->
+
+    <!-- Fix pentru link-uri social media -->
+    <script src="js/social-links-fix.js"></script>
 </body>
 
 </html>

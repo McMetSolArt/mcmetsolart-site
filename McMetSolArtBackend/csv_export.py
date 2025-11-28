@@ -220,10 +220,10 @@ def export_all():
     
     print(f"📁 Director export: {os.path.abspath(EXPORT_DIR)}\n")
     
-    # Export profiles
+    # Exportă profiluri
     profiles_file = export_profiles_csv()
     
-    # Export orders
+    # Exportă comenzi
     orders_file = export_orders_csv()
     
     # Export order items

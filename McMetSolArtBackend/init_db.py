@@ -6,7 +6,7 @@ Rulează automat la deploy pe Render pentru a crea tabelele necesare
 import os
 import sys
 
-# Add current directory to path for imports
+# Adaugă directorul curent la path pentru import-uri
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from app import init_db

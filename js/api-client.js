@@ -15,7 +15,7 @@ class APIClient {
             if (window.__API_BASE_URL__ && window.__API_BASE_URL__.trim()) {
                 this.baseURL = window.__API_BASE_URL__.trim();
             } else if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-                this.baseURL = 'http://localhost:5000/api';
+                this.baseURL = 'http://localhost:3000/api';
             } else {
                 this.baseURL = 'https://mcmetsolart-site-5.onrender.com/api';
             }
@@ -224,6 +224,24 @@ class APIClient {
         return this.request(`/user/orders/${orderId}`);
     }
 
+    async createOrder(orderData) {
+        console.log('📦 createOrder apelat cu date:', orderData);
+        console.log('🔑 Token curent:', this.token ? this.token.substring(0, 30) + '...' : 'LIPSĂ');
+        
+        // Forțează actualizarea token-ului
+        this.updateToken();
+        console.log('🔄 Token după actualizare:', this.token ? this.token.substring(0, 30) + '...' : 'LIPSĂ');
+        
+        if (!this.token) {
+            throw new Error('Token de autentificare lipsă. Te rugăm să te autentifici.');
+        }
+        
+        return this.request('/orders/create', {
+            method: 'POST',
+            body: JSON.stringify(orderData)
+        });
+    }
+
     // ============================================
     // SETĂRI
     // ============================================
@@ -258,6 +276,48 @@ class APIClient {
         return this.request('/contact/message', {
             method: 'POST',
             body: JSON.stringify(contactData)
+        });
+    }
+
+    // ============================================
+    // NOTIFICĂRI
+    // ============================================
+
+    async getNotifications() {
+        return this.request('/notifications');
+    }
+
+    async markNotificationAsRead(notificationId) {
+        return this.request(`/notifications/${notificationId}/read`, {
+            method: 'PUT'
+        });
+    }
+
+    // ============================================
+    // ADRESE DE LIVRARE
+    // ============================================
+
+    async getShippingAddresses() {
+        return this.request('/shipping-addresses');
+    }
+
+    async addShippingAddress(addressData) {
+        return this.request('/shipping-addresses', {
+            method: 'POST',
+            body: JSON.stringify(addressData)
+        });
+    }
+
+    async updateShippingAddress(addressId, addressData) {
+        return this.request(`/shipping-addresses/${addressId}`, {
+            method: 'PUT',
+            body: JSON.stringify(addressData)
+        });
+    }
+
+    async deleteShippingAddress(addressId) {
+        return this.request(`/shipping-addresses/${addressId}`, {
+            method: 'DELETE'
         });
     }
 }

@@ -1,10 +1,8 @@
-/* ============================================
-   MOBILE FIX - Logo și Header Profesional
-   ============================================ */
+/* Fix pentru mobile si tableta */
 
-/* Mobile și Tabletă - FORȚAT */
+/* Pe mobile si tableta */
 @media (max-width: 1024px) {
-    /* Header - Layout corect */
+    /* Header */
     .header-content {
         padding: 0.5rem 0.75rem !important;
         height: auto !important;
@@ -15,13 +13,13 @@
         position: relative !important;
     }
     
-    /* Hamburger - Stânga */
+    /* Hamburger in stanga */
     .hamburger-menu-container {
         flex: 0 0 auto !important;
         z-index: 20 !important;
     }
     
-    /* Logo - Centru ABSOLUT */
+    /* Logo in centru */
     .header-logo {
         position: absolute !important;
         left: 50% !important;
@@ -31,7 +29,7 @@
         margin: 0 !important;
     }
     
-    /* Butoane - Dreapta */
+    /* Butoane in dreapta */
     .header-actions {
         flex: 0 0 auto !important;
         display: flex !important;
@@ -41,7 +39,7 @@
         margin-left: auto !important;
     }
     
-    /* Logo mare și vizibil */
+    /* Logo mare */
     .header-logo img,
     .logo-img {
         height: 4rem !important;

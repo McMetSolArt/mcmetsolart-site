@@ -1,28 +1,19 @@
 services:
   - type: web
-    name: mcmetsolart
+    name: mcmetsolart-site
     env: python
+    region: frankfurt
     plan: free
-    buildCommand: pip install -r McMetSolArtBackend/requirements.txt
-    startCommand: gunicorn --workers 4 --bind 0.0.0.0:$PORT --chdir McMetSolArtBackend app:app
+    buildCommand: cd McMetSolArtBackend && pip install -r requirements.txt
+    startCommand: cd McMetSolArtBackend && gunicorn app:app
     envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
       - key: DATABASE
         value: mc_metsolart.db
-      - key: FLASK_DEBUG
-        value: "False"
       - key: HOST
         value: 0.0.0.0
-      - key: EMAIL_ENABLED
-        value: "True"
-      - key: SMTP_HOST
-        value: smtp.mail.yahoo.com
-      - key: SMTP_PORT
-        value: "587"
-      - key: SMTP_USER
-        value: mc_metsolart@yahoo.com
-      - key: SMTP_PASSWORD
-        sync: false  # Adaugă manual în Render Dashboard
-      - key: SMTP_USE_TLS
-        value: "True"
-      - key: ADMIN_EMAIL
-        value: mc_metsolart@yahoo.com
+      - key: PORT
+        value: 10000
