@@ -65,7 +65,7 @@ def logout():
 @admin_required
 def dashboard():
     """Dashboard principal admin"""
-    return render_template('admin_dashboard.html')
+    return render_template('admin_dashboard_new.html')
 
 @admin_bp.route('/api/stats')
 @admin_required
