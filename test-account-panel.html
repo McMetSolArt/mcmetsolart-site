@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Account Panel</title>
+</head>
+<body>
+    <h1>Test Account Panel</h1>
+    <button onclick="testAccountPanel()">Test Deschide Account Panel</button>
+    <div id="result"></div>
+
+    <script src="js/api-client.js"></script>
+    <script src="js/account-panel-simple.js"></script>
+    
+    <script>
+        function testAccountPanel() {
+            const result = document.getElementById('result');
+            
+            console.log('🧪 Test AccountPanel...');
+            console.log('window.AccountPanel:', window.AccountPanel);
+            
+            if (window.AccountPanel) {
+                result.innerHTML = '<p style="color: green;">✅ AccountPanel este definit!</p>';
+                console.log('✅ AccountPanel funcții:', Object.keys(window.AccountPanel));
+                
+                // Încearcă să deschizi panelul
+                try {
+                    window.AccountPanel.show('dashboard');
+                    result.innerHTML += '<p style="color: green;">✅ AccountPanel.show() funcționează!</p>';
+                } catch (error) {
+                    result.innerHTML += '<p style="color: red;">❌ Eroare la deschidere: ' + error.message + '</p>';
+                    console.error('❌ Eroare:', error);
+                }
+            } else {
+                result.innerHTML = '<p style="color: red;">❌ AccountPanel NU este definit!</p>';
+                console.error('❌ AccountPanel lipsește!');
+            }
+        }
+        
+        // Test automat la încărcare
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                console.log('🔍 Verificare automată AccountPanel...');
+                console.log('window.AccountPanel:', window.AccountPanel);
+                console.log('window.API:', window.API);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
