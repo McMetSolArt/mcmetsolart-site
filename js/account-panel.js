@@ -496,9 +496,15 @@
                 if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
                     errorTitle = 'Nu se poate conecta la server';
                     errorMessage = 'Backend-ul nu răspunde. Verifică dacă serverul este pornit.';
-                } else if (error.message?.includes('401') || error.message?.includes('autentificat')) {
+                } else if (error.message?.includes('401') || error.message?.includes('autentificat') || error.message?.includes('Token invalid') || error.message?.includes('expirat')) {
                     errorTitle = 'Sesiune expirată';
                     errorMessage = 'Sesiunea ta a expirat. Te rugăm să te autentifici din nou.';
+                    // Forțează refresh UI pentru a arăta butonul de login
+                    setTimeout(() => {
+                        if (window.UserMenu && typeof window.UserMenu.updateUI === 'function') {
+                            window.UserMenu.updateUI();
+                        }
+                    }, 100);
                 } else if (error.message?.includes('API Client')) {
                     errorTitle = 'Eroare de sistem';
                     errorMessage = 'API Client nu este disponibil. Reîncarcă pagina.';

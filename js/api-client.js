@@ -71,6 +71,11 @@ class APIClient {
                 
                 if (response.status === 401) {
                     console.warn('⚠️ Eroare 401 - Token invalid sau expirat');
+                    // Șterge token-ul invalid automat
+                    this.token = null;
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('currentUser');
+                    console.log('🗑️ Token invalid șters automat');
                     errorMessage = data.message || 'Sesiunea ta a expirat. Te rugăm să te autentifici din nou.';
                 } else if (response.status === 403) {
                     errorMessage = 'Nu ai permisiunea să accesezi această resursă.';
