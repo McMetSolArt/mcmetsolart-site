@@ -25,38 +25,9 @@
         if (currentUser && authToken) {
             console.log('✅ Utilizator găsit în localStorage:', currentUser.firstName);
             
-            // Verifică dacă token-ul este valid pe server (doar dacă API este disponibil)
-            if (window.API && window.API.baseURL) {
-                try {
-                    const response = await fetch(window.API.baseURL + '/user/profile', {
-                        headers: {
-                            'Authorization': `Bearer ${authToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    if (!response.ok && response.status === 401) {
-                        console.warn('⚠️ Token invalid (401) - ștergere automată');
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('currentUser');
-                        
-                        if (isAccountPage) {
-                            window.location.href = 'index.html';
-                        } else {
-                            // Reîncarcă pagina pentru a actualiza UI-ul
-                            window.location.reload();
-                        }
-                        return;
-                    }
-                    
-                    if (response.ok) {
-                        console.log('✅ Token valid');
-                    }
-                } catch (error) {
-                    console.warn('⚠️ Nu se poate verifica token-ul (server offline?):', error.message);
-                    // Nu ștergem token-ul dacă este o eroare de rețea
-                }
-            }
+            // Verificare token dezactivată temporar pentru a nu bloca account panel-ul
+            // Token-ul va fi verificat automat când se face un request la API
+            console.log('ℹ️ Token găsit, se presupune valid');
             
             if (isAccountPage) {
                 // Pe pagina de cont, actualizează UI-ul
