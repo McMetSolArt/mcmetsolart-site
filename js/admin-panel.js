@@ -61,13 +61,12 @@ function showDashboard() {
 }
 
 function logout() {
-    if (confirm('Sigur vrei să te deconectezi?')) {
-        isAuthenticated = false;
-        stopAutoRefresh();
-        document.getElementById('loginScreen').style.display = 'flex';
-        document.getElementById('dashboard').classList.remove('show');
-        document.getElementById('password').value = '';
-    }
+    // Deconectare directă fără confirmare
+    isAuthenticated = false;
+    stopAutoRefresh();
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('dashboard').classList.remove('show');
+    document.getElementById('password').value = '';
 }
 
 // ============================================

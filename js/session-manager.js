@@ -286,21 +286,19 @@
         
         console.log('👋 Deconectare utilizator...');
         
-        // Confirmă deconectarea
-        if (confirm('Ești sigur că vrei să te deconectezi?')) {
-            // Șterge toate datele de sesiune
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('lastLogin');
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userAvatar');
-            localStorage.removeItem('userSettings');
-            
-            console.log('✅ Sesiune închisă');
-            
-            // Reîncarcă pagina pentru a reseta UI-ul
-            window.location.reload();
-        }
+        // Deconectare directă fără confirmare
+        // Șterge toate datele de sesiune
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('lastLogin');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userAvatar');
+        localStorage.removeItem('userSettings');
+        
+        console.log('✅ Sesiune închisă');
+        
+        // Reîncarcă pagina pentru a reseta UI-ul
+        window.location.reload();
     }
 
     function goToSupport() {
