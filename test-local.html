@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Local Account Panel</title>
+</head>
+<body>
+    <h1>Test Account Panel Local</h1>
+    <button onclick="testOpen()">Deschide Account Panel</button>
+    <div id="result"></div>
+
+    <script>
+        // Simulează un utilizator logat
+        localStorage.setItem('currentUser', JSON.stringify({
+            firstName: 'Test',
+            lastName: 'User',
+            email: 'test@local.com',
+            phone: '0712345678'
+        }));
+        localStorage.setItem('authToken', 'test-token-123');
+    </script>
+
+    <script src="js/api-client.js"></script>
+    <script src="js/account-panel-simple.js"></script>
+    
+    <script>
+        function testOpen() {
+            const result = document.getElementById('result');
+            
+            console.log('🧪 Test deschidere panel...');
+            console.log('AccountPanel:', window.AccountPanel);
+            
+            if (window.AccountPanel) {
+                result.innerHTML = '<p style="color: green;">✅ AccountPanel găsit!</p>';
+                try {
+                    window.AccountPanel.show('dashboard');
+                    result.innerHTML += '<p style="color: green;">✅ Panel deschis!</p>';
+                } catch (error) {
+                    result.innerHTML += '<p style="color: red;">❌ Eroare: ' + error.message + '</p>';
+                    console.error(error);
+                }
+            } else {
+                result.innerHTML = '<p style="color: red;">❌ AccountPanel NU există!</p>';
+            }
+        }
+
+        // Test automat după 2 secunde
+        setTimeout(() => {
+            console.log('🔍 Verificare AccountPanel...');
+            console.log('window.AccountPanel:', window.AccountPanel);
+            
+            if (!window.AccountPanel) {
+                document.getElementById('result').innerHTML = 
+                    '<p style="color: red;">❌ AccountPanel nu s-a încărcat după 2 secunde!</p>' +
+                    '<p>Verifică Console (F12) pentru erori.</p>';
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
