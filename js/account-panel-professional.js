@@ -51,11 +51,11 @@
                 width: 90%;
                 max-width: 600px;
                 height: 100%;
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--background);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
-                border-left: 1px solid rgba(255, 255, 255, 0.3);
-                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+                border-left: 1px solid var(--border);
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
                 z-index: 9999;
                 transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
                 overflow-y: auto;
@@ -134,12 +134,12 @@
                         padding: 25px;
                     }
                     .account-card-pro {
-                        background: rgba(255, 255, 255, 0.9);
+                        background: var(--card);
                         backdrop-filter: blur(10px);
                         border-radius: 16px;
                         padding: 20px;
                         margin-bottom: 20px;
-                        border: 1px solid rgba(0, 0, 0, 0.05);
+                        border: 1px solid var(--border);
                         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
                         transition: all 0.3s;
                     }
@@ -150,7 +150,7 @@
                     .account-card-title {
                         font-size: 18px;
                         font-weight: 700;
-                        color: #333;
+                        color: var(--foreground);
                         margin-bottom: 15px;
                         display: flex;
                         align-items: center;
@@ -160,17 +160,17 @@
                         display: flex;
                         justify-content: space-between;
                         padding: 12px 0;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                        border-bottom: 1px solid var(--border);
                     }
                     .account-info-row:last-child {
                         border-bottom: none;
                     }
                     .account-info-label {
-                        color: #666;
+                        color: var(--muted-foreground);
                         font-weight: 500;
                     }
                     .account-info-value {
-                        color: #333;
+                        color: var(--foreground);
                         font-weight: 600;
                     }
                     .account-btn-pro {
