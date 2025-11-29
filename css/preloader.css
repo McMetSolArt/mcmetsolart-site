@@ -1,4 +1,4 @@
-/* Preloader Profesional - MC MetSolArt */
+/* Preloader Simplu - Doar Logo Static */
 
 /* Overlay peste tot ecranul cu gradient elegant */
 #preloader {
@@ -21,31 +21,18 @@
     visibility: hidden;
 }
 
-/* Container pentru logo și animație */
+/* Container pentru logo */
 .preloader-content {
     text-align: center;
     position: relative;
-    animation: contentFadeIn 0.8s ease-out;
 }
 
-@keyframes contentFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Logo cu efect elegant */
+/* Logo static - fără animații */
 .preloader-logo {
     width: 120px;
     height: 120px;
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     position: relative;
-    animation: logoFloat 3s ease-in-out infinite;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
 }
 
@@ -53,256 +40,16 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    animation: logoRotate 20s linear infinite;
 }
 
-/* Animație plutire subtilă */
-@keyframes logoFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-/* Rotație foarte lentă pentru eleganță */
-@keyframes logoRotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Container animație - cupolă geodezică 3D care se asamblează */
+/* Ascunde spinner-ul complet */
 .preloader-spinner {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-    perspective: 800px;
-    transform-style: preserve-3d;
-}
-
-/* Piese metalice decorative 3D - stil hexagonal */
-.dome-piece {
-    position: absolute;
-    width: 45px;
-    height: 40px;
-    background: linear-gradient(135deg, #176f87, #54b8d1);
-    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
-    opacity: 0;
-    box-shadow: 
-        0 8px 20px rgba(23, 111, 135, 0.4),
-        inset 2px 2px 5px rgba(255, 255, 255, 0.3),
-        inset -2px -2px 5px rgba(0, 0, 0, 0.2);
-    transform-style: preserve-3d;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Efect metalic 3D */
-.dome-piece::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-        transparent 30%, 
-        rgba(255, 255, 255, 0.3) 50%, 
-        transparent 70%);
-    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
-}
-
-/* Piesa 1 - Stânga jos (3D) */
-.piece-1 {
-    bottom: 25px;
-    left: 15px;
-    animation: pieceAssemble1 4s ease-in-out infinite;
-}
-
-@keyframes pieceAssemble1 {
-    0%, 10% {
-        opacity: 0;
-        transform: translate3d(-80px, 80px, -200px) rotateY(-180deg) rotateZ(-90deg) scale(0.2);
-    }
-    20%, 100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg) scale(1);
-    }
-}
-
-/* Piesa 2 - Dreapta jos (3D) */
-.piece-2 {
-    bottom: 25px;
-    right: 15px;
-    animation: pieceAssemble2 4s ease-in-out infinite;
-}
-
-@keyframes pieceAssemble2 {
-    0%, 15% {
-        opacity: 0;
-        transform: translate3d(80px, 80px, -200px) rotateY(180deg) rotateZ(90deg) scale(0.2);
-    }
-    25%, 100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg) scale(1);
-    }
-}
-
-/* Piesa 3 - Stânga mijloc (3D) */
-.piece-3 {
-    bottom: 60px;
-    left: 25px;
-    animation: pieceAssemble3 4s ease-in-out infinite;
-}
-
-@keyframes pieceAssemble3 {
-    0%, 20% {
-        opacity: 0;
-        transform: translate3d(-100px, 0, -150px) rotateX(-90deg) rotateZ(-45deg) scale(0.2);
-    }
-    30%, 100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotateX(0deg) rotateZ(0deg) scale(1);
-    }
-}
-
-/* Piesa 4 - Dreapta mijloc (3D) */
-.piece-4 {
-    bottom: 60px;
-    right: 25px;
-    animation: pieceAssemble4 4s ease-in-out infinite;
-}
-
-@keyframes pieceAssemble4 {
-    0%, 25% {
-        opacity: 0;
-        transform: translate3d(100px, 0, -150px) rotateX(90deg) rotateZ(45deg) scale(0.2);
-    }
-    35%, 100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotateX(0deg) rotateZ(0deg) scale(1);
-    }
-}
-
-/* Piesa 5 - Stânga sus (3D) */
-.piece-5 {
-    top: 35px;
-    left: 35px;
-    animation: pieceAssemble5 4s ease-in-out infinite;
-}
-
-@keyframes pieceAssemble5 {
-    0%, 30% {
-        opacity: 0;
-        transform: translate3d(-70px, -70px, -100px) rotateX(-120deg) rotateY(-60deg) scale(0.2);
-    }
-    40%, 100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1);
-    }
-}
-
-/* Piesa 6 - Dreapta sus (3D) */
-.piece-6 {
-    top: 35px;
-    right: 35px;
-    animation: pieceAssemble6 4s ease-in-out infinite;
-}
-
-@keyframes pieceAssemble6 {
-    0%, 35% {
-        opacity: 0;
-        transform: translate3d(70px, -70px, -100px) rotateX(120deg) rotateY(60deg) scale(0.2);
-    }
-    45%, 100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1);
-    }
-}
-
-/* Panou solar 3D în vârf - apare ultimul */
-.solar-panel {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 35px;
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
-    box-shadow: 
-        0 0 25px rgba(251, 191, 36, 0.7),
-        inset 2px 2px 5px rgba(255, 255, 255, 0.4),
-        inset -2px -2px 5px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    animation: solarPanelAssemble 4s ease-in-out infinite;
-    transform-style: preserve-3d;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Efect sticlă solară */
-.solar-panel::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-        transparent 40%, 
-        rgba(255, 255, 255, 0.5) 50%, 
-        transparent 60%);
-    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
-}
-
-/* Raze solare */
-.solar-panel::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 6px;
-    background: #fbbf24;
-    border-radius: 1px;
-    box-shadow: 
-        -10px 0 0 #fbbf24,
-        10px 0 0 #fbbf24,
-        -6px -5px 0 #fbbf24,
-        6px -5px 0 #fbbf24;
-    opacity: 0;
-    animation: solarRays 4s ease-in-out infinite;
-}
-
-@keyframes solarPanelAssemble {
-    0%, 40% {
-        opacity: 0;
-        transform: translateX(-50%) translate3d(0, -100px, -300px) rotateX(360deg) rotateZ(180deg) scale(0.2);
-    }
-    55%, 100% {
-        opacity: 1;
-        transform: translateX(-50%) translate3d(0, 0, 0) rotateX(0deg) rotateZ(0deg) scale(1);
-    }
-}
-
-@keyframes solarRays {
-    0%, 60% {
-        opacity: 0;
-    }
-    70%, 100% {
-        opacity: 1;
-    }
+    display: none;
 }
 
 /* Text de încărcare - elegant și profesional */
 .preloader-text {
-    margin-top: 30px;
+    margin-top: 20px;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -324,22 +71,16 @@
 }
 
 @keyframes dots {
-
-    0%,
-    20% {
+    0%, 20% {
         content: '';
     }
-
     40% {
         content: '.';
     }
-
     60% {
         content: '..';
     }
-
-    80%,
-    100% {
+    80%, 100% {
         content: '...';
     }
 }
@@ -350,41 +91,6 @@
 }
 
 /* ============================================
-   ANIMAȚIE TRANZIȚIE CĂTRE NAVBAR
-   ============================================ */
-
-/* Când pagina e gata, logo-ul se retrage în centrul navbar-ului */
-#preloader.transitioning {
-    background: transparent;
-    pointer-events: none;
-}
-
-#preloader.transitioning .preloader-content {
-    animation: moveToNavbarCenter 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-
-@keyframes moveToNavbarCenter {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        /* Se mută în centrul navbar-ului (top center) */
-        transform: translate(0, calc(-50vh + 40px)) scale(0.5);
-        opacity: 0;
-    }
-}
-
-/* Ascunde spinner-ul în timpul tranziției */
-#preloader.transitioning .preloader-spinner,
-#preloader.transitioning .preloader-text,
-#preloader.transitioning .preloader-progress {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* ============================================
    RESPONSIVE
    ============================================ */
 
@@ -392,31 +98,11 @@
     .preloader-logo {
         width: 90px;
         height: 90px;
-        margin-bottom: 25px;
-    }
-
-    .preloader-spinner {
-        width: 100px;
-        height: 50px;
-    }
-
-    .dome-segment:nth-child(1) {
-        width: 100px;
-        margin-left: -50px;
-    }
-
-    .dome-segment:nth-child(2) {
-        width: 75px;
-        margin-left: -37.5px;
-    }
-
-    .dome-segment:nth-child(3) {
-        width: 50px;
-        margin-left: -25px;
+        margin-bottom: 20px;
     }
 
     .preloader-text {
-        font-size: 12px;
+        font-size: 14px;
     }
 }
 
@@ -424,34 +110,11 @@
     .preloader-logo {
         width: 80px;
         height: 80px;
-        margin-bottom: 20px;
-    }
-
-    .preloader-spinner {
-        width: 80px;
-        height: 40px;
-    }
-
-    .dome-segment:nth-child(1) {
-        width: 80px;
-        margin-left: -40px;
-        height: 16px;
-    }
-
-    .dome-segment:nth-child(2) {
-        width: 60px;
-        margin-left: -30px;
-        height: 24px;
-    }
-
-    .dome-segment:nth-child(3) {
-        width: 40px;
-        margin-left: -20px;
-        height: 32px;
+        margin-bottom: 15px;
     }
 
     .preloader-text {
-        font-size: 11px;
+        font-size: 12px;
     }
 }
 
@@ -467,11 +130,6 @@
     color: #94a3b8;
 }
 
-[data-theme="dark"] .preloader-spinner::before {
-    border-color: #334155;
-    border-top-color: #54b8d1;
-}
-
 @media (prefers-color-scheme: dark) {
     #preloader {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -479,10 +137,5 @@
     
     .preloader-text {
         color: #94a3b8;
-    }
-    
-    .preloader-spinner::before {
-        border-color: #334155;
-        border-top-color: #54b8d1;
     }
 }
