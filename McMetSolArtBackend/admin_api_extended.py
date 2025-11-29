@@ -83,27 +83,35 @@ def register_admin_api_routes(app):
     @app.route('/api/users', methods=['GET'])
     def get_all_users():
         """Lista tuturor utilizatorilor"""
-        conn = get_db_connection()
-        
-        users = conn.execute('''
-            SELECT 
-                u.id,
-                u.first_name,
-                u.last_name,
-                u.email,
-                u.phone,
-                u.created_at,
-                COUNT(o.id) as total_orders,
-                COALESCE(SUM(o.total_amount), 0) as total_spent
-            FROM users u
-            LEFT JOIN orders o ON u.id = o.user_id
-            GROUP BY u.id
-            ORDER BY u.created_at DESC
-        ''').fetchall()
-        
-        conn.close()
-        
-        return jsonify([dict(row) for row in users])
+        try:
+            conn = get_db_connection()
+            
+            users = conn.execute('''
+                SELECT 
+                    u.id,
+                    u.first_name,
+                    u.last_name,
+                    u.email,
+                    u.phone,
+                    u.created_at,
+                    COUNT(o.id) as total_orders,
+                    COALESCE(SUM(o.total_amount), 0) as total_spent
+                FROM users u
+                LEFT JOIN orders o ON u.id = o.user_id
+                GROUP BY u.id
+                ORDER BY u.created_at DESC
+            ''').fetchall()
+            
+            conn.close()
+            
+            return jsonify([dict(row) for row in users])
+        except Exception as e:
+            print(f"❌ Eroare /api/users: {str(e)}")
+            return jsonify({
+                'success': False,
+                'error': str(e),
+                'message': 'Eroare la încărcarea utilizatorilor'
+            }), 500
     
     @app.route('/api/orders', methods=['GET', 'POST'])
     def manage_orders():
