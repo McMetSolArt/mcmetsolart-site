@@ -1,337 +1,293 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Serviciu Email pentru MC MetSolArt
-Trimite emailuri reale prin SMTP (Yahoo Mail)
+Serviciu Email - MC MetSolArt
+Trimitere email-uri reale folosind SendGrid sau SMTP
 """
 
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import os
 from datetime import datetime
+import secrets
 
-# Importă configurarea
-try:
-    from config_email import (
-        EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD,
-        EMAIL_TO, EMAIL_ENABLED
-    )
-    EMAIL_FROM = EMAIL_USER
-except ImportError:
-    # Configurare default dacă config_email.py nu există
-    EMAIL_HOST = 'smtp.mail.yahoo.com'
-    EMAIL_PORT = 587
-    EMAIL_USER = 'mc_metsolart@yahoo.com'
-    EMAIL_PASSWORD = ''
-    EMAIL_FROM = 'mc_metsolart@yahoo.com'
-    EMAIL_TO = 'mc_metsolart@yahoo.com'
-    EMAIL_ENABLED = False
-    print("⚠️  config_email.py nu a fost găsit. Folosesc configurare default.")
+# Încarcă configurația email din variabile de mediu
+EMAIL_ENABLED = os.getenv('EMAIL_ENABLED', 'False').lower() in ('1', 'true', 'yes')
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY', '')
+EMAIL_FROM = os.getenv('EMAIL_FROM', 'noreply@mcmetsolart.com')
+EMAIL_TO = os.getenv('EMAIL_TO', 'admin@mcmetsolart.com')
 
-def send_contact_email(name, email, subject, message, phone=None):
-    """
-    Trimite email de contact către mc_metsolart@yahoo.com
-    
-    Args:
-        name: Numele clientului
-        email: Email-ul clientului
-        subject: Subiectul mesajului
-        message: Mesajul clientului
-        phone: Telefon (opțional)
-    
-    Returns:
-        tuple: (success: bool, error_message: str)
-    """
-    
+# SMTP Configuration (fallback)
+SMTP_HOST = os.getenv('SMTP_HOST', 'smtp.gmail.com')
+SMTP_PORT = int(os.getenv('SMTP_PORT', '587'))
+SMTP_USER = os.getenv('SMTP_USER', '')
+SMTP_PASSWORD = os.getenv('SMTP_PASSWORD', '')
+
+def send_email_sendgrid(to_email, subject, html_content):
+    """Trimite email folosind SendGrid"""
+    try:
+        from sendgrid import SendGridAPIClient
+        from sendgrid.helpers.mail import Mail
+        
+        message = Mail(
+            from_email=EMAIL_FROM,
+            to_emails=to_email,
+            subject=subject,
+            html_content=html_content
+        )
+        
+        sg = SendGridAPIClient(SENDGRID_API_KEY)
+        response = sg.send(message)
+        
+        print(f"✅ Email trimis cu SendGrid: {to_email} - Status: {response.status_code}")
+        return True, None
+    except Exception as e:
+        print(f"❌ Eroare SendGrid: {str(e)}")
+        return False, str(e)
+
+def send_email_smtp(to_email, subject, html_content):
+    """Trimite email folosind SMTP"""
+    try:
+        import smtplib
+        from email.mime.text import MIMEText
+        from email.mime.multipart import MIMEMultipart
+        
+        message = MIMEMultipart('alternative')
+        message['Subject'] = subject
+        message['From'] = EMAIL_FROM
+        message['To'] = to_email
+        
+        html_part = MIMEText(html_content, 'html')
+        message.attach(html_part)
+        
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASSWORD)
+            server.send_message(message)
+        
+        print(f"✅ Email trimis cu SMTP: {to_email}")
+        return True, None
+    except Exception as e:
+        print(f"❌ Eroare SMTP: {str(e)}")
+        return False, str(e)
+
+def send_email(to_email, subject, html_content):
+    """Trimite email folosind metoda disponibilă"""
     if not EMAIL_ENABLED:
-        print(f"📧 Email dezactivat - Mesaj de la {name} ({email}): {subject}")
-        return True, "Email înregistrat (trimitere dezactivată)"
+        print(f"ℹ️ Email dezactivat - ar fi trimis către: {to_email}")
+        print(f"   Subject: {subject}")
+        return True, None
     
-    if not EMAIL_PASSWORD:
-        print("❌ Eroare: Parola email nu este configurată!")
-        return False, "Configurare email incompletă"
+    # Încearcă SendGrid mai întâi
+    if SENDGRID_API_KEY:
+        return send_email_sendgrid(to_email, subject, html_content)
     
-    try:
-        # Creează mesajul
-        msg = MIMEMultipart('alternative')
-        msg['From'] = EMAIL_FROM
-        msg['To'] = EMAIL_TO
-        msg['Subject'] = f"[Contact Site] {subject}"
-        msg['Reply-To'] = email
-        
-        # Creează conținutul HTML
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body {{
-                    font-family: Arial, sans-serif;
-                    line-height: 1.6;
-                    color: #333;
-                }}
-                .container {{
-                    max-width: 600px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    background-color: #f9f9f9;
-                }}
-                .header {{
-                    background: linear-gradient(135deg, #176f87 0%, #0d4a5a 100%);
-                    color: white;
-                    padding: 20px;
-                    text-align: center;
-                    border-radius: 5px 5px 0 0;
-                }}
-                .content {{
-                    background: white;
-                    padding: 30px;
-                    border-radius: 0 0 5px 5px;
-                }}
-                .info-row {{
-                    margin: 15px 0;
-                    padding: 10px;
-                    background: #f5f5f5;
-                    border-left: 4px solid #176f87;
-                }}
-                .label {{
-                    font-weight: bold;
-                    color: #176f87;
-                }}
-                .message-box {{
-                    background: #f9f9f9;
-                    padding: 20px;
-                    border-radius: 5px;
-                    margin-top: 20px;
-                    border: 1px solid #ddd;
-                }}
-                .footer {{
-                    text-align: center;
-                    margin-top: 20px;
-                    padding-top: 20px;
-                    border-top: 1px solid #ddd;
-                    color: #666;
-                    font-size: 12px;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h2>📧 Mesaj Nou de Contact</h2>
-                    <p>MC MetSolArt - Formular Contact Site</p>
-                </div>
-                <div class="content">
-                    <div class="info-row">
-                        <span class="label">👤 Nume:</span> {name}
-                    </div>
-                    <div class="info-row">
-                        <span class="label">📧 Email:</span> <a href="mailto:{email}">{email}</a>
-                    </div>
-                    {f'<div class="info-row"><span class="label">📱 Telefon:</span> {phone}</div>' if phone else ''}
-                    <div class="info-row">
-                        <span class="label">📋 Subiect:</span> {subject}
-                    </div>
-                    <div class="info-row">
-                        <span class="label">📅 Data:</span> {datetime.now().strftime('%d.%m.%Y %H:%M')}
-                    </div>
-                    
-                    <div class="message-box">
-                        <p class="label">💬 Mesaj:</p>
-                        <p>{message.replace(chr(10), '<br>')}</p>
-                    </div>
-                    
-                    <div style="margin-top: 30px; padding: 15px; background: #e8f5e9; border-radius: 5px;">
-                        <p style="margin: 0; color: #2e7d32;">
-                            <strong>💡 Răspunde direct:</strong> Poți răspunde acestui email pentru a contacta clientul.
-                        </p>
-                    </div>
-                </div>
-                <div class="footer">
-                    <p>Acest email a fost trimis automat de pe site-ul MC MetSolArt</p>
-                    <p>© {datetime.now().year} MC MetSolArt - Toate drepturile rezervate</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
-        
-        # Creează versiunea text plain
-        text_content = f"""
-        MESAJ NOU DE CONTACT - MC MetSolArt
-        =====================================
-        
-        Nume: {name}
-        Email: {email}
-        {f'Telefon: {phone}' if phone else ''}
-        Subiect: {subject}
-        Data: {datetime.now().strftime('%d.%m.%Y %H:%M')}
-        
-        Mesaj:
-        {message}
-        
-        ---
-        Răspunde direct la acest email pentru a contacta clientul.
-        """
-        
-        # Atașează ambele versiuni
-        part1 = MIMEText(text_content, 'plain', 'utf-8')
-        part2 = MIMEText(html_content, 'html', 'utf-8')
-        msg.attach(part1)
-        msg.attach(part2)
-        
-        # Conectează la server SMTP
-        print(f"📧 Conectare la {EMAIL_HOST}:{EMAIL_PORT}...")
-        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
-        server.starttls()
-        
-        # Autentificare
-        print(f"🔐 Autentificare ca {EMAIL_USER}...")
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        
-        # Trimite email
-        print(f"📤 Trimitere email către {EMAIL_TO}...")
-        server.send_message(msg)
-        server.quit()
-        
-        print(f"✅ Email trimis cu succes către {EMAIL_TO}")
-        return True, "Email trimis cu succes"
-        
-    except smtplib.SMTPAuthenticationError:
-        error_msg = "Eroare autentificare email. Verifică parola."
-        print(f"❌ {error_msg}")
-        return False, error_msg
-    except smtplib.SMTPException as e:
-        error_msg = f"Eroare SMTP: {str(e)}"
-        print(f"❌ {error_msg}")
-        return False, error_msg
-    except Exception as e:
-        error_msg = f"Eroare trimitere email: {str(e)}"
-        print(f"❌ {error_msg}")
-        return False, error_msg
+    # Fallback la SMTP
+    if SMTP_USER and SMTP_PASSWORD:
+        return send_email_smtp(to_email, subject, html_content)
+    
+    print("⚠️ Nicio metodă de email configurată!")
+    return False, "Email service not configured"
 
-def send_order_notification_email(user_email, user_name, order_number, total_amount):
-    """
-    Trimite email de notificare comandă către admin
-    
-    Args:
-        user_email: Email-ul clientului
-        user_name: Numele clientului
-        order_number: Numărul comenzii
-        total_amount: Suma totală
-    
-    Returns:
-        tuple: (success: bool, error_message: str)
-    """
-    
-    if not EMAIL_ENABLED or not EMAIL_PASSWORD:
-        print(f"📧 Email dezactivat - Comandă nouă #{order_number} de la {user_name}")
-        return True, "Email înregistrat (trimitere dezactivată)"
-    
-    try:
-        msg = MIMEMultipart('alternative')
-        msg['From'] = EMAIL_FROM
-        msg['To'] = EMAIL_TO
-        msg['Subject'] = f"[Comandă Nouă] #{order_number} - {user_name}"
-        
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }}
-                .header {{ background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }}
-                .content {{ background: white; padding: 30px; border-radius: 0 0 5px 5px; }}
-                .info-row {{ margin: 15px 0; padding: 10px; background: #f5f5f5; border-left: 4px solid #10b981; }}
-                .label {{ font-weight: bold; color: #059669; }}
-                .total {{ font-size: 24px; color: #10b981; font-weight: bold; text-align: center; padding: 20px; background: #f0fdf4; border-radius: 5px; margin: 20px 0; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h2>🛒 Comandă Nouă!</h2>
-                    <p>MC MetSolArt - Notificare Comandă</p>
-                </div>
-                <div class="content">
-                    <div class="info-row">
-                        <span class="label">📦 Număr Comandă:</span> {order_number}
-                    </div>
-                    <div class="info-row">
-                        <span class="label">👤 Client:</span> {user_name}
-                    </div>
-                    <div class="info-row">
-                        <span class="label">📧 Email Client:</span> <a href="mailto:{user_email}">{user_email}</a>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">📅 Data:</span> {datetime.now().strftime('%d.%m.%Y %H:%M')}
-                    </div>
-                    
-                    <div class="total">
-                        💰 Total: {total_amount:.2f} RON
-                    </div>
-                    
-                    <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
-                        <p style="margin: 0; color: #856404;">
-                            <strong>⚠️ Acțiune necesară:</strong> Verifică și confirmă comanda în panelul de administrare.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
-        
-        text_content = f"""
-        COMANDĂ NOUĂ - MC MetSolArt
-        ============================
-        
-        Număr Comandă: {order_number}
-        Client: {user_name}
-        Email: {user_email}
-        Data: {datetime.now().strftime('%d.%m.%Y %H:%M')}
-        
-        Total: {total_amount:.2f} RON
-        
-        Verifică și confirmă comanda în panelul de administrare.
-        """
-        
-        part1 = MIMEText(text_content, 'plain', 'utf-8')
-        part2 = MIMEText(html_content, 'html', 'utf-8')
-        msg.attach(part1)
-        msg.attach(part2)
-        
-        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
-        server.starttls()
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
-        print(f"✅ Email notificare comandă trimis către {EMAIL_TO}")
-        return True, "Email trimis cu succes"
-        
-    except Exception as e:
-        error_msg = f"Eroare trimitere email: {str(e)}"
-        print(f"❌ {error_msg}")
-        return False, error_msg
+# ============================================
+# TEMPLATE-URI EMAIL
+# ============================================
 
-def test_email_connection():
+def get_email_template(title, content):
+    """Template HTML pentru email-uri"""
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+            }}
+            .header {{
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 30px;
+                text-align: center;
+                border-radius: 10px 10px 0 0;
+            }}
+            .content {{
+                background: #f9f9f9;
+                padding: 30px;
+                border-radius: 0 0 10px 10px;
+            }}
+            .button {{
+                display: inline-block;
+                padding: 12px 30px;
+                background: #667eea;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                margin: 20px 0;
+            }}
+            .footer {{
+                text-align: center;
+                margin-top: 30px;
+                color: #666;
+                font-size: 12px;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>{title}</h1>
+        </div>
+        <div class="content">
+            {content}
+        </div>
+        <div class="footer">
+            <p>© 2025 MC MetSolArt - Toate drepturile rezervate</p>
+            <p>Acest email a fost trimis automat. Te rugăm să nu răspunzi.</p>
+        </div>
+    </body>
+    </html>
     """
-    Testează conexiunea email
+
+# ============================================
+# FUNCȚII TRIMITERE EMAIL
+# ============================================
+
+def send_contact_email(name, email, phone, message):
+    """Trimite email de contact către admin"""
+    subject = f"📧 Mesaj nou de contact de la {name}"
     
-    Returns:
-        tuple: (success: bool, message: str)
+    content = f"""
+        <h2>Mesaj nou de contact</h2>
+        <p><strong>Nume:</strong> {name}</p>
+        <p><strong>Email:</strong> {email}</p>
+        <p><strong>Telefon:</strong> {phone}</p>
+        <p><strong>Mesaj:</strong></p>
+        <p style="background: white; padding: 15px; border-left: 4px solid #667eea;">
+            {message}
+        </p>
+        <p><small>Trimis la: {datetime.now().strftime('%d.%m.%Y %H:%M')}</small></p>
     """
-    if not EMAIL_PASSWORD:
-        return False, "Parola email nu este configurată"
     
-    try:
-        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
-        server.starttls()
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        server.quit()
-        return True, "Conexiune email reușită"
-    except Exception as e:
-        return False, f"Eroare conexiune: {str(e)}"
+    html = get_email_template("Mesaj Nou de Contact", content)
+    return send_email(EMAIL_TO, subject, html)
+
+def send_password_reset_email(email, reset_code):
+    """Trimite cod de resetare parolă"""
+    subject = "🔐 Resetare Parolă - MC MetSolArt"
+    
+    content = f"""
+        <h2>Resetare Parolă</h2>
+        <p>Ai solicitat resetarea parolei pentru contul tău.</p>
+        <p>Codul tău de resetare este:</p>
+        <div style="background: white; padding: 20px; text-align: center; font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #667eea;">
+            {reset_code}
+        </div>
+        <p><strong>Acest cod este valabil 15 minute.</strong></p>
+        <p>Dacă nu ai solicitat resetarea parolei, ignoră acest email.</p>
+    """
+    
+    html = get_email_template("Resetare Parolă", content)
+    return send_email(email, subject, html)
+
+def send_welcome_email(email, first_name):
+    """Trimite email de bun venit"""
+    subject = "🎉 Bun venit la MC MetSolArt!"
+    
+    content = f"""
+        <h2>Bun venit, {first_name}!</h2>
+        <p>Îți mulțumim că te-ai înregistrat pe MC MetSolArt.</p>
+        <p>Contul tău a fost creat cu succes și poți acum:</p>
+        <ul>
+            <li>✅ Plasa comenzi pentru cupole geodezice</li>
+            <li>✅ Urmări statusul comenzilor tale</li>
+            <li>✅ Gestiona profilul și setările</li>
+            <li>✅ Contacta echipa noastră</li>
+        </ul>
+        <a href="https://mcmetsolart-site-5.onrender.com" class="button">Vizitează Site-ul</a>
+        <p>Dacă ai întrebări, nu ezita să ne contactezi!</p>
+    """
+    
+    html = get_email_template("Bun Venit!", content)
+    return send_email(email, subject, html)
+
+def send_order_confirmation_email(email, first_name, order_number, total_amount):
+    """Trimite confirmare comandă către client"""
+    subject = f"✅ Comandă Confirmată #{order_number}"
+    
+    content = f"""
+        <h2>Comandă Confirmată!</h2>
+        <p>Bună, {first_name}!</p>
+        <p>Comanda ta a fost înregistrată cu succes.</p>
+        <div style="background: white; padding: 20px; margin: 20px 0;">
+            <p><strong>Număr comandă:</strong> {order_number}</p>
+            <p><strong>Total:</strong> {total_amount} EUR</p>
+            <p><strong>Status:</strong> În așteptare</p>
+        </div>
+        <p>Vei primi un email când comanda va fi confirmată de echipa noastră.</p>
+        <a href="https://mcmetsolart-site-5.onrender.com" class="button">Vezi Comanda</a>
+    """
+    
+    html = get_email_template("Comandă Confirmată", content)
+    return send_email(email, subject, html)
+
+def send_order_notification_email(order_number, client_name, client_email, total_amount):
+    """Trimite notificare comandă nouă către admin"""
+    subject = f"🔔 Comandă Nouă #{order_number}"
+    
+    content = f"""
+        <h2>Comandă Nouă Primită!</h2>
+        <div style="background: white; padding: 20px; margin: 20px 0;">
+            <p><strong>Număr comandă:</strong> {order_number}</p>
+            <p><strong>Client:</strong> {client_name}</p>
+            <p><strong>Email:</strong> {client_email}</p>
+            <p><strong>Total:</strong> {total_amount} EUR</p>
+        </div>
+        <p>Accesează admin panel-ul pentru a confirma comanda.</p>
+        <p><small>Trimis la: {datetime.now().strftime('%d.%m.%Y %H:%M')}</small></p>
+    """
+    
+    html = get_email_template("Comandă Nouă", content)
+    return send_email(EMAIL_TO, subject, html)
+
+def send_order_status_email(email, first_name, order_number, new_status):
+    """Trimite actualizare status comandă"""
+    status_messages = {
+        'confirmat': 'Comanda ta a fost confirmată!',
+        'in_procesare': 'Comanda ta este în procesare.',
+        'expediat': 'Comanda ta a fost expediată!',
+        'livrat': 'Comanda ta a fost livrată!'
+    }
+    
+    subject = f"📦 Actualizare Comandă #{order_number}"
+    message = status_messages.get(new_status, f'Status actualizat: {new_status}')
+    
+    content = f"""
+        <h2>{message}</h2>
+        <p>Bună, {first_name}!</p>
+        <p>Comanda ta #{order_number} a fost actualizată.</p>
+        <div style="background: white; padding: 20px; margin: 20px 0;">
+            <p><strong>Status nou:</strong> {new_status.replace('_', ' ').title()}</p>
+        </div>
+        <a href="https://mcmetsolart-site-5.onrender.com" class="button">Vezi Detalii</a>
+    """
+    
+    html = get_email_template("Actualizare Comandă", content)
+    return send_email(email, subject, html)
+
+# ============================================
+# FUNCȚII HELPER
+# ============================================
+
+def generate_reset_code():
+    """Generează cod de resetare parolă (6 cifre)"""
+    return ''.join([str(secrets.randbelow(10)) for _ in range(6)])
+
+# Test
+if __name__ == '__main__':
+    print("📧 Email Service - MC MetSolArt")
+    print(f"Email enabled: {EMAIL_ENABLED}")
+    print(f"SendGrid configured: {bool(SENDGRID_API_KEY)}")
+    print(f"SMTP configured: {bool(SMTP_USER and SMTP_PASSWORD)}")
