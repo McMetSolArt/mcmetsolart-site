@@ -60,13 +60,13 @@ def register_admin_api_routes(app):
             
             total_users = conn.execute('SELECT COUNT(*) as count FROM users').fetchone()['count']
             total_orders = conn.execute('SELECT COUNT(*) as count FROM orders').fetchone()['count']
-        
-        orders_by_status = conn.execute('''
-            SELECT status, COUNT(*) as count 
-            FROM orders 
-            GROUP BY status
-        ''').fetchall()
-        
+            
+            orders_by_status = conn.execute('''
+                SELECT status, COUNT(*) as count 
+                FROM orders 
+                GROUP BY status
+            ''').fetchall()
+            
             total_revenue = conn.execute('''
                 SELECT SUM(total_amount) as total 
                 FROM orders 
