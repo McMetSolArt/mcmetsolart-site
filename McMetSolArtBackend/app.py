@@ -60,13 +60,9 @@ CORS(app)  # Permite cereri de la frontend
 # Secret key pentru sesiuni
 app.secret_key = os.getenv('SECRET_KEY', 'schimba-aceasta-cheie-in-productie-' + secrets.token_hex(16))
 
-# Înregistrează Admin Panel Blueprint
-try:
-    from admin_panel import admin_bp
-    app.register_blueprint(admin_bp)
-    print("✅ Admin Panel înregistrat la /admin")
-except ImportError as e:
-    print(f"⚠️ Admin Panel nu a putut fi încărcat: {e}")
+# Admin Panel - DEZACTIVAT COMPLET
+# Folosim DOAR admin-professional.html LOCAL
+# Nu există admin panel pe server!
 
 # Înregistrează Admin API Extended
 try:
