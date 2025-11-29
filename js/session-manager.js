@@ -25,33 +25,37 @@
         if (currentUser && authToken) {
             console.log('✅ Utilizator găsit în localStorage:', currentUser.firstName);
             
-            // Verifică dacă token-ul este valid pe server
-            try {
-                const response = await fetch(window.API.baseURL + '/user/profile', {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (!response.ok) {
-                    console.warn('⚠️ Token invalid sau expirat - ștergere automată');
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('currentUser');
+            // Verifică dacă token-ul este valid pe server (doar dacă API este disponibil)
+            if (window.API && window.API.baseURL) {
+                try {
+                    const response = await fetch(window.API.baseURL + '/user/profile', {
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
                     
-                    if (isAccountPage) {
-                        window.location.href = 'index.html';
-                    } else {
-                        // Reîncarcă pagina pentru a actualiza UI-ul
-                        window.location.reload();
+                    if (!response.ok && response.status === 401) {
+                        console.warn('⚠️ Token invalid (401) - ștergere automată');
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('currentUser');
+                        
+                        if (isAccountPage) {
+                            window.location.href = 'index.html';
+                        } else {
+                            // Reîncarcă pagina pentru a actualiza UI-ul
+                            window.location.reload();
+                        }
+                        return;
                     }
-                    return;
+                    
+                    if (response.ok) {
+                        console.log('✅ Token valid');
+                    }
+                } catch (error) {
+                    console.warn('⚠️ Nu se poate verifica token-ul (server offline?):', error.message);
+                    // Nu ștergem token-ul dacă este o eroare de rețea
                 }
-                
-                console.log('✅ Token valid');
-            } catch (error) {
-                console.error('❌ Eroare verificare token:', error);
-                // Nu ștergem token-ul dacă este o eroare de rețea
             }
             
             if (isAccountPage) {
