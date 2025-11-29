@@ -50,11 +50,17 @@ def add_to_history(order_id, action, details, conn=None):
 
 def register_admin_api_routes(app):
     """Înregistrează rutele API pentru admin"""
+    print("🔧 Înregistrare rute admin API extended...")
     
     @app.route('/api/stats', methods=['GET'])
     def get_stats():
         """Statistici generale"""
-        conn = get_db_connection()
+        print("📊 Request la /api/stats")
+        try:
+            conn = get_db_connection()
+        except Exception as e:
+            print(f"❌ Eroare conectare DB: {e}")
+            return jsonify({'error': str(e)}), 500
         
         total_users = conn.execute('SELECT COUNT(*) as count FROM users').fetchone()['count']
         total_orders = conn.execute('SELECT COUNT(*) as count FROM orders').fetchone()['count']
