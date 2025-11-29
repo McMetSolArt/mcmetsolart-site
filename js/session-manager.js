@@ -15,7 +15,7 @@
         checkSession();
     }
 
-    function checkSession() {
+    async function checkSession() {
         const currentUser = getCurrentUser();
         const authToken = localStorage.getItem('authToken');
         
@@ -23,7 +23,36 @@
         const isAccountPage = window.location.pathname.includes('contul meu');
         
         if (currentUser && authToken) {
-            console.log('✅ Utilizator autentificat:', currentUser.firstName);
+            console.log('✅ Utilizator găsit în localStorage:', currentUser.firstName);
+            
+            // Verifică dacă token-ul este valid pe server
+            try {
+                const response = await fetch(window.API.baseURL + '/user/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    console.warn('⚠️ Token invalid sau expirat - ștergere automată');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('currentUser');
+                    
+                    if (isAccountPage) {
+                        window.location.href = 'index.html';
+                    } else {
+                        // Reîncarcă pagina pentru a actualiza UI-ul
+                        window.location.reload();
+                    }
+                    return;
+                }
+                
+                console.log('✅ Token valid');
+            } catch (error) {
+                console.error('❌ Eroare verificare token:', error);
+                // Nu ștergem token-ul dacă este o eroare de rețea
+            }
             
             if (isAccountPage) {
                 // Pe pagina de cont, actualizează UI-ul
