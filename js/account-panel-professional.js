@@ -512,7 +512,19 @@
                 }
 
                 const data = await window.API.getOrders();
-                const orders = data.data || [];
+                console.log('📦 Date comenzi primite:', data);
+                
+                // Verifică dacă data este array sau obiect cu proprietatea data
+                let orders = [];
+                if (Array.isArray(data)) {
+                    orders = data;
+                } else if (data && Array.isArray(data.data)) {
+                    orders = data.data;
+                } else if (data && data.orders && Array.isArray(data.orders)) {
+                    orders = data.orders;
+                }
+                
+                console.log('📊 Comenzi procesate:', orders.length);
 
                 if (orders.length === 0) {
                     content.innerHTML = `
