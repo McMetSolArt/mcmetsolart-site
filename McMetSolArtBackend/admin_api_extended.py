@@ -55,15 +55,11 @@ def register_admin_api_routes(app):
     @app.route('/api/stats', methods=['GET'])
     def get_stats():
         """Statistici generale"""
-        print("📊 Request la /api/stats")
         try:
             conn = get_db_connection()
-        except Exception as e:
-            print(f"❌ Eroare conectare DB: {e}")
-            return jsonify({'error': str(e)}), 500
-        
-        total_users = conn.execute('SELECT COUNT(*) as count FROM users').fetchone()['count']
-        total_orders = conn.execute('SELECT COUNT(*) as count FROM orders').fetchone()['count']
+            
+            total_users = conn.execute('SELECT COUNT(*) as count FROM users').fetchone()['count']
+            total_orders = conn.execute('SELECT COUNT(*) as count FROM orders').fetchone()['count']
         
         orders_by_status = conn.execute('''
             SELECT status, COUNT(*) as count 
@@ -71,20 +67,23 @@ def register_admin_api_routes(app):
             GROUP BY status
         ''').fetchall()
         
-        total_revenue = conn.execute('''
-            SELECT SUM(total_amount) as total 
-            FROM orders 
-            WHERE status != "anulat"
-        ''').fetchone()['total'] or 0
-        
-        conn.close()
-        
-        return jsonify({
-            'total_users': total_users,
-            'total_orders': total_orders,
-            'orders_by_status': [dict(row) for row in orders_by_status],
-            'total_revenue': float(total_revenue)
-        })
+            total_revenue = conn.execute('''
+                SELECT SUM(total_amount) as total 
+                FROM orders 
+                WHERE status != "anulat"
+            ''').fetchone()['total'] or 0
+            
+            conn.close()
+            
+            return jsonify({
+                'total_users': total_users,
+                'total_orders': total_orders,
+                'orders_by_status': [dict(row) for row in orders_by_status],
+                'total_revenue': float(total_revenue)
+            })
+        except Exception as e:
+            print(f"❌ Eroare /api/stats: {str(e)}")
+            return jsonify({'error': str(e)}), 500
     
     @app.route('/api/users', methods=['GET'])
     def get_all_users():
