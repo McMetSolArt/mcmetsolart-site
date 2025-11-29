@@ -91,27 +91,40 @@ def register_admin_api_routes(app):
         try:
             conn = get_db_connection()
             
+            # Query simplu fără JOIN pentru a evita erori
             users = conn.execute('''
                 SELECT 
-                    u.id,
-                    u.first_name,
-                    u.last_name,
-                    u.email,
-                    u.phone,
-                    u.created_at,
-                    COUNT(o.id) as total_orders,
-                    COALESCE(SUM(o.total_amount), 0) as total_spent
-                FROM users u
-                LEFT JOIN orders o ON u.id = o.user_id
-                GROUP BY u.id
-                ORDER BY u.created_at DESC
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    created_at
+                FROM users
+                ORDER BY created_at DESC
             ''').fetchall()
             
             conn.close()
             
-            return jsonify([dict(row) for row in users])
+            # Returnează lista de utilizatori
+            result = []
+            for user in users:
+                result.append({
+                    'id': user['id'],
+                    'first_name': user['first_name'],
+                    'last_name': user['last_name'],
+                    'email': user['email'],
+                    'phone': user['phone'] or '',
+                    'created_at': user['created_at'],
+                    'total_orders': 0,
+                    'total_spent': 0
+                })
+            
+            return jsonify(result)
         except Exception as e:
             print(f"❌ Eroare /api/users: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return jsonify({
                 'success': False,
                 'error': str(e),
