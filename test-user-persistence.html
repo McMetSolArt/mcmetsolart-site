@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Persistență Date Utilizator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #2196f3;
+        }
+        .success {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+        .error {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Persistență Date Utilizator</h1>
+    
+    <div class="test-section">
+        <h2>1️⃣ Înregistrare Utilizator Nou</h2>
+        <input type="text" id="regFirstName" placeholder="Prenume" value="Test">
+        <input type="text" id="regLastName" placeholder="Nume" value="User">
+        <input type="email" id="regEmail" placeholder="Email" value="test@example.com">
+        <input type="password" id="regPassword" placeholder="Parolă" value="Test123!">
+        <input type="tel" id="regPhone" placeholder="Telefon" value="0712345678">
+        <button onclick="testRegister()">📝 Înregistrează</button>
+        <div id="regResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2️⃣ Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" value="test@example.com">
+        <input type="password" id="loginPassword" placeholder="Parolă" value="Test123!">
+        <button onclick="testLogin()">🔓 Login</button>
+        <div id="loginResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3️⃣ Verifică Date în localStorage</h2>
+        <button onclick="checkLocalStorage()">🔍 Verifică localStorage</button>
+        <div id="localStorageResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4️⃣ Logout (Șterge localStorage)</h2>
+        <button onclick="testLogout()">🚪 Logout</button>
+        <div id="logoutResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>5️⃣ Re-Login (Verifică dacă datele se reîncarcă)</h2>
+        <button onclick="testReLogin()">🔄 Re-Login</button>
+        <div id="reLoginResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>6️⃣ Actualizează Profil</h2>
+        <input type="text" id="updatePhone" placeholder="Telefon nou" value="0798765432">
+        <input type="text" id="updateCity" placeholder="Oraș" value="București">
+        <button onclick="testUpdateProfile()">💾 Actualizează Profil</button>
+        <div id="updateResult"></div>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script>
+        // Configurare API pentru test
+        if (window.API) {
+            // Folosește serverul online
+            window.API.baseURL = 'https://mcmetsolart-site-5.onrender.com/api';
+            console.log('✅ API Client configurat:', window.API.baseURL);
+        }
+
+        async function testRegister() {
+            const result = document.getElementById('regResult');
+            result.innerHTML = '<div class="info">⏳ Se înregistrează...</div>';
+            
+            try {
+                const data = await window.API.register({
+                    firstName: document.getElementById('regFirstName').value,
+                    lastName: document.getElementById('regLastName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value,
+                    phone: document.getElementById('regPhone').value
+                });
+                
+                result.innerHTML = `
+                    <div class="info success">
+                        ✅ Înregistrare reușită!
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `<div class="info error">❌ Eroare: ${error.message}</div>`;
+            }
+        }
+
+        async function testLogin() {
+            const result = document.getElementById('loginResult');
+            result.innerHTML = '<div class="info">⏳ Se autentifică...</div>';
+            
+            try {
+                const data = await window.API.login(
+                    document.getElementById('loginEmail').value,
+                    document.getElementById('loginPassword').value
+                );
+                
+                result.innerHTML = `
+                    <div class="info success">
+                        ✅ Login reușit!
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `<div class="info error">❌ Eroare: ${error.message}</div>`;
+            }
+        }
+
+        function checkLocalStorage() {
+            const result = document.getElementById('localStorageResult');
+            const currentUser = localStorage.getItem('currentUser');
+            const authToken = localStorage.getItem('authToken');
+            
+            if (currentUser && authToken) {
+                const user = JSON.parse(currentUser);
+                result.innerHTML = `
+                    <div class="info success">
+                        ✅ Date găsite în localStorage:
+                        <pre>${JSON.stringify(user, null, 2)}</pre>
+                        <strong>Token:</strong> ${authToken.substring(0, 50)}...
+                    </div>
+                `;
+            } else {
+                result.innerHTML = `<div class="info error">❌ Nu există date în localStorage</div>`;
+            }
+        }
+
+        function testLogout() {
+            const result = document.getElementById('logoutResult');
+            
+            // Șterge datele
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('authToken');
+            
+            result.innerHTML = `
+                <div class="info success">
+                    ✅ Logout efectuat! localStorage șters.
+                    <br>Acum apasă "Re-Login" pentru a verifica dacă datele se reîncarcă din baza de date.
+                </div>
+            `;
+        }
+
+        async function testReLogin() {
+            const result = document.getElementById('reLoginResult');
+            result.innerHTML = '<div class="info">⏳ Se re-autentifică...</div>';
+            
+            try {
+                // Login din nou cu aceleași credențiale
+                const data = await window.API.login(
+                    document.getElementById('loginEmail').value,
+                    document.getElementById('loginPassword').value
+                );
+                
+                // Verifică dacă datele au fost reîncărcate
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                result.innerHTML = `
+                    <div class="info success">
+                        ✅ Re-Login reușit! Datele au fost reîncărcate din baza de date:
+                        <pre>${JSON.stringify(currentUser, null, 2)}</pre>
+                        <strong>Concluzie:</strong> Datele sunt persistente în baza de date! ✅
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `<div class="info error">❌ Eroare: ${error.message}</div>`;
+            }
+        }
+
+        async function testUpdateProfile() {
+            const result = document.getElementById('updateResult');
+            result.innerHTML = '<div class="info">⏳ Se actualizează profilul...</div>';
+            
+            try {
+                const data = await window.API.updateProfile({
+                    phone: document.getElementById('updatePhone').value,
+                    city: document.getElementById('updateCity').value
+                });
+                
+                result.innerHTML = `
+                    <div class="info success">
+                        ✅ Profil actualizat!
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                        <strong>Acum fă logout și re-login pentru a verifica dacă modificările persistă!</strong>
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `<div class="info error">❌ Eroare: ${error.message}</div>`;
+            }
+        }
+
+        // Verifică automat la încărcare
+        window.addEventListener('load', () => {
+            checkLocalStorage();
+        });
+    </script>
+</body>
+</html>

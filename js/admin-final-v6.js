@@ -1,6 +1,9 @@
 // ADMIN PANEL FINAL - JavaScript Complet Funcțional
 
-const API_URL = 'http://localhost:3000';
+// Configurare automată: localhost sau server online
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:3000' 
+    : 'https://mcmetsolart-site-5.onrender.com';
 const ADMIN_PASSWORD = 'admin123';
 
 let allOrders = [];
