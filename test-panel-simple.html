@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Simple Panel</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/account-panel-ultra-professional.css">
+    <style>
+        body {
+            padding: 50px;
+            background: #f5f5f5;
+        }
+        .test-btn {
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+        #log {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Panel Ultra</h1>
+    
+    <button class="test-btn" onclick="testOpen()">
+        🚀 Deschide Panel
+    </button>
+    
+    <button class="test-btn" onclick="setUser()">
+        👤 Set User Test
+    </button>
+    
+    <button class="test-btn" onclick="checkPanel()">
+        🔍 Check Panel
+    </button>
+
+    <div id="log"></div>
+
+    <script src="js/account-panel-ultra-professional.js"></script>
+
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(msg) {
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML += `<div>[${time}] ${msg}</div>`;
+            log.scrollTop = log.scrollHeight;
+            console.log(msg);
+        }
+
+        function setUser() {
+            const user = {
+                firstName: 'Ion',
+                lastName: 'Popescu',
+                email: 'ion@test.ro',
+                phone: '+40 721 234 567',
+                country: 'România',
+                city: 'București',
+                address: 'Str. Test nr. 1'
+            };
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            addLog('✅ User setat: Ion Popescu');
+        }
+
+        function testOpen() {
+            addLog('🚀 Încercare deschidere panel...');
+            
+            if (window.AccountPanelUltra) {
+                addLog('✅ AccountPanelUltra găsit!');
+                try {
+                    window.AccountPanelUltra.show('dashboard');
+                    addLog('✅ Panel.show() apelat');
+                } catch (e) {
+                    addLog('❌ Eroare: ' + e.message);
+                }
+            } else {
+                addLog('❌ AccountPanelUltra NU există!');
+            }
+        }
+
+        function checkPanel() {
+            addLog('🔍 Verificare panel...');
+            addLog('AccountPanelUltra exists: ' + !!window.AccountPanelUltra);
+            
+            if (window.AccountPanelUltra) {
+                addLog('Panel object: ' + typeof window.AccountPanelUltra);
+                addLog('Panel.show: ' + typeof window.AccountPanelUltra.show);
+                addLog('Panel.panel: ' + !!window.AccountPanelUltra.panel);
+                addLog('Panel.overlay: ' + !!window.AccountPanelUltra.overlay);
+                addLog('Panel.isOpen: ' + window.AccountPanelUltra.isOpen);
+            }
+            
+            // Check DOM
+            const overlay = document.querySelector('.account-overlay-ultra');
+            const panel = document.querySelector('.account-panel-ultra');
+            addLog('Overlay in DOM: ' + !!overlay);
+            addLog('Panel in DOM: ' + !!panel);
+            
+            if (overlay) {
+                addLog('Overlay classes: ' + overlay.className);
+            }
+            if (panel) {
+                addLog('Panel classes: ' + panel.className);
+            }
+        }
+
+        // Auto check on load
+        window.addEventListener('load', () => {
+            addLog('📄 Pagina încărcată');
+            setTimeout(() => {
+                checkPanel();
+            }, 500);
+        });
+
+        // Listen for console logs
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            if (args[0] && typeof args[0] === 'string') {
+                addLog('Console: ' + args[0]);
+            }
+        };
+    </script>
+</body>
+</html>

@@ -80,19 +80,19 @@
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="user-dropdown-menu" id="userDropdownMenu" role="menu">
-                        <button class="user-dropdown-item" onclick="window.AccountPanel.show('dashboard')" role="menuitem">
+                        <button class="user-dropdown-item" onclick="window.AccountPanelRedesign.show('dashboard')" role="menuitem">
                             <i class="fas fa-th-large"></i>
                             <span data-text="account.dashboard.title">Dashboard</span>
                         </button>
-                        <button class="user-dropdown-item" onclick="window.AccountPanel.show('profile')" role="menuitem">
+                        <button class="user-dropdown-item" onclick="window.AccountPanelRedesign.show('profile')" role="menuitem">
                             <i class="fas fa-user-circle"></i>
                             <span data-text="account.tab.profile">Profilul meu</span>
                         </button>
-                        <button class="user-dropdown-item" onclick="window.AccountPanel.show('orders')" role="menuitem">
+                        <button class="user-dropdown-item" onclick="window.AccountPanelRedesign.show('orders')" role="menuitem">
                             <i class="fas fa-shopping-bag"></i>
                             <span data-text="account.tab.orders">Comenzile mele</span>
                         </button>
-                        <button class="user-dropdown-item" onclick="window.AccountPanel.show('settings')" role="menuitem">
+                        <button class="user-dropdown-item" onclick="window.AccountPanelRedesign.show('settings')" role="menuitem">
                             <i class="fas fa-cog"></i>
                             <span data-text="account.tab.settings">Setări</span>
                         </button>
@@ -282,12 +282,12 @@
         }
         
         // Deschide panelul de cont cu tab-ul Contact
-        if (window.AccountPanel) {
-            window.AccountPanel.show('contact');
+        if (window.AccountPanelEnterprise) {
+            window.AccountPanelEnterprise.show('contact');
             console.log('✅ Deschis tab Contact în Contul Meu');
         } else {
             // Fallback: scroll la secțiunea de contact din pagina principală
-            console.warn('AccountPanel nu este disponibil, folosesc fallback');
+            console.warn('AccountPanelEnterprise nu este disponibil, folosesc fallback');
             setTimeout(() => {
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {

@@ -19,7 +19,7 @@
 
     // Configurare URL-uri
     const API_URLS = {
-        // Development local
+        // Development local - ÎNTOTDEAUNA folosește portul 3000 pentru API
         development: 'http://localhost:3000/api',
         
         // Production - backend-ul servește și frontend-ul
@@ -28,6 +28,7 @@
     };
 
     // Selectează URL-ul corect
+    // IMPORTANT: În development, ÎNTOTDEAUNA folosește localhost:3000
     const API_BASE_URL = isLocalhost ? API_URLS.development : API_URLS.production;
 
     // Configurare globală

@@ -528,8 +528,8 @@
                     
                     // Deschide panelul de cont după o scurtă pauză
                     setTimeout(() => {
-                        if (window.AccountPanel) {
-                            window.AccountPanel.show('dashboard');
+                        if (window.AccountPanelRedesign) {
+                            window.AccountPanelRedesign.show('dashboard');
                         }
                     }, 300);
                 }, 1500);
@@ -645,8 +645,8 @@
                     
                     // Deschide panelul de cont
                     setTimeout(() => {
-                        if (window.AccountPanel) {
-                            window.AccountPanel.show('dashboard');
+                        if (window.AccountPanelRedesign) {
+                            window.AccountPanelRedesign.show('dashboard');
                         }
                     }, 300);
                 }, 1500);

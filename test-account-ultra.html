@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Account Panel Ultra Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme-light-mode.css">
+    <link rel="stylesheet" href="css/account-panel-ultra-professional.css">
+    <style>
+        body {
+            padding: 50px;
+            font-family: 'Inter', sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .test-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Schimbă Tema</button>
+
+    <div class="test-container">
+        <div class="test-card">
+            <h1>🎨 Test Account Panel Ultra Professional</h1>
+            <p>Testează noul panel de cont cu design modern și funcționalități complete.</p>
+        </div>
+
+        <div class="test-card">
+            <h2>📂 Deschide Panel-ul</h2>
+            <button class="test-btn" onclick="openPanel('dashboard')">
+                📊 Dashboard
+            </button>
+            <button class="test-btn" onclick="openPanel('profile')">
+                👤 Profil
+            </button>
+            <button class="test-btn" onclick="openPanel('orders')">
+                📦 Comenzi
+            </button>
+            <button class="test-btn" onclick="openPanel('settings')">
+                ⚙️ Setări
+            </button>
+        </div>
+
+        <div class="test-card">
+            <h2>👥 Utilizatori Test</h2>
+            <button class="test-btn" onclick="setTestUser('ion')">
+                Ion Popescu
+            </button>
+            <button class="test-btn" onclick="setTestUser('maria')">
+                Maria Ionescu
+            </button>
+            <button class="test-btn" onclick="setTestUser('admin')">
+                Admin User
+            </button>
+            <button class="test-btn" onclick="clearUser()">
+                ❌ Șterge User
+            </button>
+        </div>
+
+        <div class="test-card">
+            <h2>📊 Status</h2>
+            <p id="userStatus">Nu este autentificat</p>
+        </div>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script src="js/account-panel-ultra-professional.js"></script>
+
+    <script>
+        // Test users
+        const testUsers = {
+            ion: {
+                firstName: 'Ion',
+                lastName: 'Popescu',
+                email: 'ion.popescu@test.ro',
+                phone: '+40 721 234 567',
+                company: 'SC Test SRL',
+                country: 'România',
+                city: 'București',
+                address: 'Str. Exemplu nr. 123, Sector 1',
+                postalCode: '010101',
+                language: 'ro'
+            },
+            maria: {
+                firstName: 'Maria',
+                lastName: 'Ionescu',
+                email: 'maria.ionescu@test.ro',
+                phone: '+40 722 345 678',
+                country: 'România',
+                city: 'Cluj-Napoca',
+                address: 'Str. Test nr. 45, Ap. 12',
+                postalCode: '400001',
+                language: 'ro'
+            },
+            admin: {
+                firstName: 'Admin',
+                lastName: 'User',
+                email: 'admin@mcmetsolart.com',
+                phone: '+40 723 456 789',
+                company: 'MC MetSolArt',
+                country: 'România',
+                city: 'București',
+                address: 'Str. Principală nr. 1',
+                postalCode: '100001',
+                language: 'ro'
+            }
+        };
+
+        function setTestUser(userKey) {
+            const user = testUsers[userKey];
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            localStorage.setItem('isLoggedIn', 'true');
+            updateStatus();
+            alert(`✅ Utilizator setat: ${user.firstName} ${user.lastName}`);
+        }
+
+        function clearUser() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isLoggedIn');
+            updateStatus();
+            alert('❌ Utilizator șters');
+        }
+
+        function openPanel(tab) {
+            if (window.AccountPanelUltra) {
+                window.AccountPanelUltra.show(tab);
+            } else {
+                alert('❌ Panel-ul nu este încărcat încă!');
+            }
+        }
+
+        function updateStatus() {
+            const user = localStorage.getItem('currentUser');
+            const statusEl = document.getElementById('userStatus');
+            
+            if (user) {
+                const userData = JSON.parse(user);
+                statusEl.innerHTML = `
+                    ✅ Autentificat ca: <strong>${userData.firstName} ${userData.lastName}</strong><br>
+                    📧 Email: ${userData.email}
+                `;
+            } else {
+                statusEl.textContent = '❌ Nu este autentificat';
+            }
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // Update status on load
+        updateStatus();
+
+        // Log when panel is ready
+        window.addEventListener('load', () => {
+            console.log('✅ Pagina de test încărcată');
+            console.log('AccountPanelUltra disponibil:', !!window.AccountPanelUltra);
+        });
+    </script>
+</body>
+</html>

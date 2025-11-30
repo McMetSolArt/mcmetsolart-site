@@ -1794,6 +1794,18 @@ def admin_update_order_status(order_id):
         }), 500
 
 # -------------------------
+# Import și înregistrare API-uri noi
+# -------------------------
+try:
+    from profile_api import profile_bp
+    from orders_sync_api import orders_sync_bp
+    app.register_blueprint(profile_bp)
+    app.register_blueprint(orders_sync_bp)
+    print("✅ API-uri profil și comenzi înregistrate")
+except Exception as e:
+    print(f"⚠️ Eroare import API-uri noi: {e}")
+
+# -------------------------
 # Pornirea aplicației
 # -------------------------
 if __name__ == '__main__':

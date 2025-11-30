@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Traduceri Ucraineană - MC MetSolArt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .lang-selector {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .lang-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .test-section h2 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .test-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-key {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .test-value {
+            color: #333;
+        }
+        
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇺🇦 Test Traduceri Ucraineană - MC MetSolArt</h1>
+        
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="testLanguage('ro')">🇷🇴 Română</button>
+            <button class="lang-btn" onclick="testLanguage('en')">🇬🇧 English</button>
+            <button class="lang-btn" onclick="testLanguage('it')">🇮🇹 Italiano</button>
+            <button class="lang-btn" onclick="testLanguage('uk')">🇺🇦 Українська</button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+    
+    <script src="js/translations-assistant.js"></script>
+    <script src="js/translations-account.js"></script>
+    
+    <script>
+        function testLanguage(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Set language
+            localStorage.setItem('language', lang);
+            
+            // Test keys
+            const testKeys = {
+                'Account Panel': [
+                    'account.welcome',
+                    'account.tab.dashboard',
+                    'account.tab.profile',
+                    'account.tab.orders',
+                    'account.tab.settings',
+                    'account.profile.title',
+                    'account.orders.title',
+                    'account.settings.title'
+                ],
+                'Dashboard': [
+                    'account.dashboard.welcome',
+                    'account.dashboard.quick_info',
+                    'account.dashboard.full_name',
+                    'account.dashboard.email',
+                    'account.dashboard.phone'
+                ],
+                'Profile': [
+                    'account.profile.personal_info',
+                    'account.profile.first_name',
+                    'account.profile.last_name',
+                    'account.profile.company',
+                    'account.profile.save'
+                ],
+                'Orders': [
+                    'account.orders.loading',
+                    'account.orders.empty',
+                    'account.orders.number',
+                    'account.orders.date',
+                    'account.orders.status'
+                ],
+                'Settings': [
+                    'account.settings.security',
+                    'account.settings.language',
+                    'account.settings.theme',
+                    'account.settings.logout'
+                ],
+                'Messages': [
+                    'account.msg.profile_updated',
+                    'account.msg.logout_confirm',
+                    'validation.required',
+                    'validation.email_invalid'
+                ],
+                'Assistant': [
+                    'assistant.title',
+                    'assistant.welcome',
+                    'assistant.option.info',
+                    'assistant.option.products',
+                    'assistant.placeholder'
+                ]
+            };
+            
+            let html = '';
+            let totalTests = 0;
+            let passedTests = 0;
+            
+            for (const [section, keys] of Object.entries(testKeys)) {
+                html += `<div class="test-section">`;
+                html += `<h2>${section}</h2>`;
+                
+                keys.forEach(key => {
+                    totalTests++;
+                    const translation = tr(key);
+                    const isPassed = translation !== key && translation.length > 0;
+                    
+                    if (isPassed) passedTests++;
+                    
+                    html += `<div class="test-item">`;
+                    html += `<div class="test-key">${key} ${isPassed ? '✅' : '❌'}</div>`;
+                    html += `<div class="test-value ${isPassed ? 'success' : 'error'}">${translation}</div>`;
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            }
+            
+            // Summary
+            const percentage = ((passedTests / totalTests) * 100).toFixed(1);
+            html = `
+                <div class="test-section" style="background: ${percentage === '100.0' ? '#d4edda' : '#fff3cd'}; border: 2px solid ${percentage === '100.0' ? '#28a745' : '#ffc107'};">
+                    <h2>📊 Rezultate Test - ${lang.toUpperCase()}</h2>
+                    <div class="test-item">
+                        <div class="test-key">Total Teste:</div>
+                        <div class="test-value">${totalTests}</div>
+                    </div>
+                    <div class="test-item">
+                        <div class="test-key">Trecute:</div>
+                        <div class="test-value success">${passedTests}</div>
+                    </div>
+                    <div class="test-item">
+                        <div class="test-key">Eșuate:</div>
+                        <div class="test-value error">${totalTests - passedTests}</div>
+                    </div>
+                    <div class="test-item">
+                        <div class="test-key">Procent:</div>
+                        <div class="test-value ${percentage === '100.0' ? 'success' : 'error'}">${percentage}%</div>
+                    </div>
+                </div>
+            ` + html;
+            
+            document.getElementById('results').innerHTML = html;
+        }
+        
+        // Test initial cu limba curentă
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentLang = localStorage.getItem('language') || 'ro';
+            testLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>

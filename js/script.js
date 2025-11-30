@@ -1290,6 +1290,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize language
     changeLanguage(currentLanguage);
+    
+    // Listen for language changes from Account Panel
+    window.addEventListener('languageChanged', (e) => {
+        const newLang = e.detail.language;
+        if (newLang && newLang !== currentLanguage) {
+            currentLanguage = newLang;
+            changeLanguage(newLang);
+        }
+    });
 
     // Initialize components
     initSmoothScrolling();

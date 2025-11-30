@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Cache - MC MetSolArt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .steps {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .step {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .step::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .success.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 Clear Cache Account Panel</h1>
+        <p>Dacă vezi texte din Account Panel în pagina principală, trebuie să ștergi cache-ul browser-ului.</p>
+        
+        <div class="steps">
+            <div class="step">Cache-ul CSS vechi este șters</div>
+            <div class="step">Stilurile noi sunt încărcate</div>
+            <div class="step">Textele vor fi ascunse complet</div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn-primary" onclick="clearCacheAndReload()">
+                🔄 Clear Cache și Reload
+            </button>
+            <button class="btn-secondary" onclick="goToHome()">
+                🏠 Înapoi la Site
+            </button>
+        </div>
+        
+        <div class="success" id="successMsg">
+            ✅ Cache șters! Redirecting...
+        </div>
+    </div>
+    
+    <script>
+        function clearCacheAndReload() {
+            // Clear localStorage
+            const authToken = localStorage.getItem('authToken');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const currentUser = localStorage.getItem('currentUser');
+            const language = localStorage.getItem('language');
+            
+            localStorage.clear();
+            
+            // Restore important data
+            if (authToken) localStorage.setItem('authToken', authToken);
+            if (isLoggedIn) localStorage.setItem('isLoggedIn', isLoggedIn);
+            if (currentUser) localStorage.setItem('currentUser', currentUser);
+            if (language) localStorage.setItem('language', language);
+            
+            // Clear sessionStorage
+            sessionStorage.clear();
+            
+            // Show success message
+            document.getElementById('successMsg').classList.add('show');
+            
+            // Reload with cache bypass
+            setTimeout(() => {
+                window.location.href = '/index.html?v=' + Date.now();
+            }, 1000);
+        }
+        
+        function goToHome() {
+            window.location.href = '/index.html?v=' + Date.now();
+        }
+        
+        // Auto-clear on load
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Cache clear page loaded');
+        });
+    </script>
+</body>
+</html>

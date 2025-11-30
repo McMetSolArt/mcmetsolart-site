@@ -1,0 +1,50 @@
+/**
+ * AUTO-HIDE HEADER
+ * Animații smooth pentru ascundere/afișare header
+ */
+
+.header-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+/* Header vizibil */
+.header-main.header-visible {
+    transform: translateY(0);
+}
+
+/* Header ascuns */
+.header-main.header-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
+}
+
+/* Asigură că body-ul are padding pentru header fix */
+body {
+    padding-top: var(--header-height, 80px);
+}
+
+/* Smooth scroll pentru body */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optimizări pentru performanță */
+@media (prefers-reduced-motion: reduce) {
+    .header-main {
+        transition: none;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: var(--header-height-mobile, 70px);
+    }
+}
