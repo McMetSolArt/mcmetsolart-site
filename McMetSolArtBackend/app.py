@@ -88,6 +88,14 @@ try:
 except ImportError as e:
     print(f"⚠️ Orders Sync API nu a putut fi încărcat: {e}")
 
+# Înregistrează Admin Authentication
+try:
+    from admin_auth import register_admin_auth_routes
+    register_admin_auth_routes(app)
+    print("✅ Admin Authentication înregistrat")
+except ImportError as e:
+    print(f"⚠️ Admin Authentication nu a putut fi încărcat: {e}")
+
 # Load configuration from environment (sa fie ușor de configurat în producție)
 print("🔑 Sistem cu Token Permanent - inițializare cu variabile de mediu dacă sunt setate")
 

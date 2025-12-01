@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - MC MetSolArt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 100%;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-icon {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #c33;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #1565c0;
+        }
+        
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: #667eea;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">🔐</div>
+            <h1>Admin Panel</h1>
+            <p class="subtitle">MC MetSolArt - Autentificare Securizată</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">📧 Email Administrator</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="admin@mcmetsolart.com"
+                    required
+                    autocomplete="email"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="password">🔒 Parolă</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="••••••••"
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+            
+            <button type="submit" class="btn" id="loginBtn">
+                🚀 Autentificare
+            </button>
+            
+            <div class="loading" id="loading">
+                ⏳ Autentificare în curs...
+            </div>
+        </form>
+        
+        <div class="info-box">
+            <strong>ℹ️ Informații Importante:</strong>
+            • Acces restricționat doar pentru administratori<br>
+            • Sesiunea expiră după 24 ore<br>
+            • Contul se blochează după 5 încercări eșuate<br>
+            • Toate acțiunile sunt înregistrate în log
+        </div>
+    </div>
+    
+    <script>
+        // Configurare API
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000'
+            : 'https://mcmetsolart-site-5.onrender.com';
+        
+        const form = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const loading = document.getElementById('loading');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        // Verifică dacă există token valid
+        window.addEventListener('load', async () => {
+            const token = localStorage.getItem('adminToken');
+            if (token) {
+                try {
+                    const response = await fetch(`${API_URL}/api/admin/auth/verify`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        // Token valid, redirecționează la admin panel
+                        window.location.href = 'admin-private/admin-professional.html';
+                        return;
+                    }
+                } catch (error) {
+                    console.log('Token invalid sau expirat');
+                }
+                
+                // Token invalid, șterge-l
+                localStorage.removeItem('adminToken');
+                localStorage.removeItem('adminData');
+            }
+        });
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Validare
+            if (!email || !password) {
+                showError('Te rugăm să completezi toate câmpurile');
+                return;
+            }
+            
+            // Ascunde erori anterioare
+            hideError();
+            
+            // Arată loading
+            loading.classList.add('show');
+            loginBtn.disabled = true;
+            loginBtn.textContent = '⏳ Autentificare...';
+            
+            try {
+                const response = await fetch(`${API_URL}/api/admin/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    // Salvează token și date admin
+                    localStorage.setItem('adminToken', data.data.token);
+                    localStorage.setItem('adminData', JSON.stringify(data.data.admin));
+                    
+                    // Succes
+                    loginBtn.textContent = '✅ Autentificare reușită!';
+                    loginBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+                    
+                    // Redirecționează după 1 secundă
+                    setTimeout(() => {
+                        window.location.href = 'admin-private/admin-professional.html';
+                    }, 1000);
+                } else {
+                    // Eroare
+                    showError(data.message || 'Autentificare eșuată');
+                    loading.classList.remove('show');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = '🚀 Autentificare';
+                }
+            } catch (error) {
+                console.error('Eroare:', error);
+                showError('Eroare de conexiune. Verifică că backend-ul rulează.');
+                loading.classList.remove('show');
+                loginBtn.disabled = false;
+                loginBtn.textContent = '🚀 Autentificare';
+            }
+        });
+        
+        function showError(message) {
+            errorMessage.textContent = '❌ ' + message;
+            errorMessage.classList.add('show');
+        }
+        
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+    </script>
+</body>
+</html>
