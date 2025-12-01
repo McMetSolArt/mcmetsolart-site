@@ -80,6 +80,14 @@ try:
 except ImportError as e:
     print(f"⚠️ Admin API Extended nu a putut fi încărcat: {e}")
 
+# Înregistrează Orders Sync API
+try:
+    from orders_sync_api import orders_sync_bp
+    app.register_blueprint(orders_sync_bp)
+    print("✅ Orders Sync API înregistrat")
+except ImportError as e:
+    print(f"⚠️ Orders Sync API nu a putut fi încărcat: {e}")
+
 # Load configuration from environment (sa fie ușor de configurat în producție)
 print("🔑 Sistem cu Token Permanent - inițializare cu variabile de mediu dacă sunt setate")
 

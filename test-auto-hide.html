@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Auto-Hide Header</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding-top: 80px;
+        }
+
+        .header-main {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: #176f87;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .header-main.header-visible {
+            transform: translateY(0);
+        }
+
+        .header-main.header-hidden {
+            transform: translateY(-100%);
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            height: 600px;
+            margin-bottom: 20px;
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .debug {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 2000;
+        }
+    </style>
+</head>
+<body>
+    <header class="header-main header-visible">
+        <h1>🔄 Test Auto-Hide Header</h1>
+    </header>
+
+    <div class="content">
+        <h2>Scrollează în jos pentru a testa</h2>
+        <p>Header-ul ar trebui să se ascundă când scrollezi în jos și să apară când scrollezi în sus.</p>
+
+        <div class="section">
+            <h3>Secțiunea 1</h3>
+            <p>Scrollează în jos...</p>
+        </div>
+
+        <div class="section">
+            <h3>Secțiunea 2</h3>
+            <p>Continuă să scrollezi...</p>
+        </div>
+
+        <div class="section">
+            <h3>Secțiunea 3</h3>
+            <p>Încă un pic...</p>
+        </div>
+
+        <div class="section">
+            <h3>Secțiunea 4</h3>
+            <p>Aproape gata...</p>
+        </div>
+
+        <div class="section">
+            <h3>Secțiunea 5</h3>
+            <p>Acum scrollează înapoi în sus!</p>
+        </div>
+    </div>
+
+    <div class="debug" id="debug">
+        Scroll: 0px<br>
+        Direction: -<br>
+        Header: visible
+    </div>
+
+    <script>
+        console.log('🔄 Inițializare Auto-Hide Header Test...');
+        
+        let lastScrollTop = 0;
+        const scrollThreshold = 10;
+        let ticking = false;
+        
+        const header = document.querySelector('.header-main');
+        const debugEl = document.getElementById('debug');
+        
+        if (!header) {
+            console.error('❌ Header nu a fost găsit!');
+        } else {
+            console.log('✅ Header găsit:', header);
+        }
+        
+        function handleScroll() {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Update debug info
+            let direction = '-';
+            let headerState = 'visible';
+            
+            if (Math.abs(currentScrollTop - lastScrollTop) >= scrollThreshold) {
+                // La top
+                if (currentScrollTop <= 50) {
+                    header.classList.remove('header-hidden');
+                    header.classList.add('header-visible');
+                    direction = 'top';
+                    headerState = 'visible';
+                    console.log('⬆️ La top - header vizibil');
+                }
+                // Scroll în jos
+                else if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                    header.classList.add('header-hidden');
+                    header.classList.remove('header-visible');
+                    direction = 'down ⬇️';
+                    headerState = 'hidden';
+                    console.log('⬇️ Scroll în jos - header ascuns');
+                }
+                // Scroll în sus
+                else if (currentScrollTop < lastScrollTop) {
+                    header.classList.remove('header-hidden');
+                    header.classList.add('header-visible');
+                    direction = 'up ⬆️';
+                    headerState = 'visible';
+                    console.log('⬆️ Scroll în sus - header vizibil');
+                }
+                
+                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+            }
+            
+            debugEl.innerHTML = `
+                Scroll: ${currentScrollTop}px<br>
+                Direction: ${direction}<br>
+                Header: ${headerState}<br>
+                Classes: ${header.className}
+            `;
+        }
+        
+        function onScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', onScroll, { passive: true });
+        
+        console.log('✅ Auto-hide header test inițializat!');
+    </script>
+</body>
+</html>

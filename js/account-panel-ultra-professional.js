@@ -44,6 +44,7 @@
         },
 
         getPanelHTML() {
+            const tr = window.tr || ((key) => key);
             return `
                 <div class="account-header-ultra">
                     <div class="account-header-top">
@@ -61,7 +62,7 @@
                                 <div class="account-user-email" id="accountUserEmailUltra">email@example.com</div>
                                 <div class="account-user-status">
                                     <span class="status-dot"></span>
-                                    <span>Activ</span>
+                                    <span>${tr('account.status.active')}</span>
                                 </div>
                             </div>
                         </div>
@@ -71,36 +72,36 @@
                     <div class="account-quick-stats">
                         <div class="quick-stat-card">
                             <div class="quick-stat-number" id="statOrders">0</div>
-                            <div class="quick-stat-label">Comenzi</div>
+                            <div class="quick-stat-label">${tr('account.stats.orders')}</div>
                         </div>
                         <div class="quick-stat-card">
                             <div class="quick-stat-number" id="statTotal">0 EUR</div>
-                            <div class="quick-stat-label">Total</div>
+                            <div class="quick-stat-label">${tr('account.stats.total')}</div>
                         </div>
                         <div class="quick-stat-card">
                             <div class="quick-stat-number" id="statActive">0</div>
-                            <div class="quick-stat-label">Active</div>
+                            <div class="quick-stat-label">${tr('account.stats.active')}</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="account-tabs-ultra">
                     <button class="account-tab-ultra active" onclick="window.AccountPanelUltra.switchTab('dashboard')">
-                        📊 Dashboard
+                        📊 ${tr('account.tab.dashboard')}
                     </button>
                     <button class="account-tab-ultra" onclick="window.AccountPanelUltra.switchTab('profile')">
-                        👤 Profil
+                        👤 ${tr('account.tab.profile')}
                     </button>
                     <button class="account-tab-ultra" onclick="window.AccountPanelUltra.switchTab('orders')">
-                        📦 Comenzi
+                        📦 ${tr('account.tab.orders')}
                     </button>
                     <button class="account-tab-ultra" onclick="window.AccountPanelUltra.switchTab('settings')">
-                        ⚙️ Setări
+                        ⚙️ ${tr('account.tab.settings')}
                     </button>
                 </div>
                 
                 <div class="account-content-ultra" id="accountContentUltra">
-                    <p style="text-align: center; color: var(--muted-foreground);">Se încarcă...</p>
+                    <p style="text-align: center; color: var(--muted-foreground);">${tr('account.orders.loading')}</p>
                 </div>
             `;
         },
@@ -246,49 +247,50 @@
         loadDashboard() {
             const content = document.getElementById('accountContentUltra');
             const user = this.userData;
+            const tr = window.tr || ((key) => key);
             
             content.innerHTML = `
                 <div class="account-card-ultra">
                     <div class="card-title-ultra">
                         <span class="card-title-icon">👋</span>
-                        Bun venit, ${user.firstName}!
+                        ${tr('account.dashboard.welcome', { name: user.firstName })}
                     </div>
                     <p style="color: var(--muted-foreground); font-size: 15px; line-height: 1.6;">
-                        Acesta este dashboard-ul tău personal. Aici poți vedea o prezentare generală a contului tău și a activității recente.
+                        ${tr('account.dashboard.description')}
                     </p>
                 </div>
                 
                 <div class="account-card-ultra">
                     <div class="card-title-ultra">
                         <span class="card-title-icon">📊</span>
-                        Informații Rapide
+                        ${tr('account.dashboard.quick_info')}
                     </div>
                     <div class="info-grid-ultra">
                         <div class="info-item-ultra">
-                            <div class="info-label-ultra">Nume Complet</div>
+                            <div class="info-label-ultra">${tr('account.dashboard.full_name')}</div>
                             <div class="info-value-ultra">${user.firstName} ${user.lastName || ''}</div>
                         </div>
                         <div class="info-item-ultra">
-                            <div class="info-label-ultra">Email</div>
+                            <div class="info-label-ultra">${tr('account.dashboard.email')}</div>
                             <div class="info-value-ultra">${user.email}</div>
                         </div>
                         <div class="info-item-ultra">
-                            <div class="info-label-ultra">Telefon</div>
-                            <div class="info-value-ultra">${user.phone || 'Nu este setat'}</div>
+                            <div class="info-label-ultra">${tr('account.dashboard.phone')}</div>
+                            <div class="info-value-ultra">${user.phone || tr('account.dashboard.not_set')}</div>
                         </div>
                         <div class="info-item-ultra">
-                            <div class="info-label-ultra">Țară</div>
-                            <div class="info-value-ultra">${user.country || 'Nu este setată'}</div>
+                            <div class="info-label-ultra">${tr('account.dashboard.country')}</div>
+                            <div class="info-value-ultra">${user.country || tr('account.dashboard.not_set')}</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="btn-group-ultra">
                     <button class="btn-primary-ultra" onclick="window.AccountPanelUltra.switchTab('profile')">
-                        ✏️ Editează Profilul
+                        ✏️ ${tr('account.dashboard.edit_profile')}
                     </button>
                     <button class="btn-secondary-ultra" onclick="window.AccountPanelUltra.switchTab('orders')">
-                        📦 Vezi Comenzile
+                        📦 ${tr('account.dashboard.view_orders')}
                     </button>
                 </div>
             `;
@@ -609,14 +611,16 @@
                 const data = await window.API.getOrders();
                 let orders = Array.isArray(data) ? data : (data.data || data.orders || []);
                 
+                const tr = window.tr || ((key) => key);
+                
                 if (orders.length === 0) {
                     content.innerHTML = `
                         <div class="empty-state-ultra">
                             <div class="empty-state-icon">📦</div>
-                            <div class="empty-state-title">Nu ai comenzi încă</div>
-                            <div class="empty-state-text">Când vei plasa o comandă, o vei vedea aici.</div>
+                            <div class="empty-state-title">${tr('account.orders.empty')}</div>
+                            <div class="empty-state-text">${tr('account.orders.empty_text')}</div>
                             <button class="btn-primary-ultra" onclick="window.location.href='#products'">
-                                🛒 Explorează Produsele
+                                🛒 ${tr('products.title')}
                             </button>
                         </div>
                     `;
@@ -772,34 +776,37 @@
         loadSettings() {
             const content = document.getElementById('accountContentUltra');
             const user = this.userData;
+            const tr = window.tr || ((key) => key);
+            const currentLang = localStorage.getItem('language') || 'ro';
+            const langNames = { ro: 'Română', en: 'English', it: 'Italiano', uk: 'Українська' };
             
             content.innerHTML = `
                 <div class="account-card-ultra">
                     <div class="card-title-ultra">
                         <span class="card-title-icon">🔐</span>
-                        Securitate
+                        ${tr('account.settings.security')}
                     </div>
                     <p style="color: var(--muted-foreground); margin-bottom: 20px;">
-                        Gestionează setările de securitate ale contului tău.
+                        ${tr('account.settings.security_desc')}
                     </p>
                     <button class="btn-primary-ultra" onclick="window.AccountPanelUltra.changePassword()">
-                        🔑 Schimbă Parola
+                        🔑 ${tr('account.settings.change_password')}
                     </button>
                 </div>
                 
                 <div class="account-card-ultra">
                     <div class="card-title-ultra">
                         <span class="card-title-icon">🌐</span>
-                        Preferințe
+                        ${tr('account.settings.preferences')}
                     </div>
                     <div class="info-grid-ultra">
                         <div class="info-item-ultra">
-                            <div class="info-label-ultra">Limbă</div>
-                            <div class="info-value-ultra">${user.language === 'en' ? 'English' : 'Română'}</div>
+                            <div class="info-label-ultra">${tr('account.settings.language')}</div>
+                            <div class="info-value-ultra">${langNames[currentLang] || 'Română'}</div>
                         </div>
                         <div class="info-item-ultra">
-                            <div class="info-label-ultra">Temă</div>
-                            <div class="info-value-ultra">Automată</div>
+                            <div class="info-label-ultra">${tr('account.settings.theme')}</div>
+                            <div class="info-value-ultra">${tr('account.settings.theme_auto')}</div>
                         </div>
                     </div>
                 </div>
@@ -807,10 +814,10 @@
                 <div class="account-card-ultra">
                     <div class="card-title-ultra">
                         <span class="card-title-icon">🚪</span>
-                        Cont
+                        ${tr('account.settings.account')}
                     </div>
                     <button class="btn-outline-ultra" onclick="window.AccountPanelUltra.logout()">
-                        🚪 Deconectare
+                        🚪 ${tr('account.settings.logout')}
                     </button>
                 </div>
             `;
@@ -900,7 +907,8 @@
         },
 
         logout() {
-            if (confirm('Sigur vrei să te deconectezi?')) {
+            const tr = window.tr || ((key) => key);
+            if (confirm(tr('account.msg.logout_confirm'))) {
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('authToken');
                 this.hide();
@@ -909,15 +917,29 @@
         },
 
         getStatusText(status) {
-            const texts = {
-                'in_asteptare': 'În Așteptare',
-                'confirmat': 'Confirmat',
-                'in_procesare': 'În Procesare',
-                'expediat': 'Expediat',
-                'livrat': 'Livrat',
-                'anulat': 'Anulat'
-            };
-            return texts[status] || status;
+            const tr = window.tr || ((key) => key);
+            return tr(`order.status.${status}`) || status;
+        },
+
+        // Funcție pentru a reîncărca panelul când se schimbă limba
+        refreshTranslations() {
+            if (this.isOpen && this.panel) {
+                // Reîncarcă header-ul
+                const headerHTML = this.getPanelHTML();
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = headerHTML;
+                
+                // Păstrează datele utilizatorului
+                const oldContent = document.getElementById('accountContentUltra');
+                const newPanel = tempDiv.querySelector('.account-panel-ultra');
+                
+                // Înlocuiește conținutul panelului
+                this.panel.innerHTML = newPanel.innerHTML;
+                
+                // Reîncarcă datele
+                this.loadUserData();
+                this.switchTab(this.currentTab);
+            }
         }
     };
 
@@ -927,6 +949,13 @@
     } else {
         AccountPanelUltra.init();
     }
+
+    // Ascultă pentru schimbări de limbă
+    window.addEventListener('languageChanged', () => {
+        if (window.AccountPanelUltra && window.AccountPanelUltra.isOpen) {
+            window.AccountPanelUltra.refreshTranslations();
+        }
+    });
 
     // Export global
     window.AccountPanelUltra = AccountPanelUltra;

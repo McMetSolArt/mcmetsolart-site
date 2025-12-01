@@ -39,6 +39,10 @@ html {
   --font-mono: 'Roboto Mono', Menlo, monospace;
   --font-display: 'Montserrat', sans-serif;
   --radius: 0.5rem;
+  
+  /* Header dimensions */
+  --header-height: 80px;
+  --header-height-mobile: 70px;
 }
 
 /* Dark Mode Variables */
@@ -430,12 +434,16 @@ h6 {
 
 /* Header Styles */
 .header-main {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   background-color: rgba(var(--background), 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  will-change: transform;
 }
 
 .header-container {
@@ -500,7 +508,7 @@ h6 {
 }
 
 .logo-img {
-  height: 5rem;
+  height: 6.5rem;
   width: auto;
   display: block;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
@@ -5191,5 +5199,33 @@ nav a:hover {
     
     .item-price {
         align-self: flex-start;
+    }
+}
+
+
+/* ============================================
+   AUTO-HIDE HEADER - INTEGRAT DIRECT
+   ============================================ */
+
+/* Header vizibil */
+.header-main.header-visible {
+    transform: translateY(0) !important;
+}
+
+/* Header ascuns */
+.header-main.header-hidden {
+    transform: translateY(-100%) !important;
+    box-shadow: none !important;
+}
+
+/* Asigură că body-ul are padding pentru header fix */
+body {
+    padding-top: var(--header-height, 80px) !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: var(--header-height-mobile, 70px) !important;
     }
 }

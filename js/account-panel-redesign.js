@@ -79,6 +79,7 @@
                 'orders.emptytext': 'Când vei plasa o comandă, o vei vedea aici.',
                 'orders.loading': 'Se încarcă...',
                 'orders.error': 'Eroare la încărcarea comenzilor',
+                'orders.info': 'Comenzile sunt plasate de echipa noastră după discuțiile cu tine. Aici poți urmări statusul și istoricul comenzilor tale.',
                 
                 // History
                 'history.title': 'Istoric Comenzi',
@@ -96,6 +97,51 @@
                 'security.title': 'Securitate',
                 'security.subtitle': 'Gestionează securitatea contului tău',
                 'security.changepass': 'Schimbă Parola',
+                'security.currentpass': 'Parola Curentă',
+                'security.newpass': 'Parola Nouă',
+                'security.newpasshint': 'Minim 8 caractere, recomandat: litere, cifre și simboluri',
+                'security.confirmpass': 'Confirmă Parola Nouă',
+                'security.savepass': 'Schimbă Parola',
+                'security.activesessions': 'Sesiuni Active',
+                'security.currentsession': 'Sesiunea curentă',
+                'security.now': 'Acum',
+                'security.active': 'Activ',
+                'security.logoutall': 'Deconectează Toate Dispozitivele',
+                'security.2fa': 'Autentificare cu 2 Factori',
+                'security.2fadesc': 'Adaugă un nivel suplimentar de securitate contului tău.',
+                'security.enable2fa': 'Activează 2FA',
+                
+                // Setări avansate
+                'settings.language': 'Limbă și Regiune',
+                'settings.interfacelang': 'Limba Interfeței',
+                'settings.langhint': 'Limba se va aplica pe tot site-ul',
+                'settings.appearance': 'Aspect',
+                'settings.theme': 'Temă',
+                'settings.light': 'Light',
+                'settings.dark': 'Dark',
+                'settings.auto': 'Auto',
+                'settings.themehint': 'Tema se sincronizează cu site-ul principal',
+                'settings.notifications': 'Notificări',
+                'settings.emailnotif': 'Email Notificări',
+                'settings.emailnotifhint': 'Primește notificări despre comenzi pe email',
+                'settings.orderupdates': 'Actualizări Comenzi',
+                'settings.orderupdateshint': 'Notificări când statusul comenzii se schimbă',
+                'settings.offers': 'Oferte și Promoții',
+                'settings.offershint': 'Primește oferte speciale și reduceri',
+                'settings.privacy': 'Confidențialitate',
+                'settings.downloaddata': 'Descarcă Datele Mele',
+                'settings.deleteaccount': 'Șterge Contul',
+                
+                // Profile extra
+                'profile.deletephoto': 'Șterge Poza',
+                
+                // Dropdown utilizator
+                'user.dashboard': 'Dashboard',
+                'user.profile': 'Profilul meu',
+                'user.orders': 'Comenzile mele',
+                'user.settings': 'Setări',
+                'user.support': 'Suport',
+                'user.logout': 'Deconectare',
                 'security.currentpass': 'Parola Curentă',
                 'security.newpass': 'Parola Nouă',
                 'security.confirmpass': 'Confirmă Parola Nouă',
@@ -161,6 +207,7 @@
                 'orders.emptytext': 'When you place an order, you will see it here.',
                 'orders.loading': 'Loading...',
                 'orders.error': 'Error loading orders',
+                'orders.info': 'Orders are placed by our team after discussions with you. Here you can track the status and history of your orders.',
                 'history.title': 'Order History',
                 'history.subtitle': 'View all your previous orders',
                 'history.empty': 'Empty history',
@@ -177,7 +224,54 @@
                 'msg.profilesaved': 'Profile updated successfully!',
                 'msg.profileerror': 'Error saving profile',
                 'msg.logoutconfirm': 'Are you sure you want to logout?',
-                'msg.indev': 'Feature in development'
+                'msg.indev': 'Feature in development',
+                
+                // Advanced settings
+                'settings.language': 'Language & Region',
+                'settings.interfacelang': 'Interface Language',
+                'settings.langhint': 'Language will be applied across the site',
+                'settings.appearance': 'Appearance',
+                'settings.theme': 'Theme',
+                'settings.light': 'Light',
+                'settings.dark': 'Dark',
+                'settings.auto': 'Auto',
+                'settings.themehint': 'Theme syncs with main site',
+                'settings.notifications': 'Notifications',
+                'settings.emailnotif': 'Email Notifications',
+                'settings.emailnotifhint': 'Receive order notifications via email',
+                'settings.orderupdates': 'Order Updates',
+                'settings.orderupdateshint': 'Notifications when order status changes',
+                'settings.offers': 'Offers & Promotions',
+                'settings.offershint': 'Receive special offers and discounts',
+                'settings.privacy': 'Privacy',
+                'settings.downloaddata': 'Download My Data',
+                'settings.deleteaccount': 'Delete Account',
+                
+                // Security details
+                'security.currentpass': 'Current Password',
+                'security.newpass': 'New Password',
+                'security.newpasshint': 'Minimum 8 characters, recommended: letters, numbers and symbols',
+                'security.confirmpass': 'Confirm New Password',
+                'security.savepass': 'Change Password',
+                'security.activesessions': 'Active Sessions',
+                'security.currentsession': 'Current session',
+                'security.now': 'Now',
+                'security.active': 'Active',
+                'security.logoutall': 'Logout All Devices',
+                'security.2fa': '2-Factor Authentication',
+                'security.2fadesc': 'Add an extra layer of security to your account.',
+                'security.enable2fa': 'Enable 2FA',
+                
+                // Profile extra
+                'profile.deletephoto': 'Delete Photo',
+                
+                // User dropdown
+                'user.dashboard': 'Dashboard',
+                'user.profile': 'My Profile',
+                'user.orders': 'My Orders',
+                'user.settings': 'Settings',
+                'user.support': 'Support',
+                'user.logout': 'Logout'
             },
             
             it: {
@@ -230,6 +324,7 @@
                 'orders.emptytext': 'Quando effettui un ordine, lo vedrai qui.',
                 'orders.loading': 'Caricamento...',
                 'orders.error': 'Errore nel caricamento degli ordini',
+                'orders.info': 'Gli ordini vengono effettuati dal nostro team dopo le discussioni con te. Qui puoi monitorare lo stato e la cronologia dei tuoi ordini.',
                 'history.title': 'Storico Ordini',
                 'history.subtitle': 'Vedi tutti i tuoi ordini precedenti',
                 'history.empty': 'Storico vuoto',
@@ -246,7 +341,54 @@
                 'msg.profilesaved': 'Profilo aggiornato con successo!',
                 'msg.profileerror': 'Errore nel salvare il profilo',
                 'msg.logoutconfirm': 'Sei sicuro di voler uscire?',
-                'msg.indev': 'Funzionalità in sviluppo'
+                'msg.indev': 'Funzionalità in sviluppo',
+                
+                // Impostazioni avanzate
+                'settings.language': 'Lingua e Regione',
+                'settings.interfacelang': 'Lingua dell\'Interfaccia',
+                'settings.langhint': 'La lingua verrà applicata su tutto il sito',
+                'settings.appearance': 'Aspetto',
+                'settings.theme': 'Tema',
+                'settings.light': 'Chiaro',
+                'settings.dark': 'Scuro',
+                'settings.auto': 'Auto',
+                'settings.themehint': 'Il tema si sincronizza con il sito principale',
+                'settings.notifications': 'Notifiche',
+                'settings.emailnotif': 'Notifiche Email',
+                'settings.emailnotifhint': 'Ricevi notifiche sugli ordini via email',
+                'settings.orderupdates': 'Aggiornamenti Ordini',
+                'settings.orderupdateshint': 'Notifiche quando lo stato dell\'ordine cambia',
+                'settings.offers': 'Offerte e Promozioni',
+                'settings.offershint': 'Ricevi offerte speciali e sconti',
+                'settings.privacy': 'Privacy',
+                'settings.downloaddata': 'Scarica i Miei Dati',
+                'settings.deleteaccount': 'Elimina Account',
+                
+                // Dettagli sicurezza
+                'security.currentpass': 'Password Attuale',
+                'security.newpass': 'Nuova Password',
+                'security.newpasshint': 'Minimo 8 caratteri, consigliato: lettere, numeri e simboli',
+                'security.confirmpass': 'Conferma Nuova Password',
+                'security.savepass': 'Cambia Password',
+                'security.activesessions': 'Sessioni Attive',
+                'security.currentsession': 'Sessione corrente',
+                'security.now': 'Ora',
+                'security.active': 'Attivo',
+                'security.logoutall': 'Disconnetti Tutti i Dispositivi',
+                'security.2fa': 'Autenticazione a 2 Fattori',
+                'security.2fadesc': 'Aggiungi un livello extra di sicurezza al tuo account.',
+                'security.enable2fa': 'Attiva 2FA',
+                
+                // Profilo extra
+                'profile.deletephoto': 'Elimina Foto',
+                
+                // Dropdown utente
+                'user.dashboard': 'Dashboard',
+                'user.profile': 'Il Mio Profilo',
+                'user.orders': 'I Miei Ordini',
+                'user.settings': 'Impostazioni',
+                'user.support': 'Supporto',
+                'user.logout': 'Esci'
             },
             
             es: {
@@ -316,6 +458,123 @@
                 'msg.profileerror': 'Error al guardar el perfil',
                 'msg.logoutconfirm': '¿Estás seguro de que quieres cerrar sesión?',
                 'msg.indev': 'Funcionalidad en desarrollo'
+            },
+            
+            uk: {
+                'close': 'Закрити',
+                'nav.general': 'Загальне',
+                'nav.dashboard': 'Панель',
+                'nav.profile': 'Мій Профіль',
+                'nav.orders': 'Замовлення',
+                'nav.myorders': 'Мої Замовлення',
+                'nav.history': 'Історія',
+                'nav.settings': 'Налаштування',
+                'nav.account': 'Налаштування Облікового Запису',
+                'nav.security': 'Безпека',
+                'nav.logout': 'Вийти',
+                'dash.welcome': 'Ласкаво просимо',
+                'dash.subtitle': 'Це ваша особиста панель',
+                'dash.totalorders': 'Всього Замовлень',
+                'dash.totalspent': 'Всього Витрачено',
+                'dash.activeorders': 'Активні Замовлення',
+                'dash.allorders': 'Всі замовлення',
+                'dash.totalvalue': 'Загальна вартість',
+                'dash.inprocess': 'В обробці',
+                'dash.quickactions': 'Швидкі Дії',
+                'dash.editprofile': 'Редагувати Профіль',
+                'dash.vieworders': 'Переглянути Замовлення',
+                'dash.settings': 'Налаштування',
+                'profile.title': 'Мій Профіль',
+                'profile.subtitle': 'Керуйте своєю особистою інформацією',
+                'profile.changephoto': 'Змінити Фото',
+                'profile.firstname': 'Ім\'я',
+                'profile.lastname': 'Прізвище',
+                'profile.email': 'Email',
+                'profile.phone': 'Телефон',
+                'profile.country': 'Країна',
+                'profile.city': 'Місто',
+                'profile.address': 'Адреса',
+                'profile.edit': 'Редагувати Профіль',
+                'profile.edittitle': 'Редагувати Профіль',
+                'profile.editsubtitle': 'Оновіть свою особисту інформацію',
+                'profile.personalinfo': 'Особиста Інформація',
+                'profile.addressinfo': 'Адреса',
+                'profile.save': 'Зберегти Зміни',
+                'profile.cancel': 'Скасувати',
+                'profile.required': 'обов\'язково',
+                'profile.select': 'Вибрати',
+                'profile.fulladdress': 'Повна Адреса',
+                'orders.title': 'Мої Замовлення',
+                'orders.subtitle': 'Переглядайте та керуйте своїми замовленнями',
+                'orders.empty': 'Поки немає замовлень',
+                'orders.emptytext': 'Коли ви зробите замовлення, ви побачите його тут.',
+                'orders.loading': 'Завантаження...',
+                'orders.error': 'Помилка завантаження замовлень',
+                'orders.info': 'Замовлення розміщуються нашою командою після обговорення з вами. Тут ви можете відстежувати статус та історію ваших замовлень.',
+                'history.title': 'Історія Замовлень',
+                'history.subtitle': 'Переглянути всі попередні замовлення',
+                'history.empty': 'Історія порожня',
+                'history.emptytext': 'Поки немає завершених замовлень.',
+                'settings.title': 'Налаштування Облікового Запису',
+                'settings.subtitle': 'Керуйте налаштуваннями свого облікового запису',
+                'settings.preferences': 'Переваги',
+                'settings.soon': 'Налаштування будуть доступні незабаром.',
+                'security.title': 'Безпека',
+                'security.subtitle': 'Керуйте безпекою свого облікового запису',
+                'security.changepass': 'Змінити Пароль',
+                'msg.notauth': 'Не автентифіковано',
+                'msg.loginrequired': 'Будь ласка, увійдіть, щоб отримати доступ до свого облікового запису.',
+                'msg.profilesaved': 'Профіль успішно оновлено!',
+                'msg.profileerror': 'Помилка збереження профілю',
+                'msg.logoutconfirm': 'Ви впевнені, що хочете вийти?',
+                'msg.indev': 'Функція в розробці',
+                
+                // Setări avansate
+                'settings.language': 'Мова та Регіон',
+                'settings.interfacelang': 'Мова Інтерфейсу',
+                'settings.langhint': 'Мова буде застосована на всьому сайті',
+                'settings.appearance': 'Вигляд',
+                'settings.theme': 'Тема',
+                'settings.light': 'Світла',
+                'settings.dark': 'Темна',
+                'settings.auto': 'Авто',
+                'settings.themehint': 'Тема синхронізується з головним сайтом',
+                'settings.notifications': 'Сповіщення',
+                'settings.emailnotif': 'Email Сповіщення',
+                'settings.emailnotifhint': 'Отримувати сповіщення про замовлення на email',
+                'settings.orderupdates': 'Оновлення Замовлень',
+                'settings.orderupdateshint': 'Сповіщення при зміні статусу замовлення',
+                'settings.offers': 'Пропозиції та Акції',
+                'settings.offershint': 'Отримувати спеціальні пропозиції та знижки',
+                'settings.privacy': 'Конфіденційність',
+                'settings.downloaddata': 'Завантажити Мої Дані',
+                'settings.deleteaccount': 'Видалити Обліковий Запис',
+                
+                // Securitate detalii
+                'security.currentpass': 'Поточний Пароль',
+                'security.newpass': 'Новий Пароль',
+                'security.newpasshint': 'Мінімум 8 символів, рекомендовано: літери, цифри та символи',
+                'security.confirmpass': 'Підтвердіть Новий Пароль',
+                'security.savepass': 'Змінити Пароль',
+                'security.activesessions': 'Активні Сесії',
+                'security.currentsession': 'Поточна сесія',
+                'security.now': 'Зараз',
+                'security.active': 'Активний',
+                'security.logoutall': 'Вийти з Усіх Пристроїв',
+                'security.2fa': 'Автентифікація з 2 Факторами',
+                'security.2fadesc': 'Додайте додатковий рівень безпеки до свого облікового запису.',
+                'security.enable2fa': 'Активувати 2FA',
+                
+                // Profile extra
+                'profile.deletephoto': 'Видалити Фото',
+                
+                // Dropdown utilizator
+                'user.dashboard': 'Панель',
+                'user.profile': 'Профіль',
+                'user.orders': 'Замовлення',
+                'user.settings': 'Налаштування',
+                'user.support': 'Підтримка',
+                'user.logout': 'Вийти'
             }
         },
 
@@ -631,13 +890,24 @@
 
         async loadStats() {
             try {
-                if (window.API) {
-                    const data = await window.API.getOrders();
-                    const orders = Array.isArray(data) ? data : (data.data || []);
-                    document.getElementById('ordersBadge').textContent = orders.length;
+                const token = localStorage.getItem('authToken');
+                if (!token) return;
+                
+                const response = await fetch(`${window.API_BASE_URL || 'http://localhost:5000'}/api/orders/stats`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success && result.data) {
+                        document.getElementById('ordersBadge').textContent = result.data.total_orders || 0;
+                    }
                 }
             } catch (error) {
                 // Silent fail
+                document.getElementById('ordersBadge').textContent = '0';
             }
         },
 
@@ -738,20 +1008,31 @@
 
         async loadDashboardStats() {
             try {
-                if (window.API) {
-                    const data = await window.API.getOrders();
-                    const orders = Array.isArray(data) ? data : (data.data || []);
-                    
-                    document.getElementById('dashStatOrders').textContent = orders.length;
-                    
-                    const total = orders.reduce((sum, order) => sum + (parseFloat(order.total_amount) || 0), 0);
-                    document.getElementById('dashStatTotal').textContent = total.toFixed(2) + ' EUR';
-                    
-                    const active = orders.filter(o => ['in_asteptare', 'confirmat', 'in_procesare', 'expediat'].includes(o.status)).length;
-                    document.getElementById('dashStatActive').textContent = active;
+                // Folosește noul endpoint pentru statistici
+                const token = localStorage.getItem('authToken');
+                if (!token) return;
+                
+                const response = await fetch(`${window.API_BASE_URL || 'http://localhost:5000'}/api/orders/stats`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success && result.data) {
+                        const stats = result.data;
+                        document.getElementById('dashStatOrders').textContent = stats.total_orders || 0;
+                        document.getElementById('dashStatTotal').textContent = `${stats.total_spent || '0.00'} ${stats.currency || 'RON'}`;
+                        document.getElementById('dashStatActive').textContent = stats.active_orders || 0;
+                    }
                 }
             } catch (error) {
-                // Silent fail
+                console.error('Error loading stats:', error);
+                // Silent fail - afișează 0
+                document.getElementById('dashStatOrders').textContent = '0';
+                document.getElementById('dashStatTotal').textContent = '0.00 RON';
+                document.getElementById('dashStatActive').textContent = '0';
             }
         },
 
@@ -779,7 +1060,7 @@
                                     </button>
                                     ${user.avatar ? `
                                     <button class="btn-secondary-redesign btn-sm-redesign btn-full-redesign" onclick="window.AccountPanelRedesign.removeAvatar()" style="margin-top: 0.5rem;">
-                                        🗑️ Șterge Poza
+                                        🗑️ ${this.t('profile.deletephoto')}
                                     </button>
                                     ` : ''}
                                 </div>
@@ -926,7 +1207,7 @@
                 this.loadUserData();
                 this.loadProfile();
                 
-                this.showNotification('Profil actualizat cu succes!');
+                // Succes - nu afișăm notificare
             } catch (error) {
                 this.showNotification('Eroare la salvarea profilului', 'error');
             }
@@ -974,7 +1255,7 @@
                     headerAvatar.src = imageData;
                 }
                 
-                this.showNotification('Fotografia de profil a fost actualizată cu succes!', 'success');
+                // Succes - nu afișăm notificare
             };
             
             reader.onerror = () => {
@@ -1002,7 +1283,7 @@
                 headerAvatar.parentElement.innerHTML = `<div class="account-avatar-redesign">${initials}</div>`;
             }
             
-            this.showNotification('Fotografia de profil a fost ștearsă', 'success');
+            // Succes - nu afișăm notificare
         },
 
         async loadOrders() {
@@ -1010,52 +1291,85 @@
             
             content.innerHTML = `
                 <div class="page-header-redesign">
-                    <h1>Comenzile Mele</h1>
-                    <p>Vizualizează și gestionează comenzile tale</p>
+                    <h1>${this.t('orders.title')}</h1>
+                    <p>${this.t('orders.subtitle')}</p>
                 </div>
-                <p style="text-align: center; color: var(--muted-foreground);">Se încarcă...</p>
+                <p style="text-align: center; color: var(--muted-foreground);">${this.t('orders.loading')}</p>
             `;
             
             try {
-                if (!window.API) throw new Error('API not available');
+                const token = localStorage.getItem('authToken');
+                if (!token) throw new Error('Not authenticated');
 
-                const data = await window.API.getOrders();
-                let orders = Array.isArray(data) ? data : (data.data || []);
+                const response = await fetch(`${window.API_BASE_URL || 'http://localhost:5000'}/api/orders/client`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to fetch orders');
+                
+                const result = await response.json();
+                let orders = result.success ? (result.data || []) : [];
                 
                 if (orders.length === 0) {
                     content.innerHTML = `
                         <div class="page-header-redesign">
-                            <h1>Comenzile Mele</h1>
-                            <p>Vizualizează și gestionează comenzile tale</p>
+                            <h1>${this.t('orders.title')}</h1>
+                            <p>${this.t('orders.subtitle')}</p>
                         </div>
                         <div class="empty-state-redesign">
                             <div class="icon">📦</div>
-                            <h3>Nu ai comenzi încă</h3>
-                            <p>Când vei plasa o comandă, o vei vedea aici.</p>
+                            <h3>${this.t('orders.empty')}</h3>
+                            <p>${this.t('orders.emptytext')}</p>
                         </div>
                     `;
                     return;
                 }
 
+                // Mapare statusuri pentru afișare
+                const statusLabels = {
+                    'pending': 'În așteptare',
+                    'in_asteptare': 'În așteptare',
+                    'confirmat': 'Confirmat',
+                    'in_procesare': 'În procesare',
+                    'expediat': 'Expediat',
+                    'livrat': 'Livrat',
+                    'anulat': 'Anulat'
+                };
+
                 let html = `
                     <div class="page-header-redesign">
-                        <h1>Comenzile Mele</h1>
-                        <p>Vizualizează și gestionează comenzile tale</p>
+                        <h1>${this.t('orders.title')}</h1>
+                        <p>${this.t('orders.subtitle')}</p>
                     </div>
+                    
+                    <div class="info-banner-redesign" style="margin-bottom: 20px; padding: 15px; background: var(--accent); border-left: 4px solid var(--primary); border-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 24px;">ℹ️</span>
+                            <div style="font-size: 14px; line-height: 1.5;">
+                                ${this.t('orders.info')}
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="orders-list-redesign">
                 `;
                 
                 orders.forEach(order => {
-                    const date = new Date(order.created_at).toLocaleDateString('ro-RO');
+                    const date = new Date(order.created_at).toLocaleDateString(this.currentLanguage);
+                    const statusLabel = statusLabels[order.status] || order.status;
+                    const currency = order.currency || 'RON';
+                    
                     html += `
-                        <div class="order-item-redesign">
+                        <div class="order-item-redesign" onclick="window.AccountPanelRedesign.viewOrderDetails(${order.id})">
                             <div class="order-icon-redesign">📦</div>
                             <div class="order-info-redesign">
                                 <h4>${order.order_number}</h4>
                                 <p>${date}</p>
                             </div>
-                            <div class="order-status-redesign">${order.status}</div>
-                            <div class="order-amount-redesign">${order.total_amount} EUR</div>
+                            <div class="order-status-redesign status-${order.status}">${statusLabel}</div>
+                            <div class="order-amount-redesign">${parseFloat(order.total_amount).toFixed(2)} ${currency}</div>
                         </div>
                     `;
                 });
@@ -1063,27 +1377,38 @@
                 html += `</div>`;
                 content.innerHTML = html;
             } catch (error) {
+                console.error('Error loading orders:', error);
+                // Afișează mesaj empty state în loc de eroare
                 content.innerHTML = `
                     <div class="page-header-redesign">
-                        <h1>Comenzile Mele</h1>
-                        <p>Vizualizează și gestionează comenzile tale</p>
+                        <h1>${this.t('orders.title')}</h1>
+                        <p>${this.t('orders.subtitle')}</p>
                     </div>
-                    <p style="color: var(--destructive); text-align: center;">Eroare la încărcarea comenzilor</p>
+                    <div class="empty-state-redesign">
+                        <div class="icon">📦</div>
+                        <h3>${this.t('orders.empty')}</h3>
+                        <p>${this.t('orders.emptytext')}</p>
+                    </div>
                 `;
             }
+        },
+        
+        async viewOrderDetails(orderId) {
+            // TODO: Implementează vizualizare detalii comandă
+            console.log('View order details:', orderId);
         },
 
         loadHistory() {
             const content = document.getElementById('accountContentRedesign');
             content.innerHTML = `
                 <div class="page-header-redesign">
-                    <h1>Istoric Comenzi</h1>
-                    <p>Vezi toate comenzile tale anterioare</p>
+                    <h1>${this.t('history.title')}</h1>
+                    <p>${this.t('history.subtitle')}</p>
                 </div>
                 <div class="empty-state-redesign">
                     <div class="icon">📜</div>
-                    <h3>Istoric gol</h3>
-                    <p>Nu există comenzi finalizate încă.</p>
+                    <h3>${this.t('history.empty')}</h3>
+                    <p>${this.t('history.emptytext')}</p>
                 </div>
             `;
         },
@@ -1105,67 +1430,67 @@
                 <!-- Preferințe Limbă -->
                 <div class="section-card-redesign">
                     <div class="section-header-redesign">
-                        <h2 class="section-title-redesign">🌐 Limbă și Regiune</h2>
+                        <h2 class="section-title-redesign">🌐 ${this.t('settings.language')}</h2>
                     </div>
                     <div class="form-field-redesign">
-                        <label>Limba Interfeței</label>
+                        <label>${this.t('settings.interfacelang')}</label>
                         <select id="languageSelect" onchange="window.AccountPanelRedesign.changeLanguage(this.value)" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); color: var(--foreground);">
                             <option value="ro" ${currentLang === 'ro' ? 'selected' : ''}>🇷🇴 Română</option>
                             <option value="en" ${currentLang === 'en' ? 'selected' : ''}>🇬🇧 English</option>
                             <option value="it" ${currentLang === 'it' ? 'selected' : ''}>🇮🇹 Italiano</option>
                             <option value="uk" ${currentLang === 'uk' ? 'selected' : ''}>🇺🇦 Українська</option>
                         </select>
-                        <div class="form-hint-redesign">Limba se va aplica pe tot site-ul</div>
+                        <div class="form-hint-redesign">${this.t('settings.langhint')}</div>
                     </div>
                 </div>
 
                 <!-- Preferințe Temă -->
                 <div class="section-card-redesign">
                     <div class="section-header-redesign">
-                        <h2 class="section-title-redesign">🎨 Aspect</h2>
+                        <h2 class="section-title-redesign">🎨 ${this.t('settings.appearance')}</h2>
                     </div>
                     <div class="form-field-redesign">
-                        <label>Temă</label>
+                        <label>${this.t('settings.theme')}</label>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                             <button class="btn-outline-redesign ${!isDark ? 'btn-primary-redesign' : ''}" onclick="window.AccountPanelRedesign.changeTheme('light')" style="padding: 20px;">
-                                ☀️<br>Light
+                                ☀️<br>${this.t('settings.light')}
                             </button>
                             <button class="btn-outline-redesign ${isDark ? 'btn-primary-redesign' : ''}" onclick="window.AccountPanelRedesign.changeTheme('dark')" style="padding: 20px;">
-                                🌙<br>Dark
+                                🌙<br>${this.t('settings.dark')}
                             </button>
                             <button class="btn-outline-redesign" onclick="window.AccountPanelRedesign.changeTheme('auto')" style="padding: 20px;">
-                                🔄<br>Auto
+                                🔄<br>${this.t('settings.auto')}
                             </button>
                         </div>
-                        <div class="form-hint-redesign">Tema se sincronizează cu site-ul principal</div>
+                        <div class="form-hint-redesign">${this.t('settings.themehint')}</div>
                     </div>
                 </div>
 
                 <!-- Notificări -->
                 <div class="section-card-redesign">
                     <div class="section-header-redesign">
-                        <h2 class="section-title-redesign">🔔 Notificări</h2>
+                        <h2 class="section-title-redesign">🔔 ${this.t('settings.notifications')}</h2>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <input type="checkbox" id="emailNotif" ${user.emailNotifications !== false ? 'checked' : ''} onchange="window.AccountPanelRedesign.toggleNotification('email', this.checked)" style="width: 20px; height: 20px;">
                             <div>
-                                <div style="font-weight: 600;">Email Notificări</div>
-                                <div style="font-size: 13px; color: var(--muted-foreground);">Primește notificări despre comenzi pe email</div>
+                                <div style="font-weight: 600;">${this.t('settings.emailnotif')}</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">${this.t('settings.emailnotifhint')}</div>
                             </div>
                         </label>
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <input type="checkbox" id="orderNotif" ${user.orderNotifications !== false ? 'checked' : ''} onchange="window.AccountPanelRedesign.toggleNotification('order', this.checked)" style="width: 20px; height: 20px;">
                             <div>
-                                <div style="font-weight: 600;">Actualizări Comenzi</div>
-                                <div style="font-size: 13px; color: var(--muted-foreground);">Notificări când statusul comenzii se schimbă</div>
+                                <div style="font-weight: 600;">${this.t('settings.orderupdates')}</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">${this.t('settings.orderupdateshint')}</div>
                             </div>
                         </label>
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <input type="checkbox" id="promoNotif" ${user.promoNotifications !== false ? 'checked' : ''} onchange="window.AccountPanelRedesign.toggleNotification('promo', this.checked)" style="width: 20px; height: 20px;">
                             <div>
-                                <div style="font-weight: 600;">Oferte și Promoții</div>
-                                <div style="font-size: 13px; color: var(--muted-foreground);">Primește oferte speciale și reduceri</div>
+                                <div style="font-weight: 600;">${this.t('settings.offers')}</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">${this.t('settings.offershint')}</div>
                             </div>
                         </label>
                     </div>
@@ -1174,14 +1499,11 @@
                 <!-- Confidențialitate -->
                 <div class="section-card-redesign">
                     <div class="section-header-redesign">
-                        <h2 class="section-title-redesign">🔒 Confidențialitate</h2>
+                        <h2 class="section-title-redesign">🔒 ${this.t('settings.privacy')}</h2>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="btn-outline-redesign" onclick="window.AccountPanelRedesign.downloadData()" style="justify-content: flex-start;">
-                            📥 Descarcă Datele Mele
-                        </button>
                         <button class="btn-outline-redesign" onclick="window.AccountPanelRedesign.deleteAccount()" style="justify-content: flex-start; color: var(--destructive);">
-                            🗑️ Șterge Contul
+                            🗑️ ${this.t('settings.deleteaccount')}
                         </button>
                     </div>
                 </div>
@@ -1205,20 +1527,20 @@
                     <form id="changePasswordForm" onsubmit="window.AccountPanelRedesign.changePassword(event)">
                         <div style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
                             <div class="form-field-redesign">
-                                <label>Parola Curentă *</label>
-                                <input type="password" name="currentPassword" required placeholder="Introdu parola curentă">
+                                <label>${this.t('security.currentpass')} *</label>
+                                <input type="password" name="currentPassword" required placeholder="${this.t('security.currentpass')}">
                             </div>
                             <div class="form-field-redesign">
-                                <label>Parola Nouă *</label>
-                                <input type="password" name="newPassword" id="newPassword" required placeholder="Minim 8 caractere" minlength="8">
-                                <div class="form-hint-redesign">Minim 8 caractere, recomandat: litere, cifre și simboluri</div>
+                                <label>${this.t('security.newpass')} *</label>
+                                <input type="password" name="newPassword" id="newPassword" required placeholder="${this.t('security.newpass')}" minlength="8">
+                                <div class="form-hint-redesign">${this.t('security.newpasshint')}</div>
                             </div>
                             <div class="form-field-redesign">
-                                <label>Confirmă Parola Nouă *</label>
-                                <input type="password" name="confirmPassword" required placeholder="Repetă parola nouă">
+                                <label>${this.t('security.confirmpass')} *</label>
+                                <input type="password" name="confirmPassword" required placeholder="${this.t('security.confirmpass')}">
                             </div>
                             <button type="submit" class="btn-primary-redesign">
-                                💾 Schimbă Parola
+                                💾 ${this.t('security.savepass')}
                             </button>
                         </div>
                     </form>
@@ -1227,18 +1549,18 @@
                 <!-- Sesiuni Active -->
                 <div class="section-card-redesign">
                     <div class="section-header-redesign">
-                        <h2 class="section-title-redesign">📱 Sesiuni Active</h2>
+                        <h2 class="section-title-redesign">📱 ${this.t('security.activesessions')}</h2>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--accent); border-radius: 8px;">
                             <div>
                                 <div style="font-weight: 600;">💻 ${navigator.platform}</div>
-                                <div style="font-size: 13px; color: var(--muted-foreground);">Sesiunea curentă • Acum</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">${this.t('security.currentsession')} • ${this.t('security.now')}</div>
                             </div>
-                            <span style="color: #10b981; font-weight: 600;">Activ</span>
+                            <span style="color: #10b981; font-weight: 600;">${this.t('security.active')}</span>
                         </div>
                         <button class="btn-outline-redesign" onclick="window.AccountPanelRedesign.logoutAllDevices()">
-                            🚪 Deconectează Toate Dispozitivele
+                            🚪 ${this.t('security.logoutall')}
                         </button>
                     </div>
                 </div>
@@ -1246,13 +1568,13 @@
                 <!-- Autentificare cu 2 Factori -->
                 <div class="section-card-redesign">
                     <div class="section-header-redesign">
-                        <h2 class="section-title-redesign">🛡️ Autentificare cu 2 Factori</h2>
+                        <h2 class="section-title-redesign">🛡️ ${this.t('security.2fa')}</h2>
                     </div>
                     <p style="color: var(--muted-foreground); margin-bottom: 15px;">
-                        Adaugă un nivel suplimentar de securitate contului tău.
+                        ${this.t('security.2fadesc')}
                     </p>
                     <button class="btn-secondary-redesign" onclick="window.AccountPanelRedesign.enable2FA()">
-                        🔐 Activează 2FA
+                        🔐 ${this.t('security.enable2fa')}
                     </button>
                 </div>
             `;
@@ -1270,7 +1592,7 @@
             this.updateSidebarTranslations();
             this.loadPage(this.currentPage);
             
-            this.showNotification('Limba a fost schimbată cu succes!');
+            // Notificarea a fost eliminată pentru o experiență mai curată
         },
 
         changeTheme(theme) {
@@ -1288,20 +1610,14 @@
             }
             
             this.loadSettings();
-            this.showNotification('Tema a fost schimbată cu succes!');
+            // Nu mai afișăm notificare pentru această acțiune
         },
 
         toggleNotification(type, enabled) {
             this.userData[`${type}Notifications`] = enabled;
             localStorage.setItem('currentUser', JSON.stringify(this.userData));
             
-            const messages = {
-                'email': 'Notificări email',
-                'order': 'Notificări comenzi',
-                'promo': 'Notificări promoții'
-            };
-            
-            this.showNotification(`${messages[type]} ${enabled ? 'activate' : 'dezactivate'}`);
+            // Nu mai afișăm notificare pentru această acțiune
         },
 
         downloadData() {
@@ -1314,7 +1630,7 @@
             a.click();
             URL.revokeObjectURL(url);
             
-            this.showNotification('Datele tale au fost descărcate!');
+            // Nu mai afișăm notificare pentru această acțiune
         },
 
         async deleteAccount() {
@@ -1323,13 +1639,13 @@
                     try {
                         if (window.API && window.API.deleteAccount) {
                             await window.API.deleteAccount();
-                            this.showNotification('Contul va fi șters în 30 de zile. Poți anula ștergerea până atunci.');
+                            // Succes - nu afișăm notificare
                         } else {
                             // Fallback: marchează local pentru ștergere
                             const deleteDate = new Date();
                             deleteDate.setDate(deleteDate.getDate() + 30);
                             localStorage.setItem('accountDeleteScheduled', deleteDate.toISOString());
-                            this.showNotification('Contul va fi șters în 30 de zile. Contactează suportul pentru anulare.');
+                            // Succes - nu afișăm notificare
                         }
                     } catch (error) {
                         console.error('Eroare ștergere cont:', error);
@@ -1361,12 +1677,12 @@
             try {
                 if (window.API && window.API.changePassword) {
                     await window.API.changePassword(currentPassword, newPassword, confirmPassword);
-                    this.showNotification('Parola a fost schimbată cu succes!');
+                    // Succes - nu afișăm notificare
                     form.reset();
                 } else {
                     // Fallback: salvează local (doar pentru demo)
                     console.warn('API changePassword nu este disponibil');
-                    this.showNotification('Parola a fost actualizată local. Contactează suportul pentru sincronizare.');
+                    // Succes - nu afișăm notificare
                     form.reset();
                 }
             } catch (error) {
@@ -1388,7 +1704,7 @@
                         localStorage.removeItem('userSettings');
                     }
                     
-                    this.showNotification('Te-ai deconectat de pe toate dispozitivele!');
+                    // Succes - nu afișăm notificare
                     setTimeout(() => {
                         this.logout();
                     }, 1500);
@@ -1400,7 +1716,7 @@
         },
 
         enable2FA() {
-            this.showNotification('Autentificarea cu 2 factori va fi disponibilă în curând!');
+            // Nu mai afișăm notificare pentru această acțiune
         },
 
         logout() {

@@ -751,3 +751,129 @@
         opacity: 1;
     }
 }
+
+/* ============================================
+   ORDERS LIST - Stiluri pentru lista de comenzi
+   ============================================ */
+
+.orders-list-redesign {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-item-redesign {
+    display: grid;
+    grid-template-columns: 50px 1fr auto auto;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.order-item-redesign:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.order-icon-redesign {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    border-radius: 10px;
+    font-size: 24px;
+}
+
+.order-info-redesign h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.order-info-redesign p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted-foreground);
+}
+
+.order-status-redesign {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Status Colors */
+.order-status-redesign.status-pending,
+.order-status-redesign.status-in_asteptare {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.order-status-redesign.status-confirmat {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.order-status-redesign.status-in_procesare {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.order-status-redesign.status-expediat {
+    background: #ddd6fe;
+    color: #5b21b6;
+}
+
+.order-status-redesign.status-livrat {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.order-status-redesign.status-anulat {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.order-amount-redesign {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+/* Responsive pentru comenzi */
+@media (max-width: 768px) {
+    .order-item-redesign {
+        grid-template-columns: 40px 1fr;
+        gap: 10px;
+    }
+    
+    .order-icon-redesign {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .order-status-redesign {
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+    
+    .order-amount-redesign {
+        grid-column: 1 / -1;
+        justify-self: start;
+        font-size: 16px;
+    }
+}

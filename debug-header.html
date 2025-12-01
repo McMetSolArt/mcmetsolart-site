@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Header Auto-Hide</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .debug-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            border: 2px solid #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            z-index: 10000;
+        }
+        .debug-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0,255,0,0.1);
+            border-left: 3px solid #00ff00;
+        }
+        .error {
+            color: #ff0000;
+            border-left-color: #ff0000;
+        }
+        .success {
+            color: #00ff00;
+        }
+        .warning {
+            color: #ffaa00;
+            border-left-color: #ffaa00;
+        }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Auto-Hide Header</h1>
+    <p>Acest script verifică de ce auto-hide header nu funcționează în pagina principală.</p>
+    
+    <button onclick="runDiagnostics()">🔄 Rulează Diagnostice</button>
+    <button onclick="testAutoHide()">🧪 Testează Auto-Hide</button>
+    <button onclick="clearResults()">🗑️ Șterge Rezultate</button>
+    
+    <div id="results"></div>
+
+    <script>
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `debug-item ${type}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        function runDiagnostics() {
+            clearResults();
+            log('<h2>🔍 DIAGNOSTICE AUTO-HIDE HEADER</h2>');
+            
+            // 1. Verifică dacă header-ul există
+            const header = document.querySelector('.header-main');
+            if (header) {
+                log('✅ Header găsit: .header-main', 'success');
+                log(`📏 Dimensiuni: ${header.offsetWidth}x${header.offsetHeight}px`);
+                log(`📍 Position: ${getComputedStyle(header).position}`);
+                log(`🎨 Z-index: ${getComputedStyle(header).zIndex}`);
+                log(`🔄 Transform: ${getComputedStyle(header).transform}`);
+                log(`⏱️ Transition: ${getComputedStyle(header).transition}`);
+                log(`📋 Clase: ${header.className}`);
+            } else {
+                log('❌ Header NU a fost găsit! (.header-main)', 'error');
+            }
+            
+            // 2. Verifică CSS-ul auto-hide-header.css
+            const stylesheets = Array.from(document.styleSheets);
+            const autoHideCSS = stylesheets.find(s => s.href && s.href.includes('auto-hide-header.css'));
+            if (autoHideCSS) {
+                log('✅ CSS auto-hide-header.css încărcat', 'success');
+                try {
+                    const rules = Array.from(autoHideCSS.cssRules || autoHideCSS.rules);
+                    log(`📄 Reguli CSS găsite: ${rules.length}`);
+                    rules.forEach(rule => {
+                        if (rule.selectorText && rule.selectorText.includes('header')) {
+                            log(`🎯 ${rule.selectorText}: ${rule.style.cssText}`);
+                        }
+                    });
+                } catch (e) {
+                    log(`⚠️ Nu pot citi regulile CSS: ${e.message}`, 'warning');
+                }
+            } else {
+                log('❌ CSS auto-hide-header.css NU este încărcat!', 'error');
+            }
+            
+            // 3. Verifică scriptul auto-hide-header.js
+            const scripts = Array.from(document.scripts);
+            const autoHideJS = scripts.find(s => s.src && s.src.includes('auto-hide-header.js'));
+            if (autoHideJS) {
+                log('✅ Script auto-hide-header.js încărcat', 'success');
+                log(`📍 Src: ${autoHideJS.src}`);
+            } else {
+                log('❌ Script auto-hide-header.js NU este încărcat!', 'error');
+            }
+            
+            // 4. Verifică event listeners pe scroll
+            log('<h3>📜 Event Listeners pe Scroll:</h3>');
+            const scrollListeners = getEventListeners ? getEventListeners(window).scroll : null;
+            if (scrollListeners) {
+                log(`✅ ${scrollListeners.length} scroll listeners găsiți`);
+            } else {
+                log('⚠️ Nu pot verifica scroll listeners (folosește Chrome DevTools)', 'warning');
+            }
+            
+            // 5. Verifică conflicte CSS
+            if (header) {
+                log('<h3>🔍 Verificare Conflicte CSS:</h3>');
+                const computed = getComputedStyle(header);
+                
+                // Verifică dacă transform este suprascris
+                if (computed.transform === 'none') {
+                    log('⚠️ Transform este "none" - posibil conflict CSS!', 'warning');
+                } else {
+                    log(`✅ Transform: ${computed.transform}`);
+                }
+                
+                // Verifică transition
+                if (!computed.transition || computed.transition === 'all 0s ease 0s') {
+                    log('⚠️ Transition lipsește sau este 0s - animația nu va funcționa!', 'warning');
+                } else {
+                    log(`✅ Transition: ${computed.transition}`);
+                }
+                
+                // Verifică will-change
+                if (computed.willChange) {
+                    log(`✅ Will-change: ${computed.willChange}`);
+                } else {
+                    log('⚠️ Will-change lipsește', 'warning');
+                }
+            }
+            
+            // 6. Testează adăugarea claselor manual
+            log('<h3>🧪 Test Manual:</h3>');
+            if (header) {
+                log('Adaug clasa .header-hidden...');
+                header.classList.add('header-hidden');
+                setTimeout(() => {
+                    const transform = getComputedStyle(header).transform;
+                    if (transform.includes('matrix') && !transform.includes('1, 0, 0, 1, 0, 0')) {
+                        log('✅ Transform aplicat corect! Header ar trebui să fie ascuns.', 'success');
+                    } else {
+                        log(`❌ Transform NU s-a aplicat! Valoare: ${transform}`, 'error');
+                    }
+                    
+                    // Revin la vizibil
+                    header.classList.remove('header-hidden');
+                    header.classList.add('header-visible');
+                }, 100);
+            }
+            
+            log('<h3>📊 CONCLUZIE:</h3>');
+            log('Verifică mesajele de mai sus pentru a identifica problema.');
+        }
+
+        function testAutoHide() {
+            clearResults();
+            log('<h2>🧪 TEST AUTO-HIDE</h2>');
+            
+            const header = document.querySelector('.header-main');
+            if (!header) {
+                log('❌ Header nu există!', 'error');
+                return;
+            }
+            
+            log('Simulez scroll în jos...');
+            header.classList.add('header-hidden');
+            header.classList.remove('header-visible');
+            
+            setTimeout(() => {
+                log('Header ar trebui să fie ascuns acum.', 'success');
+                log('Simulez scroll în sus...');
+                header.classList.remove('header-hidden');
+                header.classList.add('header-visible');
+                
+                setTimeout(() => {
+                    log('Header ar trebui să fie vizibil acum.', 'success');
+                }, 500);
+            }, 500);
+        }
+
+        // Rulează automat la încărcare
+        window.addEventListener('load', () => {
+            setTimeout(runDiagnostics, 1000);
+        });
+    </script>
+</body>
+</html>

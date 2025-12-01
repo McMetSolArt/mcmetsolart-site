@@ -2841,3 +2841,80 @@ window.debugAuth = {
 // Eliminat: definiție duplicată showErrorMessage. Se folosește versiunea îmbunătățită definită anterior.
 
 
+
+
+// ============================================
+// AUTO-HIDE HEADER - INTEGRAT DIRECT
+// ============================================
+(function() {
+    'use strict';
+    
+    console.log('🔄 [INLINE] Inițializare Auto-Hide Header...');
+    
+    function initAutoHideHeader() {
+        let lastScrollTop = 0;
+        const scrollThreshold = 10;
+        let ticking = false;
+        
+        const header = document.querySelector('.header-main');
+        
+        if (!header) {
+            console.warn('⚠️ [INLINE] Header nu a fost găsit pentru auto-hide');
+            return;
+        }
+        
+        console.log('✅ [INLINE] Header găsit:', header);
+        console.log('📋 [INLINE] Clase inițiale:', header.className);
+        
+        function handleScroll() {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(currentScrollTop - lastScrollTop) < scrollThreshold) {
+                return;
+            }
+            
+            // La top
+            if (currentScrollTop <= 50) {
+                header.classList.remove('header-hidden');
+                header.classList.add('header-visible');
+            }
+            // Scroll în jos
+            else if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                header.classList.add('header-hidden');
+                header.classList.remove('header-visible');
+                console.log('⬇️ [INLINE] Scroll în jos - header ascuns');
+            }
+            // Scroll în sus
+            else if (currentScrollTop < lastScrollTop) {
+                header.classList.remove('header-hidden');
+                header.classList.add('header-visible');
+                console.log('⬆️ [INLINE] Scroll în sus - header vizibil');
+            }
+            
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        }
+        
+        function onScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', onScroll, { passive: true });
+        
+        header.classList.add('header-visible');
+        header.classList.remove('header-hidden');
+        
+        console.log('✅ [INLINE] Auto-hide header inițializat cu succes!');
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAutoHideHeader);
+    } else {
+        initAutoHideHeader();
+    }
+})();

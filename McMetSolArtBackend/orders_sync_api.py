@@ -5,66 +5,73 @@ Real-time updates pentru status comenzi
 
 from flask import Blueprint, request, jsonify
 from datetime import datetime
+import sqlite3
+import os
 
 orders_sync_bp = Blueprint('orders_sync', __name__)
 
-# Mock database - în producție folosește baza de date reală
-ORDERS_DB = {}
+DATABASE = os.getenv('DATABASE', 'mc_metsolart.db')
+
+def get_db():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def get_current_user_from_token():
+    """Extrage user_id din token Authorization header"""
+    auth_header = request.headers.get('Authorization', '')
+    if not auth_header:
+        return None
+    
+    try:
+        token = auth_header.split(' ')[1] if ' ' in auth_header else auth_header
+        conn = get_db()
+        user = conn.execute('SELECT id, email, first_name, last_name FROM users WHERE api_token = ?', (token,)).fetchone()
+        conn.close()
+        return dict(user) if user else None
+    except:
+        return None
 
 @orders_sync_bp.route('/api/orders/client', methods=['GET'])
 def get_client_orders():
     """Obține comenzile clientului curent"""
     try:
-        # TODO: Obține user_id din sesiune/token
-        # user_id = get_current_user_id()
-        # orders = db.get_user_orders(user_id)
+        user = get_current_user_from_token()
+        if not user:
+            return jsonify({
+                'success': False,
+                'message': 'Autentificare necesară'
+            }), 401
         
-        # Mock data
-        orders = [
-            {
-                'id': 1,
-                'order_number': 'ORD-2024-001',
-                'status': 'livrat',
-                'total_amount': '1250.00',
-                'currency': 'EUR',
-                'created_at': '2024-01-15T10:30:00Z',
-                'updated_at': '2024-01-20T14:00:00Z',
-                'items': [
-                    {
-                        'product_name': 'Cupolă Decorativă Mare',
-                        'quantity': 1,
-                        'price': '1250.00'
-                    }
-                ],
-                'shipping_address': 'Str. Exemplu nr. 123, București',
-                'tracking_number': 'TRACK123456',
-                'invoice_url': '/invoices/ORD-2024-001.pdf'
-            },
-            {
-                'id': 2,
-                'order_number': 'ORD-2024-002',
-                'status': 'in_procesare',
-                'total_amount': '850.00',
-                'currency': 'EUR',
-                'created_at': '2024-02-01T09:15:00Z',
-                'updated_at': '2024-02-01T09:15:00Z',
-                'items': [
-                    {
-                        'product_name': 'Cupolă Decorativă Mică',
-                        'quantity': 1,
-                        'price': '850.00'
-                    }
-                ],
-                'shipping_address': 'Str. Test nr. 45, Cluj-Napoca',
-                'tracking_number': None,
-                'invoice_url': None
-            }
-        ]
+        conn = get_db()
+        orders = conn.execute('''
+            SELECT o.*, 
+                   GROUP_CONCAT(oi.product_name || ' x' || oi.quantity) as items_summary
+            FROM orders o
+            LEFT JOIN order_items oi ON o.id = oi.order_id
+            WHERE o.user_id = ?
+            GROUP BY o.id
+            ORDER BY o.created_at DESC
+        ''', (user['id'],)).fetchall()
+        
+        # Get items for each order
+        orders_list = []
+        for order in orders:
+            order_dict = dict(order)
+            items = conn.execute('''
+                SELECT product_name, quantity, price, subtotal
+                FROM order_items
+                WHERE order_id = ?
+            ''', (order['id'],)).fetchall()
+            order_dict['items'] = [dict(item) for item in items]
+            orders_list.append(order_dict)
+        
+        conn.close()
         
         return jsonify({
             'success': True,
-            'data': orders,
-            'count': len(orders)
+            'data': orders_list,
+            'count': len(orders_list)
         })
         
     except Exception as e:
@@ -73,80 +80,45 @@ def get_client_orders():
             'message': f'Eroare server: {str(e)}'
         }), 500
 
-@orders_sync_bp.route('/api/orders/<order_id>', methods=['GET'])
+@orders_sync_bp.route('/api/orders/<int:order_id>', methods=['GET'])
 def get_order_details(order_id):
     """Obține detalii complete comandă"""
     try:
-        # TODO: Verifică că comanda aparține utilizatorului curent
-        # user_id = get_current_user_id()
-        # order = db.get_order(order_id, user_id)
+        user = get_current_user_from_token()
+        if not user:
+            return jsonify({
+                'success': False,
+                'message': 'Autentificare necesară'
+            }), 401
         
-        # Mock data
-        order = {
-            'id': order_id,
-            'order_number': f'ORD-2024-{order_id.zfill(3)}',
-            'status': 'expediat',
-            'status_history': [
-                {
-                    'status': 'in_asteptare',
-                    'timestamp': '2024-01-15T10:30:00Z',
-                    'note': 'Comandă plasată'
-                },
-                {
-                    'status': 'confirmat',
-                    'timestamp': '2024-01-15T11:00:00Z',
-                    'note': 'Comandă confirmată'
-                },
-                {
-                    'status': 'in_procesare',
-                    'timestamp': '2024-01-16T09:00:00Z',
-                    'note': 'În producție'
-                },
-                {
-                    'status': 'expediat',
-                    'timestamp': '2024-01-18T14:30:00Z',
-                    'note': 'Expediat prin curier'
-                }
-            ],
-            'total_amount': '1250.00',
-            'currency': 'EUR',
-            'items': [
-                {
-                    'product_name': 'Cupolă Decorativă Mare',
-                    'product_code': 'CDP-001',
-                    'quantity': 1,
-                    'unit_price': '1250.00',
-                    'total_price': '1250.00',
-                    'image_url': '/images/products/cupola-mare.jpg'
-                }
-            ],
-            'shipping_address': {
-                'name': 'Ion Popescu',
-                'address': 'Str. Exemplu nr. 123',
-                'city': 'București',
-                'country': 'România',
-                'postal_code': '010101',
-                'phone': '+40 721 234 567'
-            },
-            'billing_address': {
-                'name': 'Ion Popescu',
-                'address': 'Str. Exemplu nr. 123',
-                'city': 'București',
-                'country': 'România',
-                'postal_code': '010101',
-                'phone': '+40 721 234 567'
-            },
-            'tracking_number': 'TRACK123456',
-            'tracking_url': 'https://tracking.example.com/TRACK123456',
-            'invoice_url': f'/invoices/ORD-2024-{order_id.zfill(3)}.pdf',
-            'estimated_delivery': '2024-01-22T00:00:00Z',
-            'created_at': '2024-01-15T10:30:00Z',
-            'updated_at': '2024-01-18T14:30:00Z'
-        }
+        conn = get_db()
+        order = conn.execute('''
+            SELECT o.*, u.first_name, u.last_name, u.email, u.phone
+            FROM orders o
+            JOIN users u ON o.user_id = u.id
+            WHERE o.id = ? AND o.user_id = ?
+        ''', (order_id, user['id'])).fetchone()
+        
+        if not order:
+            conn.close()
+            return jsonify({
+                'success': False,
+                'message': 'Comandă negăsită'
+            }), 404
+        
+        order_dict = dict(order)
+        
+        # Get items
+        items = conn.execute('''
+            SELECT * FROM order_items WHERE order_id = ?
+        ''', (order_id,)).fetchall()
+        order_dict['items'] = [dict(item) for item in items]
+        
+        conn.close()
         
         return jsonify({
             'success': True,
-            'data': order
+            'data': order_dict
         })
         
     except Exception as e:
@@ -182,68 +154,77 @@ def get_order_status(order_id):
             'message': f'Eroare server: {str(e)}'
         }), 500
 
-@orders_sync_bp.route('/api/orders/<order_id>/cancel', methods=['POST'])
-def cancel_order(order_id):
-    """Anulare comandă (doar dacă status permite)"""
-    try:
-        data = request.get_json()
-        reason = data.get('reason', '')
-        
-        # TODO: Verifică că comanda aparține utilizatorului curent
-        # user_id = get_current_user_id()
-        # order = db.get_order(order_id, user_id)
-        
-        # Verifică dacă comanda poate fi anulată
-        # Doar comenzile în status: in_asteptare, confirmat pot fi anulate
-        allowed_statuses = ['in_asteptare', 'confirmat']
-        
-        # Mock check
-        current_status = 'in_asteptare'  # TODO: get from DB
-        
-        if current_status not in allowed_statuses:
-            return jsonify({
-                'success': False,
-                'message': 'Comanda nu poate fi anulată în acest moment'
-            }), 400
-        
-        # TODO: Update status în baza de date
-        # db.update_order_status(order_id, 'anulat', reason)
-        
-        return jsonify({
-            'success': True,
-            'message': 'Comandă anulată cu succes'
-        })
-        
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': f'Eroare server: {str(e)}'
-        }), 500
+# NOTA: Clientul NU poate anula comenzi
+# Doar adminul poate anula comenzi prin panoul de admin
+# Endpoint-ul de anulare a fost eliminat pentru clienți
 
 @orders_sync_bp.route('/api/orders/stats', methods=['GET'])
 def get_orders_stats():
     """Statistici comenzi pentru dashboard"""
     try:
-        # TODO: Obține user_id din sesiune/token
-        # user_id = get_current_user_id()
-        # stats = db.get_user_orders_stats(user_id)
+        user = get_current_user_from_token()
+        if not user:
+            return jsonify({
+                'success': False,
+                'message': 'Autentificare necesară'
+            }), 401
         
-        # Mock data
+        conn = get_db()
+        
+        # Total orders and spent
+        total_stats = conn.execute('''
+            SELECT COUNT(*) as total_orders, 
+                   COALESCE(SUM(total_amount), 0) as total_spent,
+                   MAX(created_at) as last_order_date
+            FROM orders
+            WHERE user_id = ?
+        ''', (user['id'],)).fetchone()
+        
+        # Active orders (not delivered/cancelled)
+        active_count = conn.execute('''
+            SELECT COUNT(*) as count
+            FROM orders
+            WHERE user_id = ? AND status NOT IN ('livrat', 'anulat')
+        ''', (user['id'],)).fetchone()
+        
+        # Completed orders
+        completed_count = conn.execute('''
+            SELECT COUNT(*) as count
+            FROM orders
+            WHERE user_id = ? AND status = 'livrat'
+        ''', (user['id'],)).fetchone()
+        
+        # By status
+        status_counts = conn.execute('''
+            SELECT status, COUNT(*) as count
+            FROM orders
+            WHERE user_id = ?
+            GROUP BY status
+        ''', (user['id'],)).fetchall()
+        
+        conn.close()
+        
+        by_status = {
+            'in_asteptare': 0,
+            'confirmat': 0,
+            'in_procesare': 0,
+            'expediat': 0,
+            'livrat': 0,
+            'anulat': 0
+        }
+        
+        for row in status_counts:
+            if row['status'] in by_status:
+                by_status[row['status']] = row['count']
+        
         stats = {
-            'total_orders': 5,
-            'total_spent': '4250.00',
-            'currency': 'EUR',
-            'active_orders': 2,
-            'completed_orders': 3,
-            'by_status': {
-                'in_asteptare': 0,
-                'confirmat': 1,
-                'in_procesare': 1,
-                'expediat': 0,
-                'livrat': 3,
-                'anulat': 0
-            },
-            'last_order_date': '2024-02-01T09:15:00Z'
+            'total_orders': total_stats['total_orders'],
+            'total_spent': f"{total_stats['total_spent']:.2f}",
+            'currency': 'RON',
+            'active_orders': active_count['count'],
+            'completed_orders': completed_count['count'],
+            'by_status': by_status,
+            'last_order_date': total_stats['last_order_date']
         }
         
         return jsonify({
