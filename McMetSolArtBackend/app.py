@@ -162,15 +162,18 @@ def get_db():
 
 def init_db():
     """Inițializează baza de date cu toate tabelele necesare"""
-    # Pe Render (producție), șterge baza veche dacă există pentru a evita conflicte de schemă
-    if os.path.exists(DATABASE) and not FLASK_DEBUG:
-        print(f"⚠️  Bază de date existentă găsită: {DATABASE}")
-        print("🗑️  Ștergere bază veche pentru re-inițializare curată...")
-        try:
-            os.remove(DATABASE)
-            print("✅ Bază veche ștearsă cu succes")
-        except Exception as e:
-            print(f"⚠️  Nu s-a putut șterge baza veche: {str(e)}")
+    # DEZACTIVAT: Nu mai șterge baza de date la pornire
+    # Baza de date va fi păstrată între restart-uri
+    # Pentru a reseta baza, șterge manual fișierul mc_metsolart.db
+    
+    # if os.path.exists(DATABASE) and not FLASK_DEBUG:
+    #     print(f"⚠️  Bază de date existentă găsită: {DATABASE}")
+    #     print("🗑️  Ștergere bază veche pentru re-inițializare curată...")
+    #     try:
+    #         os.remove(DATABASE)
+    #         print("✅ Bază veche ștearsă cu succes")
+    #     except Exception as e:
+    #         print(f"⚠️  Nu s-a putut șterge baza veche: {str(e)}")
     
     conn = get_db()
     c = conn.cursor()

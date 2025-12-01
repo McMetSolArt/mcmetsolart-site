@@ -84,7 +84,7 @@ def register_advanced_admin_routes(app):
             data = request.get_json()
             percentage = int(data.get('percentage', 0))
             
-            if percentage not in [0, 25, 50, 100]:
+            if percentage not in [0, 25, 50, 75, 100]:
                 return jsonify({'success': False, 'message': 'Procent invalid'}), 400
             
             conn = get_db_connection()

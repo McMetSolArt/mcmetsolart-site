@@ -1301,7 +1301,7 @@
                 const token = localStorage.getItem('authToken');
                 if (!token) throw new Error('Not authenticated');
 
-                const response = await fetch(`${window.API_BASE_URL || 'http://localhost:5000'}/api/orders/client`, {
+                const response = await fetch(`${window.API_BASE_URL || 'http://localhost:5000'}/api/user/orders`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -1310,7 +1310,7 @@
                 if (!response.ok) throw new Error('Failed to fetch orders');
                 
                 const result = await response.json();
-                let orders = result.success ? (result.data || []) : [];
+                let orders = result.success ? (result.data.orders || []) : [];
                 
                 if (orders.length === 0) {
                     content.innerHTML = `

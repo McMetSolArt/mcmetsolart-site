@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deschide Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 8px;
+        }
+        
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        
+        .info-box code {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .emoji {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .links {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🔐</div>
+        <h1>Admin Panel - MC MetSolArt</h1>
+        <p class="subtitle">Acces rapid la panoul de administrare</p>
+        
+        <div class="info-box">
+            <h3>📋 Informații Autentificare</h3>
+            <p><strong>Parola Admin:</strong> <code>admin123</code></p>
+            <p><strong>URL Admin:</strong> <code>http://localhost:4000/admin-private/admin-professional.html</code></p>
+        </div>
+        
+        <div class="info-box">
+            <h3>👥 Utilizatori de Test Disponibili</h3>
+            <p>• <strong>test@test.com</strong> - parola: <code>test123</code></p>
+            <p>• <strong>john@example.com</strong> - parola: <code>pass123</code></p>
+            <p>• <strong>maria@example.com</strong> - parola: <code>pass123</code></p>
+            <p>• <strong>alex@example.com</strong> - parola: <code>pass123</code></p>
+        </div>
+        
+        <div class="info-box">
+            <h3>🚀 Status Servere</h3>
+            <p>
+                <span class="status success">✅ Backend: localhost:3000</span>
+                <span class="status success">✅ Frontend: localhost:4000</span>
+            </p>
+        </div>
+        
+        <div class="links">
+            <a href="http://localhost:4000/admin-private/admin-professional.html" class="btn" target="_blank">
+                🔐 Deschide Admin Panel
+            </a>
+            <a href="http://localhost:4000" class="btn btn-secondary" target="_blank">
+                🏠 Deschide Site Principal
+            </a>
+        </div>
+        
+        <div class="info-box" style="margin-top: 30px;">
+            <h3>ℹ️ Notă Importantă</h3>
+            <p>Asigură-te că ambele servere rulează:</p>
+            <p>1. <strong>Backend:</strong> <code>cd McMetSolArtBackend && python app.py</code></p>
+            <p>2. <strong>Frontend:</strong> <code>python server_static.py</code></p>
+        </div>
+    </div>
+    
+    <script>
+        // Verifică dacă serverele rulează
+        async function checkServers() {
+            try {
+                const backendResponse = await fetch('http://localhost:3000/api/health');
+                const frontendResponse = await fetch('http://localhost:4000');
+                
+                if (backendResponse.ok && frontendResponse.ok) {
+                    console.log('✅ Toate serverele rulează corect!');
+                } else {
+                    console.warn('⚠️ Unul sau mai multe servere nu răspund');
+                }
+            } catch (error) {
+                console.error('❌ Eroare la verificarea serverelor:', error);
+            }
+        }
+        
+        checkServers();
+    </script>
+</body>
+</html>

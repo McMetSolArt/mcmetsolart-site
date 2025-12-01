@@ -6,6 +6,10 @@ const API_URL = window.location.hostname === 'localhost' || window.location.host
     : 'https://mcmetsolart-site-5.onrender.com';
 const ADMIN_PASSWORD = 'admin123';
 
+console.log('🔧 Admin Panel inițializat');
+console.log('📡 API URL:', API_URL);
+console.log('🔐 Parola admin:', ADMIN_PASSWORD);
+
 let allOrders = [];
 let allClients = [];
 let currentFilter = 'all';
@@ -50,7 +54,18 @@ async function loadStats() {
         
         document.getElementById('totalUsers').textContent = data.total_users || 0;
         document.getElementById('totalOrders').textContent = data.total_orders || 0;
-        document.getElementById('totalRevenue').textContent = (data.total_revenue || 0).toFixed(2);
+        
+        // Afișează venituri pe valută
+        const revenueElement = document.getElementById('totalRevenue');
+        if (data.revenue_by_currency && Object.keys(data.revenue_by_currency).length > 0) {
+            const revenues = Object.entries(data.revenue_by_currency)
+                .map(([currency, amount]) => `${amount.toFixed(2)} ${currency}`)
+                .join(' + ');
+            revenueElement.innerHTML = revenues;
+            revenueElement.style.fontSize = '0.9em'; // Font mai mic pentru mai multe valute
+        } else {
+            revenueElement.textContent = '0.00';
+        }
         
         const pending = data.orders_by_status?.find(s => s.status === 'in_asteptare');
         document.getElementById('pendingOrders').textContent = pending?.count || 0;
@@ -77,15 +92,26 @@ async function loadOrders() {
 
 async function loadClients() {
     try {
+        console.log('📥 Încărcare clienți de la:', `${API_URL}/api/users`);
         const response = await fetch(`${API_URL}/api/users`);
-        const data = await response.json();
+        console.log('📡 Response status:', response.status);
         
-        allClients = data || [];
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('❌ Response error:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('👥 Clienți primiti:', data);
+        console.log('📊 Număr clienți:', Array.isArray(data) ? data.length : 0);
+        
+        allClients = Array.isArray(data) ? data : [];
         displayClients(allClients);
     } catch (error) {
-        console.error('Eroare clienți:', error);
+        console.error('❌ Eroare clienți:', error);
         document.getElementById('clientsTable').innerHTML = 
-            '<tr><td colspan="8" class="loading">Eroare la încărcare</td></tr>';
+            '<tr><td colspan="8" class="loading">Eroare la încărcare: ' + error.message + '</td></tr>';
     }
 }
 
@@ -120,8 +146,16 @@ function displayOrders(orders) {
                     <small style="color: #666">🌍 ${order.country || 'N/A'} | 📦 ${order.product_type || 'N/A'}</small>
                 </td>
                 <td><span class="status ${order.status}">${statusText}</span></td>
-                <td><strong>${order.total_amount} ${currency}</strong><br><small style="color: #888">${currencySymbol}</small></td>
-                <td><span class="payment ${paymentClass}">${order.payment_percentage || 0}%</span></td>
+                <td>
+                    <strong>${order.total_amount} ${currency}</strong><br>
+                    <small style="color: #888">${currencySymbol}</small>
+                </td>
+                <td>
+                    <span class="payment ${paymentClass}">${order.payment_percentage || 0}%</span><br>
+                    <small style="color: ${(order.payment_percentage || 0) === 100 ? '#28a745' : '#dc3545'}; font-weight: bold;">
+                        ${(order.payment_percentage || 0) === 100 ? '✅ Achitat' : `⏳ ${(order.payment_remaining || order.total_amount).toFixed(2)} ${currency}`}
+                    </small>
+                </td>
                 <td>${formatDate(order.created_at)}</td>
                 <td>
                     <div class="actions">
@@ -136,13 +170,21 @@ function displayOrders(orders) {
 }
 
 function displayClients(clients) {
+    console.log('🎨 displayClients apelat cu:', clients);
     const tbody = document.getElementById('clientsTable');
     
-    if (!clients || clients.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="loading">Nu există clienți</td></tr>';
+    if (!tbody) {
+        console.error('❌ Element clientsTable nu a fost găsit!');
         return;
     }
     
+    if (!clients || clients.length === 0) {
+        console.warn('⚠️ Nu există clienți de afișat');
+        tbody.innerHTML = '<tr><td colspan="8" class="loading">Nu există clienți înregistrați</td></tr>';
+        return;
+    }
+    
+    console.log('✅ Afișare', clients.length, 'clienți');
     tbody.innerHTML = clients.map(client => `
         <tr>
             <td>${client.id}</td>
@@ -164,6 +206,7 @@ function displayClients(clients) {
 // ============================================
 
 function filterOrders(status, buttonElement) {
+    console.log('🔍 Filtrare comenzi:', status);
     currentFilter = status;
     
     // Update active button
@@ -171,18 +214,18 @@ function filterOrders(status, buttonElement) {
         btn.classList.remove('active');
     });
     
-    // Find and activate the clicked button
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => {
-        if (btn.textContent.includes(getFilterText(status))) {
-            btn.classList.add('active');
-        }
-    });
+    // Activate the clicked button
+    if (buttonElement) {
+        buttonElement.classList.add('active');
+    }
     
     // Filter orders
     let filtered = allOrders;
     if (status !== 'all') {
         filtered = allOrders.filter(order => order.status === status);
+        console.log(`📊 Găsite ${filtered.length} comenzi cu status "${status}"`);
+    } else {
+        console.log(`📊 Afișare toate comenzile: ${filtered.length}`);
     }
     
     displayOrders(filtered);
@@ -297,12 +340,30 @@ async function showOrderDetails(orderId) {
                                 ${order.confirmed_by_admin ? '<span class="status confirmata">✓ Confirmată</span>' : '<span class="status in_asteptare">⏳ Neconfirmată</span>'}
                             </div>
                             
-                            <div class="form-group">
-                                <label>Plată:</label>
-                                <p><strong>Valută:</strong> ${order.currency || 'RON'} (${getCurrencySymbol(order.currency || 'RON')})</p>
-                                <p><strong>Total:</strong> ${order.total_amount} ${order.currency || 'RON'}</p>
-                                <p><strong>Plătit:</strong> ${order.payment_percentage || 0}% (${(order.payment_amount_paid || 0).toFixed(2)} ${order.currency || 'RON'})</p>
-                                <p><strong>Rămas:</strong> ${(order.payment_remaining || order.total_amount).toFixed(2)} ${order.currency || 'RON'}</p>
+                            <div class="form-group" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid ${(order.payment_percentage || 0) === 100 ? '#28a745' : '#ffc107'};">
+                                <label style="font-size: 1.1em; margin-bottom: 10px;">💰 Situație Plată:</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
+                                    <div>
+                                        <strong style="color: #666;">Total Comandă:</strong>
+                                        <div style="font-size: 1.3em; color: #176f87; font-weight: bold;">${order.total_amount} ${order.currency || 'RON'}</div>
+                                        <small style="color: #888;">${getCurrencySymbol(order.currency || 'RON')}</small>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #666;">Procent Plătit:</strong>
+                                        <div style="font-size: 1.3em; color: ${(order.payment_percentage || 0) === 100 ? '#28a745' : '#ffc107'}; font-weight: bold;">${order.payment_percentage || 0}%</div>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #666;">Suma Plătită:</strong>
+                                        <div style="font-size: 1.2em; color: #28a745; font-weight: bold;">${(order.payment_amount_paid || 0).toFixed(2)} ${order.currency || 'RON'}</div>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #666;">Rămas de Plată:</strong>
+                                        <div style="font-size: 1.2em; color: ${(order.payment_remaining || order.total_amount) > 0 ? '#dc3545' : '#28a745'}; font-weight: bold;">${(order.payment_remaining || order.total_amount).toFixed(2)} ${order.currency || 'RON'}</div>
+                                    </div>
+                                </div>
+                                ${(order.payment_percentage || 0) === 100 ? '<div style="margin-top: 15px; padding: 10px; background: #d4edda; color: #155724; border-radius: 5px; text-align: center; font-weight: bold;">✅ PLATĂ COMPLETĂ - Comandă achitată integral</div>' : ''}
+                                ${(order.payment_percentage || 0) > 0 && (order.payment_percentage || 0) < 100 ? `<div style="margin-top: 15px; padding: 10px; background: #fff3cd; color: #856404; border-radius: 5px; text-align: center; font-weight: bold;">⚠️ PLATĂ PARȚIALĂ - Mai rămân ${(order.payment_remaining || order.total_amount).toFixed(2)} ${order.currency || 'RON'}</div>` : ''}
+                                ${(order.payment_percentage || 0) === 0 ? '<div style="margin-top: 15px; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 5px; text-align: center; font-weight: bold;">❌ NEPLĂTIT - Comandă neachitată</div>' : ''}
                             </div>
                             
                             <div class="form-group">
@@ -406,6 +467,9 @@ async function saveStatus(orderId) {
 }
 
 function showPaymentModal(orderId, totalAmount, currentPercentage, currency = 'RON') {
+    const currentPaid = (totalAmount * currentPercentage / 100).toFixed(2);
+    const currentRemaining = (totalAmount - currentPaid).toFixed(2);
+    
     const modal = `
         <div class="modal active" id="paymentModal" onclick="if(event.target === this) closeModal()">
             <div class="modal-content">
@@ -414,29 +478,78 @@ function showPaymentModal(orderId, totalAmount, currentPercentage, currency = 'R
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>Total comandă: ${totalAmount} ${currency}</label>
-                        <label>Plată curentă: ${currentPercentage}%</label>
+                    <div class="form-group" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; color: #333; font-size: 1.1em;">📊 Situație Plată Curentă</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <div>
+                                <strong style="color: #666;">Total Comandă:</strong>
+                                <div style="font-size: 1.3em; color: #176f87; font-weight: bold;">${totalAmount} ${currency}</div>
+                            </div>
+                            <div>
+                                <strong style="color: #666;">Procent Plătit:</strong>
+                                <div style="font-size: 1.3em; color: ${currentPercentage === 100 ? '#28a745' : '#ffc107'}; font-weight: bold;">${currentPercentage}%</div>
+                            </div>
+                            <div>
+                                <strong style="color: #666;">Suma Plătită:</strong>
+                                <div style="font-size: 1.2em; color: #28a745; font-weight: bold;">${currentPaid} ${currency}</div>
+                            </div>
+                            <div>
+                                <strong style="color: #666;">Rămas de Plată:</strong>
+                                <div style="font-size: 1.2em; color: ${currentRemaining > 0 ? '#dc3545' : '#28a745'}; font-weight: bold;">${currentRemaining} ${currency}</div>
+                            </div>
+                        </div>
+                        ${currentPercentage === 100 ? '<div style="margin-top: 15px; padding: 10px; background: #d4edda; color: #155724; border-radius: 5px; text-align: center; font-weight: bold;">✅ PLATĂ COMPLETĂ</div>' : ''}
                     </div>
+                    
                     <div class="form-group">
-                        <label>Selectează Procent:</label>
-                        <select id="paymentPercentage">
-                            <option value="0" ${currentPercentage === 0 ? 'selected' : ''}>0% - Neplătit</option>
+                        <label style="font-weight: bold; font-size: 1.1em; margin-bottom: 10px; display: block;">Actualizează Plata:</label>
+                        <select id="paymentPercentage" onchange="updatePaymentPreview(${totalAmount}, '${currency}')" style="width: 100%; padding: 12px; font-size: 1em; border: 2px solid #ddd; border-radius: 8px;">
+                            <option value="0" ${currentPercentage === 0 ? 'selected' : ''}>0% - Neplătit (0 ${currency})</option>
                             <option value="25" ${currentPercentage === 25 ? 'selected' : ''}>25% - Avans (${(totalAmount * 0.25).toFixed(2)} ${currency})</option>
                             <option value="50" ${currentPercentage === 50 ? 'selected' : ''}>50% - Avans (${(totalAmount * 0.50).toFixed(2)} ${currency})</option>
+                            <option value="75" ${currentPercentage === 75 ? 'selected' : ''}>75% - Avans (${(totalAmount * 0.75).toFixed(2)} ${currency})</option>
                             <option value="100" ${currentPercentage === 100 ? 'selected' : ''}>100% - Plată Completă (${totalAmount} ${currency})</option>
                         </select>
+                    </div>
+                    
+                    <div id="paymentPreview" style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #2196f3;">
+                        <h4 style="margin: 0 0 10px 0; color: #1976d2;">📝 Preview Nouă Plată:</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div>
+                                <strong>Suma de Plătit:</strong>
+                                <div id="previewPaid" style="font-size: 1.2em; color: #1976d2; font-weight: bold;">${currentPaid} ${currency}</div>
+                            </div>
+                            <div>
+                                <strong>Rămas:</strong>
+                                <div id="previewRemaining" style="font-size: 1.2em; color: #1976d2; font-weight: bold;">${currentRemaining} ${currency}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn" onclick="closeModal()">Anulează</button>
-                    <button class="btn btn-primary" onclick="savePayment(${orderId})">Salvează</button>
+                    <button class="btn btn-primary" onclick="savePayment(${orderId})">💾 Salvează Plata</button>
                 </div>
             </div>
         </div>
     `;
     
     document.body.insertAdjacentHTML('beforeend', modal);
+    
+    // Initialize preview
+    updatePaymentPreview(totalAmount, currency);
+}
+
+function updatePaymentPreview(totalAmount, currency) {
+    const percentage = parseInt(document.getElementById('paymentPercentage').value);
+    const paid = (totalAmount * percentage / 100).toFixed(2);
+    const remaining = (totalAmount - paid).toFixed(2);
+    
+    document.getElementById('previewPaid').textContent = `${paid} ${currency}`;
+    document.getElementById('previewPaid').style.color = percentage > 0 ? '#28a745' : '#666';
+    
+    document.getElementById('previewRemaining').textContent = `${remaining} ${currency}`;
+    document.getElementById('previewRemaining').style.color = remaining > 0 ? '#dc3545' : '#28a745';
 }
 
 async function savePayment(orderId) {
@@ -452,14 +565,28 @@ async function savePayment(orderId) {
         const data = await response.json();
         
         if (data.success) {
-            alert('✅ Plată actualizată cu succes!');
+            const paid = data.data.amount_paid.toFixed(2);
+            const remaining = data.data.remaining.toFixed(2);
+            
+            let message = `✅ Plată actualizată cu succes!\n\n`;
+            message += `📊 Procent: ${percentage}%\n`;
+            message += `💰 Suma plătită: ${paid}\n`;
+            message += `💳 Rămas de plată: ${remaining}\n`;
+            
+            if (percentage === 100) {
+                message += `\n🎉 PLATĂ COMPLETĂ! Comanda este achitată integral.`;
+            } else if (percentage > 0) {
+                message += `\n⚠️ Mai rămân de plătit ${remaining}`;
+            }
+            
+            alert(message);
             closeModal();
             await loadAllData();
         } else {
             alert('❌ Eroare: ' + data.message);
         }
     } catch (error) {
-        alert('❌ Eroare la actualizare');
+        alert('❌ Eroare la actualizare: ' + error.message);
     }
 }
 
@@ -624,31 +751,24 @@ async function saveNewOrder(clientId) {
         admin_notes: notes || null
     };
     
-    // Obține token-ul de autentificare
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        alert('❌ Eroare: Token de autentificare lipsă. Te rugăm să te autentifici.');
-        console.error('Token lipsă - admin trebuie să se autentifice');
-        return;
-    }
-    
     console.log('📦 Creare comandă pentru client:', clientId);
-    console.log('🔑 Token admin:', token.substring(0, 30) + '...');
+    console.log('📋 Date comandă:', orderData);
     
     try {
-        const response = await fetch(`${API_URL}/api/orders/create`, {
+        const response = await fetch(`${API_URL}/api/orders`, {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(orderData)
         });
         
         const data = await response.json();
         
-        if (response.ok) {
-            alert('✅ Comandă creată cu succes!');
+        if (response.ok && data.success) {
+            alert('✅ Comandă creată cu succes!\n\n' + 
+                  '📦 Număr comandă: ' + (data.order_number || 'N/A') + '\n' +
+                  '💰 Total: ' + total + ' ' + currency);
             closeModal();
             await loadAllData();
             
@@ -658,11 +778,15 @@ async function saveNewOrder(clientId) {
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.getElementById('ordersTab').classList.add('active');
         } else {
-            alert('❌ Eroare: ' + (data.message || 'Nu s-a putut crea comanda'));
+            const errorMsg = data.error || data.message || 'Nu s-a putut crea comanda';
+            alert('❌ Eroare la creare comandă:\n\n' + errorMsg);
+            console.error('Response data:', data);
         }
     } catch (error) {
-        console.error('Eroare creare comandă:', error);
-        alert('❌ Eroare la crearea comenzii. Verifică că backend-ul rulează.');
+        console.error('❌ Eroare creare comandă:', error);
+        alert('❌ Eroare la crearea comenzii!\n\n' + 
+              'Verifică că backend-ul rulează pe ' + API_URL + '\n\n' +
+              'Eroare: ' + error.message);
     }
 }
 

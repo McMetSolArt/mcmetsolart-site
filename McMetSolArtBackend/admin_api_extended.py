@@ -67,19 +67,27 @@ def register_admin_api_routes(app):
                 GROUP BY status
             ''').fetchall()
             
-            total_revenue = conn.execute('''
-                SELECT SUM(total_amount) as total 
+            # Calculează venituri pe valută
+            revenue_by_currency = conn.execute('''
+                SELECT currency, SUM(total_amount) as total 
                 FROM orders 
                 WHERE status != "anulat"
-            ''').fetchone()['total'] or 0
+                GROUP BY currency
+            ''').fetchall()
             
             conn.close()
+            
+            # Construiește dicționar cu venituri pe valută
+            revenue_dict = {}
+            for row in revenue_by_currency:
+                currency = row['currency'] or 'RON'
+                revenue_dict[currency] = float(row['total'])
             
             return jsonify({
                 'total_users': total_users,
                 'total_orders': total_orders,
                 'orders_by_status': [dict(row) for row in orders_by_status],
-                'total_revenue': float(total_revenue)
+                'revenue_by_currency': revenue_dict
             })
         except Exception as e:
             print(f"❌ Eroare /api/stats: {str(e)}")
